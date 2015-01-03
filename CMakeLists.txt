@@ -18,6 +18,7 @@ staticlib_collect_all_sources ( )
 #add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} )
 set ( ${PROJECT_NAME}_TEST_LIBS "" )
 staticlib_enable_testing ( ${PROJECT_NAME}_TEST_LIBS )
+staticlib_enable_docs ( )
 
 # headers export
 staticlib_set_in_parent_scope ( ${PROJECT_NAME}_INCLUDES ${CMAKE_CURRENT_LIST_DIR}/include )

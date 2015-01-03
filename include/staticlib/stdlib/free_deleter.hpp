@@ -13,9 +13,18 @@
 namespace staticlib {
 namespace stdlib {
 
-template <typename T>
+/**
+ * Deleter implementation for smart pointer classes.
+ * Will call 'free' function on the pointer.
+ */
+template <typename T> 
 class free_deleter {
 public:
+    /**
+     * Delete operation, will call 'free' function on the pointer.
+     * 
+     * @param t pointer
+     */
     void operator()(T* t) {
         free(t);
     }

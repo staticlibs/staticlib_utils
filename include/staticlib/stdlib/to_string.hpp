@@ -14,6 +14,13 @@
 namespace staticlib {
 namespace stdlib {
 
+/**
+ * Generic `to_string` implementation, already exists as `std::to_string`
+ * in most C++11 compilers except GCC 4.8
+ * 
+ * @param t value to stringify
+ * @return string representation of specified value
+ */
 template<typename T>
 std::string to_string(T t) {
     std::stringstream ss;
