@@ -2,7 +2,7 @@
 cmake_minimum_required ( VERSION 2.8 )
 
 # common staticlibs setup
-set ( STATICLIB_TOOLCHAIN x86_64_linux_clang CACHE STRING "toolchain triplet" )
+set ( STATICLIB_TOOLCHAIN amd64_linux_clang CACHE STRING "toolchain triplet" )
 set ( STATICLIB_PARENT_DIR ${CMAKE_CURRENT_LIST_DIR}/../ )
 include ( ${STATICLIB_PARENT_DIR}/staticlib_util_cmake/CMakeLists_common.cmake )
 staticlib_set_toolchain ( ${STATICLIB_PARENT_DIR} ${STATICLIB_TOOLCHAIN} )
