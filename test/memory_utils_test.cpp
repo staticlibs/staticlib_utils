@@ -1,5 +1,5 @@
 /* 
- * File:   make_unique_test.cpp
+ * File:   memory_utils_test.cpp
  * Author: alex
  *
  * Created on January 2, 2015, 1:07 PM
@@ -8,7 +8,7 @@
 #include <cassert>
 #include <string>
 
-#include "staticlib/stdlib/make_unique.hpp"
+#include "staticlib/stdlib/memory_utils.hpp"
 
 namespace ss = staticlib::stdlib;
 

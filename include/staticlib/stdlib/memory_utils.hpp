@@ -1,12 +1,12 @@
 /* 
- * File:   make_unique.hpp
+ * File:   memory_utils.hpp
  * Author: alex
  *
  * Created on January 2, 2015, 1:05 PM
  */
 
-#ifndef MAKE_UNIQUE_HPP
-#define	MAKE_UNIQUE_HPP
+#ifndef MEMORY_UTILS_HPP
+#define	MEMORY_UTILS_HPP
 
 #include <memory>
 
@@ -29,5 +29,5 @@ std::unique_ptr<T> make_unique(Args&& ...args) {
 }
 } // namespace
 
-#endif	/* MAKE_UNIQUE_HPP */
+#endif	/* MEMORY_UTILS_HPP */
 
