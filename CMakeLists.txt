@@ -2,10 +2,12 @@
 cmake_minimum_required ( VERSION 2.8 )
 
 # common staticlibs setup
-set ( STATICLIB_TOOLCHAIN amd64_linux_clang CACHE STRING "toolchain triplet" )
-set ( STATICLIB_PARENT_DIR ${CMAKE_CURRENT_LIST_DIR}/../ )
-include ( ${STATICLIB_PARENT_DIR}/staticlib_util_cmake/CMakeLists_common.cmake )
-staticlib_set_toolchain ( ${STATICLIB_PARENT_DIR} ${STATICLIB_TOOLCHAIN} )
+if ( NOT DEFINED STATICLIB_PARENT_DIR )
+    set ( STATICLIB_TOOLCHAIN amd64_linux_clang CACHE STRING "toolchain triplet" )
+    set ( STATICLIB_PARENT_DIR ${CMAKE_CURRENT_LIST_DIR}/../ CACHE INTERNAL "parent dir" )
+    include ( ${STATICLIB_PARENT_DIR}/staticlib_util_cmake/CMakeLists_common.cmake )
+    staticlib_set_toolchain ( ${STATICLIB_PARENT_DIR} ${STATICLIB_TOOLCHAIN} )
+endif ( )
 
 # project header
 project ( staticlib_util_stdlib CXX )
@@ -29,4 +31,5 @@ staticlib_enable_docs ( )
 set ( ${PROJECT_NAME}_INCLUDES 
         ${CMAKE_CURRENT_LIST_DIR}/include 
         ${staticlib_ext_boost_INCLUDES} )
-staticlib_set_in_parent_scope ( ${PROJECT_NAME}_INCLUDES "${${PROJECT_NAME}_INCLUDES}" )
+list( REMOVE_DUPLICATES ${PROJECT_NAME}_INCLUDES )
+staticlib_set_global ( ${PROJECT_NAME}_INCLUDES "${${PROJECT_NAME}_INCLUDES}" )

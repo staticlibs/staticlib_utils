@@ -33,12 +33,9 @@ std::string to_string(T t) {
         return ss.str();
     } catch (const std::exception& e) {
         std::string tname{typeid (t).name()};
-        throw StdlibException(TRACEMSG(std::string(e.what()).append("\n")
-                .append("Error stringifying object, type: [")
-                .append(tname)
-                .append("]")));
+        throw StdlibException(TRACEMSG(std::string(e.what()) + 
+                "\nError stringifying object, type: [" + tname + "]"));
     }
-
 }
 
 /**

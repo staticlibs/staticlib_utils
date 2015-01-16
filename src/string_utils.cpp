@@ -23,12 +23,9 @@ T* get_buffer_internal(std::basic_string<T>& str, typename std::basic_string<T>:
         str.resize(required_size);
         return &str.front();
     } catch (const std::exception& e) {
-        throw StdlibException(TRACEMSG(std::string(e.what()).append("\n")
-                .append("Error getting buffer with required size: [")
-                .append(to_string(required_size))
-                .append("] from string, length: [")
-                .append(to_string(str.length()))
-                .append("]")));
+        throw StdlibException(TRACEMSG(std::string(e.what()) + 
+                "\nError getting buffer with required size: [" + to_string(required_size) + "]" + 
+                " from string, length: [" + to_string(str.length()) + "]"));
     }
 }
 

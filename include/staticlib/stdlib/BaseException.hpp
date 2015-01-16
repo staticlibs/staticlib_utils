@@ -11,7 +11,7 @@
 #include <string>
 #include <exception>
 
-#include "boost/config.hpp"
+#include <boost/config.hpp>
 
 namespace staticlib {
 namespace stdlib {

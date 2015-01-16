@@ -21,7 +21,7 @@ namespace myfancynamespace {
 void test() {
     auto line = __LINE__;
     auto msg = TRACEMSG("foo");
-    auto expected = std::string("foo\n")
+    auto expected = std::string("foo\n") 
             .append("    at myfancynamespace::test(tracemsg_test.cpp:")
             .append(ss::to_string(line + 1))
             .append(")");

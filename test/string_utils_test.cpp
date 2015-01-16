@@ -58,7 +58,7 @@ void test_get_buffer_exception() {
     std::string expected{
 R"(basic_string::resize
 Error getting buffer with required size: [18446744073709551615] from string, length: [3]
-    at namespace>::get_buffer_internal(string_utils.cpp:31))"};
+    at namespace>::get_buffer_internal(string_utils.cpp:28))"};
     bool catched = false;
 
     std::string st{"foo"};
