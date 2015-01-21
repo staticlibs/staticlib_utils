@@ -58,6 +58,15 @@ char* get_buffer(std::string& str, std::string::size_type required_size);
  */
 wchar_t* get_buffer(std::wstring& str, std::wstring::size_type required_size);
 
+/**
+ * Allocates a buffer and copies there contents of the string.
+ * Allocated buffer must be freed by the caller.
+ * 
+ * @param str string to copy
+ * @return allocated buffer
+ */
+char* alloc_copy(const std::string& str) BOOST_NOEXCEPT;
+
 }
 } // namespace
 

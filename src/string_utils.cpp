@@ -7,6 +7,8 @@
 
 #include <string>
 #include <exception>
+#include <cstdlib>
+#include <cstring>
 
 #include "staticlib/stdlib/tracemsg.hpp"
 #include "staticlib/stdlib/StdlibException.hpp"
@@ -37,6 +39,21 @@ char* get_buffer(std::string& str, std::string::size_type required_size) {
 
 wchar_t* get_buffer(std::wstring& str, std::wstring::size_type required_size) {
     return get_buffer_internal<wchar_t>(str, required_size);
+}
+
+char* alloc_copy(const std::string& str) BOOST_NOEXCEPT {
+    try {
+        auto len = str.length();
+        char* msg = static_cast<char*> (malloc(len + 1));
+        msg[len] = '\0';
+        memcpy(msg, str.c_str(), len);
+        return msg;
+    } catch (const std::exception& e) {
+        char* err = static_cast<char*> (malloc(2));
+        err[0] = 'E';
+        err[1] = '\0';
+        return err;
+    }
 }
 
 }

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 #include <functional>
+#include <cassert>
 
 #include <boost/multi_index_container.hpp>
 #include <boost/multi_index/hashed_index.hpp>
@@ -22,34 +23,29 @@ namespace my {
 
 class MyNode {
     std::string key;
-    std::string f1;
-    std::string f2;
+    uint32_t f1;
     size_t hash;
     
 public:
     class Hasher {
         public: size_t operator()(const MyNode& node) const {
-            (void) node;
-            return 1;
-            //        return node.hash;
+            return node.hash;
         }
     };
     
     class Equalizer {
         public: bool operator()(const MyNode& lhs, const MyNode& rhs) const {
-            (void) lhs;
-            (void) rhs;
-            return true;
+            return lhs.key == rhs.key;
         }
     };
 
     // business part
     
-    MyNode(std::string key, std::string f1, std::string f2) :
-    key(key), f1(f1), f2(f2), hash(string_hasher(key)) { }    
+    MyNode(std::string key, uint32_t f1) :
+    key(key), f1(f1), hash(string_hasher(key)) { }    
     
-    std::string print() {
-        return f1 + ":" + f2;
+    uint32_t get_val() {
+        return f1;
     }
 };
 
@@ -67,12 +63,16 @@ int main() {
                 my::MyNode::Equalizer>,
             boost::multi_index::sequenced<>>>
     map{};
-        
-    map.emplace("foo", "41", "42");
-    map.emplace("bar", "43", "44");
     
-    for(auto a : map) {
-        std::cout << a.print() << std::endl;
+    for (auto i = 0; i < 1000; i++) {
+        auto st = std::to_string(i);
+        map.emplace(st, i);
+    }
+    
+    uint32_t val = 0;
+    for(auto a : map.get<1>()) {
+        assert(val == a.get_val());
+        val += 1;
     }
     
     return 0;
