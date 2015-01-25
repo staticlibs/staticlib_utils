@@ -42,18 +42,17 @@ wchar_t* get_buffer(std::wstring& str, std::wstring::size_type required_size) {
 }
 
 char* alloc_copy(const std::string& str) BOOST_NOEXCEPT {
-    try {
-        auto len = str.length();
-        char* msg = static_cast<char*> (malloc(len + 1));
-        msg[len] = '\0';
-        memcpy(msg, str.c_str(), len);
-        return msg;
-    } catch (const std::exception& e) {
+    auto len = str.length();
+    char* msg = static_cast<char*> (malloc(len + 1));
+    if (nullptr == msg) {
         char* err = static_cast<char*> (malloc(2));
         err[0] = 'E';
         err[1] = '\0';
         return err;
     }
+    msg[len] = '\0';
+    memcpy(msg, str.c_str(), len);
+    return msg;
 }
 
 }
