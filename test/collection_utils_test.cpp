@@ -19,6 +19,10 @@
 #include <boost/range/iterator_range.hpp>
 #include <boost/move/iterator.hpp>
 
+//#include <chain.hpp>
+//#include <filter.hpp>
+//#include <imap.hpp>
+
 #include "staticlib/stdlib/collection_utils.hpp"
 
 namespace range = boost::range;
@@ -86,40 +90,68 @@ void test_join() {
 //    vec1.emplace_back(new std::string("40"));
 //    vec1.emplace_back(new std::string("41"));
 //    vec1.emplace_back(new std::string("42"));
+////
+////    auto vec2 = std::vector<std::unique_ptr <std::string>>{};
+////    vec2.emplace_back(new std::string("43"));
+////    vec2.emplace_back(new std::string("44"));
+////    (void) vec2;
 //
-//    auto vec2 = std::vector<std::unique_ptr <std::string>>{};
-//    vec2.emplace_back(new std::string("43"));
-//    vec2.emplace_back(new std::string("44"));
-
-//    auto joined_vectors1 = range::join(vec1, vec2);
-//    for (auto it = joined_vectors1.begin(); it != joined_vectors1.end(); ++it) {
-//        auto el = std::move(*it);
-//        std::cout << *el << std::endl;
-//    }
-//
-//    auto joined_vectors2 = range::join(vec1, vec2);
-//    for (auto it = joined_vectors2.begin(); it != joined_vectors2.end(); ++it) {
-//        auto el = std::move(*it);
-//        std::cout << *el << std::endl;
-//    }
-
-    
-    
-//    auto range1 = adaptors::transform(vec1, [](std::unique_ptr<std::string>& st) {
-//        auto res = std::move(st);
-//        res->append("_1");
-//        return res;
-//    }); 
-    
-//    auto range1_filtered = adaptors::filter(range1, [](std::unique_ptr<std::string>& st) {
-//        return "40_1" != (*st);
+////    auto joined_vectors = range::join(vec1, vec2);
+////    auto joined_vectors = iter::chain(vec1, vec2);
+////    for (auto&& el : joined_vectors) {
+////        std::cout << *el << std::endl;
+////    }
+//    
+////    auto vecwr = std::vector<int>{51, 52, 53};
+//     
+//    auto wrapped1  = adaptors::transform(vec1, [](std::unique_ptr<std::string>& st) {
+//        return &st;
 //    });
+//    
+//    auto range1 = adaptors::transform(wrapped1, [](const std::unique_ptr<std::string>* st) {
+//        st->get()->append("_1");
+//        return st;
+//    }); 
+//
+//    auto range12 = adaptors::transform(range1, [](const std::unique_ptr<std::string>* st) {
+//        st->get()->append("_2");
+//        return st;
+//    }); 
+//    
+//    auto range12_filtered = adaptors::filter(range12, [](const std::unique_ptr<std::string>* st) {
+//        return "40_1_2" != *(st->get());
+//    });
+//
+//    for (auto el : range12_filtered) {
+//        std::cout << *el->get() << std::endl;
+//    }
 
-//    auto range2 = adaptors::transform(vec2, [](std::unique_ptr<std::string>& st) {
+//    auto range2 = iter::imap([](const std::unique_ptr<std::string>& st) {
 //        auto res = std::move(st);
 //        res->append("_2");
 //        return res;
-//    });
+//    }, vec2);
+//
+//    auto vec3 = std::vector<std::unique_ptr<std::string>>{};
+//    vec2.emplace_back(new std::string("45"));
+//    vec2.emplace_back(new std::string("46"));
+//    
+//    auto range3 = iter::imap([](std::unique_ptr<std::string>& st) {
+//        return std::move(st);
+//    }, vec3);
+//    
+//    auto joined_vectors = iter::chain(range2, range12, range3);
+//    auto vec = ss::emplace_to_vector(joined_vectors);
+////    for (auto&& el : joined_vectors) {
+////        std::cout << *el << std::endl;
+////    }
+//    
+//    std::cout << vec.size() << std::endl;
+//    std::cout << *vec[0] << std::endl;
+//    std::cout << *vec[vec.size()-1] << std::endl;
+    
+
+
 //
 //    auto r1 = boost::make_iterator_range(boost::make_move_iterator(range1.begin()), boost::make_move_iterator(range1.end()));
 //    auto r2 = boost::make_iterator_range(boost::make_move_iterator(range2.begin()), boost::make_move_iterator(range2.end()));
