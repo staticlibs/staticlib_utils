@@ -183,6 +183,49 @@ void test_join() {
 //    }
 }
 
+//template<typename T>
+//class mapped_iter {
+//    S source;
+//    T current;
+//    
+//public:
+//
+//    IpdrIterator(S source) :
+//    source(source) { }
+//
+//    IpdrIterator& open() {
+//        return *this;
+//    }
+//
+//    IpdrIterator& operator++() {
+//        skip = !skip;
+//        if (!skip) {
+//            position += 1;
+//        }
+//        return *this;
+//    }
+//
+//    std::string operator*() const {
+//        auto el = vecref[position];
+//        return el.append("_MyVecIter");
+//    }
+//
+//    bool operator!=(const IpdrIterator& end) {
+//        boost::ignore_unused_variable_warning(end);
+//        return it1 != it2;
+//    }
+//}; 
+//
+//template <typename T>
+//class mapped_range {
+//private:
+//    T& range;
+//        
+//public:
+//    
+//            
+//}
+
 int main() {
     test_transformed();
     test_filtered();
