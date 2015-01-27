@@ -252,7 +252,7 @@ public:
     typedef decltype(range.begin()) iterator;
     typedef decltype(decorator(std::move(*range.begin()))) value_type;
     
-    mapped_range(T& range, F decorator): range(range), decorator(std::move(decorator)) { }
+    mapped_range(T& range, F decorator): range(range), decorator(decorator) { }
     
     mapped_iter<iterator, value_type, F> begin() {
         return mapped_iter<iterator, value_type, F>{range.begin(), decorator};
@@ -262,6 +262,11 @@ public:
         return mapped_iter<iterator, value_type, F>{range.end(), decorator};
     }
 };
+
+template <typename T, typename F>
+mapped_range<T, F> transform(T& range, F decorator) {
+    return mapped_range<T, F>(range, decorator);
+}
 
 template <typename T, typename E, typename F>
 class filtered_iter : public std::iterator<std::input_iterator_tag, E> {
@@ -315,7 +320,7 @@ public:
     typedef decltype(range.begin()) iterator; 
     typedef typename std::iterator_traits<iterator>::value_type value_type;
     
-    filtered_range(T& range, F decorator) : range(range), decorator(std::move(decorator)) { }
+    filtered_range(T& range, F decorator) : range(range), decorator(decorator) { }
 
     filtered_iter<iterator, value_type, F> begin() {
         return filtered_iter<iterator, value_type, F>{range.begin(), range.end(), decorator};
@@ -328,13 +333,9 @@ public:
 
 template <typename T, typename F>
 filtered_range<T, F> filter(T& range, F decorator) {
-    return filtered_range<T, F>(range, std::move(decorator));
+    return filtered_range<T, F>(range, decorator);
 }
 
-template <typename T, typename F>
-mapped_range<T, F> transform(T& range, F decorator) {
-    return mapped_range<T, F>(range, std::move(decorator));
-}
 
 std::unique_ptr<MyStr> exlambda(std::unique_ptr<MyInt> st) {
     return std::unique_ptr<MyStr>(new MyStr(std::to_string(st->get_int())));
@@ -370,12 +371,26 @@ void test_nih() {
         return std::unique_ptr<MyStr>(new MyStr(std::to_string(val) + "__"));
     });
     
-    for(auto&& el : mapped4) {
+    auto mapped5 = mapped4;
+    
+    for(auto&& el : mapped5) {
         std::cout << el->get_str() << std::endl;
     }
     
     std::cout << std::endl;
     std::cout << sum << std::endl;
+    
+
+    auto vec1 = std::vector<std::unique_ptr<MyInt>>{};
+    vec1.emplace_back(new MyInt(40));
+    vec1.emplace_back(new MyInt(41));
+    vec1.emplace_back(new MyInt(42));
+
+    auto ma1 = transform(vec1, exlambda);
+    
+    for (auto&& el : ma1) {
+        std::cout << el->get_str() << std::endl;
+    }
 }
 
 int main() {
