@@ -245,7 +245,7 @@ public:
 };
 
 
-template <typename T, typename E, typename F>
+template <typename T, typename F>
 class mapped_range {
 private:
     T& range;
@@ -253,7 +253,7 @@ private:
         
 public:
     typedef decltype(range.begin()) iter_type;
-    typedef E value_type;
+    typedef decltype(decorator(std::move(*range.begin()))) value_type;
     
     mapped_range(T& range, F decorator): range(range), decorator(std::move(decorator)) { }
     
@@ -267,9 +267,9 @@ public:
 };
 
 
-template <typename E, typename T, typename F>
-mapped_range<T, E, F> make_mapped_range(T& range, F decorator) {
-    return mapped_range<T, E, F>(range, std::move(decorator));
+template <typename T, typename F>
+mapped_range<T, F> transform(T& range, F decorator) {
+    return mapped_range<T, F>(range, std::move(decorator));
 }
 
 void test_nih() {
@@ -278,13 +278,13 @@ void test_nih() {
     vec.emplace_back(new MyStr("41"));
     vec.emplace_back(new MyStr("42"));
     
-    auto mapped = make_mapped_range<std::unique_ptr<MyInt>>(vec, [](std::unique_ptr<MyStr> st) {
+    auto mapped = transform(vec, [](std::unique_ptr<MyStr> st) {
         return std::unique_ptr<MyInt>(new MyInt(std::stoi(st->get_str()) + 100));
     });
-    auto mapped2 = make_mapped_range<std::unique_ptr<MyStr>>(mapped, [](std::unique_ptr<MyInt> st) {
+    auto mapped2 = transform(mapped, [](std::unique_ptr<MyInt> st) {
         return std::unique_ptr<MyStr>(new MyStr(std::to_string(st->get_int())));
     });
-    auto mapped3 = make_mapped_range<std::unique_ptr<MyInt>>(mapped2, [](std::unique_ptr<MyStr> st) {
+    auto mapped3 = transform(mapped2, [](std::unique_ptr<MyStr> st) {
         return std::unique_ptr<MyInt>(new MyInt(std::stoi(st->get_str()) - 50));
     });
     
