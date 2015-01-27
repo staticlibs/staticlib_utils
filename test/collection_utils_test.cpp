@@ -11,6 +11,7 @@
 #include <string>
 #include <iostream>
 #include <memory>
+#include <array>
 
 // http://stackoverflow.com/q/11872558/314015
 #define BOOST_RESULT_OF_USE_DECLTYPE 1
@@ -225,17 +226,14 @@ class mapped_iter : public std::iterator<std::input_iterator_tag, E> {
     F& decorator;
     
 public:
-    typedef E value_type;
-
     mapped_iter(T delegate, F& decorator) : delegate(std::move(delegate)), decorator(decorator) { }
-
 
     mapped_iter& operator++() {
         ++delegate;
         return *this;
     }
 
-    value_type operator*() const {
+    E operator*() const {
         return decorator(std::move(*delegate));
     }
 
@@ -271,44 +269,40 @@ class filtered_iter : public std::iterator<std::input_iterator_tag, E> {
     T delegate_end;
     F& decorator;
     
-    E* current = new E();
+    mutable E current;
 
 public:
-    typedef E value_type;
-
     filtered_iter(T delegate, T delegate_end, F& decorator) : 
     delegate(std::move(delegate)), 
     delegate_end(std::move(delegate_end)), 
     decorator(decorator) { 
-        // todo: empty case
         if (this->delegate != this->delegate_end) {
-            *current = std::move(*delegate);
-            if (!decorator(*current)) {
-                while (delegate != delegate_end) {
-                    ++delegate;
-                    *current = std::move(*delegate);
-                    if (decorator(*current)) break;
-                }
+            current = std::move(*delegate);
+            if (!this->decorator(current)) {
+                next();
             }
         }
     }
 
     filtered_iter& operator++() {
-        // todo: fixme
-        while(delegate != delegate_end) {
-            ++delegate;            
-            *current = std::move(*delegate);
-            if (decorator(*current)) break;
-        }
+        next();
         return *this;
     }
 
     E operator*() const {
-        return std::move(*current);
+        return std::move(current);
     }
 
     bool operator!=(const filtered_iter& end) {
         return this->delegate != end.delegate;
+    }
+    
+private: 
+    void next() {
+        for (++delegate; delegate != delegate_end; ++delegate) {
+            current = std::move(*delegate);
+            if (decorator(current)) break;
+        }        
     }
 };
 
@@ -342,40 +336,46 @@ mapped_range<T, F> transform(T& range, F decorator) {
     return mapped_range<T, F>(range, std::move(decorator));
 }
 
+std::unique_ptr<MyStr> exlambda(std::unique_ptr<MyInt> st) {
+    return std::unique_ptr<MyStr>(new MyStr(std::to_string(st->get_int())));
+}
+
 void test_nih() {
     auto vec = std::vector<std::unique_ptr<MyStr>>{};
     vec.emplace_back(new MyStr("40"));
     vec.emplace_back(new MyStr("41"));
     vec.emplace_back(new MyStr("42"));
+    vec.emplace_back(new MyStr("43"));
+    vec.emplace_back(new MyStr("44"));
+    vec.emplace_back(new MyStr("45"));
+    vec.emplace_back(new MyStr("46"));
+    vec.emplace_back(new MyStr("47"));
+    vec.emplace_back(new MyStr("48"));
     
     auto mapped = transform(vec, [](std::unique_ptr<MyStr> st) {
         return std::unique_ptr<MyInt>(new MyInt(std::stoi(st->get_str()) + 100));
     });
-    auto mapped2 = transform(mapped, [](std::unique_ptr<MyInt> st) {
-        return std::unique_ptr<MyStr>(new MyStr(std::to_string(st->get_int())));
-    });
+    auto mapped2 = transform(mapped, exlambda);
     auto mapped3 = transform(mapped2, [](std::unique_ptr<MyStr> st) {
         return std::unique_ptr<MyInt>(new MyInt(std::stoi(st->get_str()) - 50));
     });
+    auto filtered = filter(mapped3, [](std::unique_ptr<MyInt>& st) {
+        auto val = st->get_int();
+        return val >= 92 && val <= 96 && 94 != val;
+    });
+    int sum = 0;
+    auto mapped4 = transform(filtered, [&sum](std::unique_ptr<MyInt> st) {
+        auto val = st->get_int();
+        sum += val;
+        return std::unique_ptr<MyStr>(new MyStr(std::to_string(val) + "__"));
+    });
     
-    for(auto&& el : mapped3) {
-        std::cout << el->get_int() << std::endl;
+    for(auto&& el : mapped4) {
+        std::cout << el->get_str() << std::endl;
     }
     
     std::cout << std::endl;
-
-    auto vec1 = std::vector<std::unique_ptr<MyInt>>{};
-    vec1.emplace_back(new MyInt(40));
-    vec1.emplace_back(new MyInt(41));
-    vec1.emplace_back(new MyInt(42));
-    
-    auto filtered = filter(vec1, [](const std::unique_ptr<MyInt>& st) {
-        return st->get_int() >= 41;
-    });
-  
-    for (auto&& el : filtered) {
-        std::cout << el->get_int() << std::endl;
-    }
+    std::cout << sum << std::endl;
 }
 
 int main() {
