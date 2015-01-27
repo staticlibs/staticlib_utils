@@ -7,6 +7,7 @@
 
 #include <cassert>
 #include <vector>
+#include <utility>
 #include <string>
 #include <iostream>
 #include <memory>
@@ -183,48 +184,118 @@ void test_join() {
 //    }
 }
 
-//template<typename T>
-//class mapped_iter {
-//    S source;
-//    T current;
-//    
-//public:
-//
-//    IpdrIterator(S source) :
-//    source(source) { }
-//
-//    IpdrIterator& open() {
-//        return *this;
-//    }
-//
-//    IpdrIterator& operator++() {
-//        skip = !skip;
-//        if (!skip) {
-//            position += 1;
-//        }
-//        return *this;
-//    }
-//
-//    std::string operator*() const {
-//        auto el = vecref[position];
-//        return el.append("_MyVecIter");
-//    }
-//
-//    bool operator!=(const IpdrIterator& end) {
-//        boost::ignore_unused_variable_warning(end);
-//        return it1 != it2;
-//    }
-//}; 
-//
-//template <typename T>
-//class mapped_range {
-//private:
-//    T& range;
-//        
-//public:
-//    
-//            
-//}
+class MyStr {
+    std::string val;
+    
+public:    
+    MyStr(std::string val) : val(val) { }
+    
+    std::string get_str() {
+        return val;
+    }
+    
+    MyStr(const MyStr&) = delete;
+    MyStr& operator=(const MyStr&) = delete;
+    MyStr(MyStr&&) = delete;
+    MyStr& operator=(MyStr&&) = delete;
+};
+
+class MyInt {
+    int val;
+
+public:
+
+    MyInt(int val) : val(val) { }
+
+    int get_int() {
+        return val;
+    }
+
+    MyInt(const MyInt&) = delete;
+    MyInt& operator=(const MyInt&) = delete;
+    MyInt(MyStr&&) = delete;
+    MyInt& operator=(MyInt&&) = delete;
+};
+
+
+
+template<typename T, typename E, typename F>
+class mapped_iter : public std::iterator<std::input_iterator_tag, E> {
+    T delegate;
+    F& decorator;
+    
+public:
+    typedef E value_type;
+
+    mapped_iter(T delegate, F& decorator) : delegate(std::move(delegate)), decorator(decorator) { }
+
+
+    mapped_iter& operator++() {
+        ++delegate;
+        return *this;
+    }
+
+    value_type operator*() const {
+        return decorator(std::move(*delegate));
+    }
+
+    bool operator!=(const mapped_iter& end) {
+        return this->delegate != end.delegate;
+    }
+};
+
+
+template <typename T, typename E, typename F>
+class mapped_range {
+private:
+    T& range;
+    F decorator;
+        
+public:
+    typedef decltype(range.begin()) iter_type;
+    typedef E value_type;
+    
+    mapped_range(T& range, F decorator): range(range), decorator(std::move(decorator)) { }
+    
+    mapped_iter<iter_type, value_type, F> begin() {
+        return mapped_iter<iter_type, value_type, F>{range.begin(), decorator};
+    }
+    
+    mapped_iter<iter_type, value_type, F> end() {
+        return mapped_iter<iter_type, value_type, F>{range.end(), decorator};
+    }
+};
+
+
+template <typename E, typename T, typename F>
+mapped_range<T, E, F> make_mapped_range(T& range, F decorator) {
+    return mapped_range<T, E, F>(range, std::move(decorator));
+}
+
+void test_nih() {
+    auto vec = std::vector<std::unique_ptr<MyStr>>{};
+    vec.emplace_back(new MyStr("40"));
+    vec.emplace_back(new MyStr("41"));
+    vec.emplace_back(new MyStr("42"));
+    
+    auto mapped = make_mapped_range<std::unique_ptr<MyInt>>(vec, [](std::unique_ptr<MyStr> st) {
+        return std::unique_ptr<MyInt>(new MyInt(std::stoi(st->get_str()) + 100));
+    });
+    auto mapped2 = make_mapped_range<std::unique_ptr<MyStr>>(mapped, [](std::unique_ptr<MyInt> st) {
+        return std::unique_ptr<MyStr>(new MyStr(std::to_string(st->get_int())));
+    });
+    auto mapped3 = make_mapped_range<std::unique_ptr<MyInt>>(mapped2, [](std::unique_ptr<MyStr> st) {
+        return std::unique_ptr<MyInt>(new MyInt(std::stoi(st->get_str()) - 50));
+    });
+    
+    
+//    auto it = mapped2.begin();
+//    ++it;
+//    (void) it;
+    for(auto&& el : mapped3) {
+        std::cout << el->get_int() << std::endl;
+    }
+}
 
 int main() {
     test_transformed();
@@ -232,6 +303,7 @@ int main() {
     test_vector();
     test_emplate_to();
     test_join();
+    test_nih();
 
     return 0;
 }
