@@ -247,25 +247,95 @@ public:
 
 template <typename T, typename F>
 class mapped_range {
-private:
     T& range;
     F decorator;
         
 public:
-    typedef decltype(range.begin()) iter_type;
+    typedef decltype(range.begin()) iterator;
     typedef decltype(decorator(std::move(*range.begin()))) value_type;
     
     mapped_range(T& range, F decorator): range(range), decorator(std::move(decorator)) { }
     
-    mapped_iter<iter_type, value_type, F> begin() {
-        return mapped_iter<iter_type, value_type, F>{range.begin(), decorator};
+    mapped_iter<iterator, value_type, F> begin() {
+        return mapped_iter<iterator, value_type, F>{range.begin(), decorator};
     }
     
-    mapped_iter<iter_type, value_type, F> end() {
-        return mapped_iter<iter_type, value_type, F>{range.end(), decorator};
+    mapped_iter<iterator, value_type, F> end() {
+        return mapped_iter<iterator, value_type, F>{range.end(), decorator};
     }
 };
 
+template <typename T, typename E, typename F>
+class filtered_iter : public std::iterator<std::input_iterator_tag, E> {
+    T delegate;
+    T delegate_end;
+    F& decorator;
+    
+    E* current = new E();
+
+public:
+    typedef E value_type;
+
+    filtered_iter(T delegate, T delegate_end, F& decorator) : 
+    delegate(std::move(delegate)), 
+    delegate_end(std::move(delegate_end)), 
+    decorator(decorator) { 
+        // todo: empty case
+        if (this->delegate != this->delegate_end) {
+            *current = std::move(*delegate);
+            if (!decorator(*current)) {
+                while (delegate != delegate_end) {
+                    ++delegate;
+                    *current = std::move(*delegate);
+                    if (decorator(*current)) break;
+                }
+            }
+        }
+    }
+
+    filtered_iter& operator++() {
+        // todo: fixme
+        while(delegate != delegate_end) {
+            ++delegate;            
+            *current = std::move(*delegate);
+            if (decorator(*current)) break;
+        }
+        return *this;
+    }
+
+    E operator*() const {
+        return std::move(*current);
+    }
+
+    bool operator!=(const filtered_iter& end) {
+        return this->delegate != end.delegate;
+    }
+};
+
+template <typename T, typename F>
+class filtered_range {
+    T& range;
+    F decorator;
+    
+public:
+    typedef decltype(range.begin()) iterator; 
+    typedef typename std::iterator_traits<iterator>::value_type value_type;
+    
+    filtered_range(T& range, F decorator) : range(range), decorator(std::move(decorator)) { }
+
+    filtered_iter<iterator, value_type, F> begin() {
+        return filtered_iter<iterator, value_type, F>{range.begin(), range.end(), decorator};
+    }
+
+    filtered_iter<iterator, value_type, F> end() {
+        return filtered_iter<iterator, value_type, F>{range.end(), range.end(), decorator};
+    }
+};
+
+template <typename T, typename F>
+filtered_range<T, F> filter(T& range, F decorator) {
+    return filtered_range<T, F>(range, std::move(decorator));
+}
 
 template <typename T, typename F>
 mapped_range<T, F> transform(T& range, F decorator) {
@@ -288,11 +358,22 @@ void test_nih() {
         return std::unique_ptr<MyInt>(new MyInt(std::stoi(st->get_str()) - 50));
     });
     
-    
-//    auto it = mapped2.begin();
-//    ++it;
-//    (void) it;
     for(auto&& el : mapped3) {
+        std::cout << el->get_int() << std::endl;
+    }
+    
+    std::cout << std::endl;
+
+    auto vec1 = std::vector<std::unique_ptr<MyInt>>{};
+    vec1.emplace_back(new MyInt(40));
+    vec1.emplace_back(new MyInt(41));
+    vec1.emplace_back(new MyInt(42));
+    
+    auto filtered = filter(vec1, [](const std::unique_ptr<MyInt>& st) {
+        return st->get_int() >= 41;
+    });
+  
+    for (auto&& el : filtered) {
         std::cout << el->get_int() << std::endl;
     }
 }
