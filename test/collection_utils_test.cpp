@@ -366,7 +366,8 @@ public:
     }
 
     bool operator!=(const concatted_iter& end) {
-        return this->delegate2 != end.delegate2;
+        return this->delegate1 != end.delegate1 || 
+                this->delegate2 != end.delegate2;
     }
 };
 
