@@ -233,7 +233,7 @@ public:
         return *this;
     }
 
-    E operator*() const {
+    E operator*() {
         return decorator(std::move(*delegate));
     }
 
@@ -274,7 +274,7 @@ class filtered_iter : public std::iterator<std::input_iterator_tag, E> {
     T delegate_end;
     F& decorator;
     
-    mutable E current;
+    E current;
 
 public:
     filtered_iter(T delegate, T delegate_end, F& decorator) : 
@@ -294,7 +294,7 @@ public:
         return *this;
     }
 
-    E operator*() const {
+    E operator*() {
         return std::move(current);
     }
 
@@ -336,6 +336,65 @@ filtered_range<T, F> filter(T& range, F decorator) {
     return filtered_range<T, F>(range, decorator);
 }
 
+
+template<typename T1, typename T2, typename E>
+class concatted_iter : public std::iterator<std::input_iterator_tag, E> {
+    T1 delegate1;
+    T1 delegate1_end;
+    T2 delegate2;
+
+public:
+    concatted_iter(T1 delegate1, T1 delegate1_end, T2 delegate2) : 
+    delegate1(std::move(delegate1)), delegate1_end(std::move(delegate1_end)),
+    delegate2(std::move(delegate2)) { }
+
+    concatted_iter& operator++() {
+        if (delegate1 != delegate1_end) {
+            ++delegate1;
+        } else {
+            ++delegate2;
+        }
+        return *this;
+    }
+
+    E operator*() {
+        if (delegate1 != delegate1_end) {
+            return std::move(*delegate1);
+        } else {
+            return std::move(*delegate2);
+        }
+    }
+
+    bool operator!=(const concatted_iter& end) {
+        return this->delegate2 != end.delegate2;
+    }
+};
+
+template <typename T1, typename T2>
+class concatted_range {
+    T1& range1;
+    T2& range2;
+    
+public:
+    typedef decltype(range1.begin()) iterator1;
+    typedef decltype(range2.begin()) iterator2;
+    typedef typename std::iterator_traits<iterator1>::value_type value_type;
+    
+    concatted_range(T1& range1, T2& range2) : range1(range1), range2(range2) { }
+    
+    concatted_iter<iterator1, iterator2, value_type> begin() {
+        return concatted_iter<iterator1, iterator2, value_type>{range1.begin(), range1.end(), range2.begin()};
+    }
+
+    concatted_iter<iterator1, iterator2, value_type> end() {
+        return concatted_iter<iterator1, iterator2, value_type>{range1.end(), range1.end(), range2.end()};
+    }
+};
+
+template <typename T1, typename T2>
+concatted_range<T1, T2> concat(T1& range1, T2& range2) {
+    return concatted_range<T1, T2>(range1, range2);
+}
 
 std::unique_ptr<MyStr> exlambda(std::unique_ptr<MyInt> st) {
     return std::unique_ptr<MyStr>(new MyStr(std::to_string(st->get_int())));
@@ -379,7 +438,9 @@ void test_nih() {
     
     std::cout << std::endl;
     std::cout << sum << std::endl;
+    std::cout << std::endl;
     
+    // lambda reuse
 
     auto vec1 = std::vector<std::unique_ptr<MyInt>>{};
     vec1.emplace_back(new MyInt(40));
@@ -391,6 +452,36 @@ void test_nih() {
     for (auto&& el : ma1) {
         std::cout << el->get_str() << std::endl;
     }
+    
+    std::cout << std::endl;
+    
+    // concat 
+    auto cvec1 = std::vector<std::unique_ptr<MyInt>>{};
+    cvec1.emplace_back(new MyInt(40));
+    cvec1.emplace_back(new MyInt(42));
+    cvec1.emplace_back(new MyInt(41));
+
+    auto cvec2 = std::vector<std::unique_ptr<MyInt>>{};
+    cvec2.emplace_back(new MyInt(42));
+    cvec2.emplace_back(new MyInt(43));
+    cvec2.emplace_back(new MyInt(44));
+    
+    auto cvec1_filtered = filter(cvec1, [](std::unique_ptr<MyInt>& st) {
+        return 42 != st->get_int();
+    });
+    
+    auto ra1 = transform(cvec1_filtered, exlambda);
+    auto ra2 = transform(cvec2, exlambda);
+    auto ra2_filtered = filter(ra2, [](std::unique_ptr<MyStr>& st) {
+        return "42" != st->get_str();
+    });
+
+    auto concatted = concat(ra1, ra2_filtered);
+    
+    for (auto&& el : concatted) {
+        std::cout << el->get_str() << std::endl;
+    }
+    
 }
 
 int main() {
