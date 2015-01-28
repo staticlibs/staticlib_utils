@@ -214,7 +214,7 @@ public:
 
     MyInt(const MyInt&) = delete;
     MyInt& operator=(const MyInt&) = delete;
-    MyInt(MyStr&&) = delete;
+    MyInt(MyInt&&) = delete;
     MyInt& operator=(MyInt&&) = delete;
 };
 
