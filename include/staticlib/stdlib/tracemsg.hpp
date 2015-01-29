@@ -5,8 +5,8 @@
  * Created on January 2, 2015, 11:53 AM
  */
 
-#ifndef TRACEMSG_HPP
-#define	TRACEMSG_HPP
+#ifndef STATICLIB_TRACEMSG_HPP
+#define	STATICLIB_TRACEMSG_HPP
 
 #include <string>
 
@@ -33,5 +33,5 @@ std::string tracemsg(const std::string& message, const std::string& file, const 
 } //namespace
 
 
-#endif	/* TRACEMSG_HPP */
+#endif	/* STATICLIB_TRACEMSG_HPP */
 

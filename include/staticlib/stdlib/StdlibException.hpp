@@ -5,8 +5,8 @@
  * Created on January 13, 2015, 9:36 PM
  */
 
-#ifndef STDLIBEXCEPTION_HPP
-#define	STDLIBEXCEPTION_HPP
+#ifndef STATICLIB_STDLIBEXCEPTION_HPP
+#define	STATICLIB_STDLIBEXCEPTION_HPP
 
 #include "staticlib/stdlib/BaseException.hpp"
 
@@ -36,5 +36,5 @@ public:
 }
 } //namespace
 
-#endif	/* STDLIBEXCEPTION_HPP */
+#endif	/* STATICLIB_STDLIBEXCEPTION_HPP */
 

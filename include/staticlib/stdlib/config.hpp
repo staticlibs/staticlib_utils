@@ -5,8 +5,8 @@
  * Created on January 29, 2015, 12:16 PM
  */
 
-#ifndef CONFIG_HPP
-#define	CONFIG_HPP
+#ifndef STATICLIB_CONFIG_HPP
+#define	STATICLIB_CONFIG_HPP
 
 // http://stackoverflow.com/a/18387764/314015
 #ifndef _MSC_VER
@@ -51,5 +51,5 @@
 #endif
 
 
-#endif	/* CONFIG_HPP */
+#endif	/* STATICLIB_CONFIG_HPP */
 

@@ -5,8 +5,8 @@
  * Created on January 2, 2015, 12:59 PM
  */
 
-#ifndef TO_STRING_HPP
-#define	TO_STRING_HPP
+#ifndef STATICLIB_TO_STRING_HPP
+#define	STATICLIB_TO_STRING_HPP
 
 #include <string>
 #include <sstream>
@@ -71,5 +71,5 @@ char* alloc_copy(const std::string& str) STATICLIB_NOEXCEPT;
 }
 } // namespace
 
-#endif	/* TO_STRING_HPP */
+#endif	/* STATICLIB_TO_STRING_HPP */
 

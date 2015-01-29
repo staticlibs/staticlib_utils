@@ -5,8 +5,8 @@
  * Created on January 2, 2015, 2:34 PM
  */
 
-#ifndef FREE_DELETER_HPP
-#define	FREE_DELETER_HPP
+#ifndef STATICLIB_FREE_DELETER_HPP
+#define	STATICLIB_FREE_DELETER_HPP
 
 #include <cstdlib>
 
@@ -33,5 +33,5 @@ public:
 }
 } // namespace
 
-#endif	/* FREE_DELETER_HPP */
+#endif	/* STATICLIB_FREE_DELETER_HPP */
 

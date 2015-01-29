@@ -5,8 +5,8 @@
  * Created on January 2, 2015, 11:49 AM
  */
 
-#ifndef BASEEXCEPTION_HPP
-#define	BASEEXCEPTION_HPP
+#ifndef STATICLIB_BASEEXCEPTION_HPP
+#define	STATICLIB_BASEEXCEPTION_HPP
 
 #include <string>
 #include <exception>
@@ -50,5 +50,5 @@ public:
 }
 } //namespace
 
-#endif	/* BASEEXCEPTION_HPP */
+#endif	/* STATICLIB_BASEEXCEPTION_HPP */
 

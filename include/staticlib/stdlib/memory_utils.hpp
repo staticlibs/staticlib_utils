@@ -5,8 +5,8 @@
  * Created on January 2, 2015, 1:05 PM
  */
 
-#ifndef MEMORY_UTILS_HPP
-#define	MEMORY_UTILS_HPP
+#ifndef STATICLIB_MEMORY_UTILS_HPP
+#define	STATICLIB_MEMORY_UTILS_HPP
 
 #include <memory>
 
@@ -29,5 +29,5 @@ std::unique_ptr<T> make_unique(Args&& ...args) {
 }
 } // namespace
 
-#endif	/* MEMORY_UTILS_HPP */
+#endif	/* STATICLIB_MEMORY_UTILS_HPP */
 

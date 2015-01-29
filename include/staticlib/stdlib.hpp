@@ -5,8 +5,8 @@
  * Created on January 29, 2015, 12:28 PM
  */
 
-#ifndef STDLIB_HPP
-#define	STDLIB_HPP
+#ifndef STATICLIB_STDLIB_HPP
+#define	STATICLIB_STDLIB_HPP
 
 #include "staticlib/stdlib/BaseException.hpp"
 //#include "staticlib/stdlib/StdlibException.hpp"
@@ -16,5 +16,5 @@
 #include "staticlib/stdlib/string_utils.hpp"
 #include "staticlib/stdlib/tracemsg.hpp"
 
-#endif	/* STDLIB_HPP */
+#endif	/* STATICLIB_STDLIB_HPP */
 
