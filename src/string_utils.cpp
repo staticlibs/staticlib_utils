@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <cstring>
 
+#include "staticlib/stdlib/config.hpp"
 #include "staticlib/stdlib/tracemsg.hpp"
 #include "staticlib/stdlib/StdlibException.hpp"
 #include "staticlib/stdlib/string_utils.hpp"
@@ -41,7 +42,7 @@ wchar_t* get_buffer(std::wstring& str, std::wstring::size_type required_size) {
     return get_buffer_internal<wchar_t>(str, required_size);
 }
 
-char* alloc_copy(const std::string& str) BOOST_NOEXCEPT {
+char* alloc_copy(const std::string& str) STATICLIB_NOEXCEPT {
     auto len = str.length();
     char* msg = static_cast<char*> (malloc(len + 1));
     if (nullptr == msg) {

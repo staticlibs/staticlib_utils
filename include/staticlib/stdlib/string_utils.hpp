@@ -12,6 +12,7 @@
 #include <sstream>
 #include <typeinfo>
 
+#include "staticlib/stdlib/config.hpp"
 #include "staticlib/stdlib/tracemsg.hpp"
 #include "staticlib/stdlib/StdlibException.hpp"
 
@@ -65,7 +66,7 @@ wchar_t* get_buffer(std::wstring& str, std::wstring::size_type required_size);
  * @param str string to copy
  * @return allocated buffer
  */
-char* alloc_copy(const std::string& str) BOOST_NOEXCEPT;
+char* alloc_copy(const std::string& str) STATICLIB_NOEXCEPT;
 
 }
 } // namespace

@@ -15,9 +15,6 @@ set ( ${PROJECT_NAME}_VERSION_MAJOR 0 )
 set ( ${PROJECT_NAME}_VERSION_MINOR 1 )
 set ( ${PROJECT_NAME}_VERSION_MICRO 0 )
 
-# header-only boost is the only dependency
-staticlib_add_dependency ( staticlib_ext_boost )
-
 # build steps
 include_directories ( ${CMAKE_CURRENT_LIST_DIR}/include )
 file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
@@ -29,8 +26,4 @@ staticlib_enable_testing ( ${PROJECT_NAME}_TEST_LIBS )
 staticlib_enable_docs ( )
 
 # headers export
-set ( ${PROJECT_NAME}_INCLUDES 
-        ${CMAKE_CURRENT_LIST_DIR}/include 
-        ${staticlib_ext_boost_INCLUDES} )
-list( REMOVE_DUPLICATES ${PROJECT_NAME}_INCLUDES )
-set ( ${PROJECT_NAME}_INCLUDES "${${PROJECT_NAME}_INCLUDES}" CACHE INTERNAL ${PROJECT_NAME}_INCLUDES )
+set ( ${PROJECT_NAME}_INCLUDES "${CMAKE_CURRENT_LIST_DIR}/include" CACHE INTERNAL ${PROJECT_NAME}_INCLUDES )

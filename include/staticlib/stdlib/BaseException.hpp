@@ -11,7 +11,7 @@
 #include <string>
 #include <exception>
 
-#include <boost/config.hpp>
+#include "staticlib/stdlib/config.hpp"
 
 namespace staticlib {
 namespace stdlib {
@@ -44,7 +44,7 @@ public:
      * 
      * @return error message
      */
-    virtual const char* what() const BOOST_NOEXCEPT;
+    virtual const char* what() const STATICLIB_NOEXCEPT;
 };
 
 }

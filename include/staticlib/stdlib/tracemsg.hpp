@@ -10,9 +10,9 @@
 
 #include <string>
 
-#include <boost/current_function.hpp>
+#include "staticlib/stdlib/config.hpp"
 
-#define TRACEMSG(message) staticlib::stdlib::tracemsg(message, __FILE__, BOOST_CURRENT_FUNCTION, __LINE__)
+#define TRACEMSG(message) staticlib::stdlib::tracemsg(message, __FILE__, STATICLIB_CURRENT_FUNCTION, __LINE__)
 
 namespace staticlib {
 namespace stdlib {
@@ -23,7 +23,7 @@ namespace stdlib {
  * 
  * @param message input message
  * @param file source filename, `__FILE__` macro is used in `TRACEMSG` macro
- * @param func current function name, `BOOST_CURRENT_FUNCTION` macro is used in `TRACEMSG` macro
+ * @param func current function name, `STATICLIB_CURRENT_FUNCTION` macro is used in `TRACEMSG` macro
  * @param line current line in source file, `__LINE__` macro is used in `TRACEMSG` macro
  * @return message string prepended with specified data
  */
