@@ -9,9 +9,8 @@
 #define	STATICLIB_STDLIB_HPP
 
 #include "staticlib/stdlib/BaseException.hpp"
-//#include "staticlib/stdlib/StdlibException.hpp"
+#include "staticlib/stdlib/StdlibException.hpp"
 #include "staticlib/stdlib/config.hpp"
-//#include "staticlib/stdlib/free_deleter.hpp"
 #include "staticlib/stdlib/memory_utils.hpp"
 #include "staticlib/stdlib/string_utils.hpp"
 #include "staticlib/stdlib/tracemsg.hpp"

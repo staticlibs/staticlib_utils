@@ -10,12 +10,29 @@
 
 #include "staticlib/stdlib/memory_utils.hpp"
 
+namespace { // anonymous
+
 namespace ss = staticlib::stdlib;
+
+void test_make_unique() {
+    auto ptr = ss::make_unique<std::string>("42");
+    assert("42" == *ptr.get());
+}
+
+void test_free_deleter() {
+    char* ptr = static_cast<char*> (malloc(42));
+    std::unique_ptr<char, ss::free_deleter<char>> uptr{ptr, ss::free_deleter<char>()};
+    (void) uptr;
+    // memory will be freed on scope exit
+}
+
+} // namespace
+
+
 
 int main() {
 
-    auto ptr = ss::make_unique<std::string>("42");
-    assert("42" == *ptr.get());
+
     
     return 0;
 }

@@ -26,6 +26,24 @@ std::unique_ptr<T> make_unique(Args&& ...args) {
     return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
+/**
+ * Deleter implementation for smart pointer classes.
+ * Will call 'free' function on the pointer.
+ */
+template <typename T>
+class free_deleter {
+public:
+
+    /**
+     * Delete operation, will call 'free' function on the pointer.
+     * 
+     * @param t pointer
+     */
+    void operator()(T* t) {
+        free(t);
+    }
+};
+
 }
 } // namespace
 
