@@ -31,7 +31,8 @@ void test_free_deleter() {
 
 
 int main() {
-
+    test_make_unique();
+    test_free_deleter();
 
     
     return 0;

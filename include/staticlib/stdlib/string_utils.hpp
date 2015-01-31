@@ -68,8 +68,8 @@ wchar_t* get_buffer(std::wstring& str, std::wstring::size_type required_size);
  */
 char* alloc_copy(const std::string& str) STATICLIB_NOEXCEPT;
 
-}
 } // namespace
+} 
 
 #endif	/* STATICLIB_TO_STRING_HPP */
 

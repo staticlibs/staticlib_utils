@@ -12,6 +12,7 @@
 #include "staticlib/stdlib/StdlibException.hpp"
 #include "staticlib/stdlib/config.hpp"
 #include "staticlib/stdlib/memory_utils.hpp"
+#include "staticlib/stdlib/parse_int.hpp"
 #include "staticlib/stdlib/string_utils.hpp"
 #include "staticlib/stdlib/tracemsg.hpp"
 
