@@ -20,7 +20,7 @@ int16_t parse_int16(const std::string& str) {
     auto cstr = str.c_str();
     char* endptr;
     errno = 0;
-    long l = strtol(cstr, &endptr, 0);
+    auto l = strtol(cstr, &endptr, 0);
     if (errno == ERANGE || cstr + str.length() != endptr) {
         throw StdlibException(TRACEMSG(std::string("Cannot parse int16_t from string:[" + str + "]")));
     }
@@ -34,7 +34,7 @@ uint16_t parse_uint16(const std::string& str) {
     auto cstr = str.c_str();
     char* endptr;
     errno = 0;
-    long l = strtol(cstr, &endptr, 0);
+    auto l = strtol(cstr, &endptr, 0);
     if (errno == ERANGE || cstr + str.length() != endptr) {
         throw StdlibException(TRACEMSG(std::string("Cannot parse uint16_t from string:[" + str + "]")));
     }
@@ -48,7 +48,7 @@ int32_t parse_int32(const std::string& str) {
     auto cstr = str.c_str();
     char* endptr;
     errno = 0;
-    long l = strtol(cstr, &endptr, 0);
+    auto l = strtol(cstr, &endptr, 0);
     if (errno == ERANGE || cstr + str.length() != endptr) {
         throw StdlibException(TRACEMSG(std::string("Cannot parse int32_t from string:[" + str + "]")));
     }
@@ -62,7 +62,7 @@ uint32_t parse_uint32(const std::string& str) {
     auto cstr = str.c_str();
     char* endptr;
     errno = 0;
-    long l = strtoll(cstr, &endptr, 0);
+    auto l = strtoll(cstr, &endptr, 0);
     if (errno == ERANGE || cstr + str.length() != endptr) {
         throw StdlibException(TRACEMSG(std::string("Cannot parse uint32_t from string:[" + str + "]")));
     }
@@ -76,7 +76,7 @@ int64_t parse_int64(const std::string& str) {
     auto cstr = str.c_str();
     char* endptr;
     errno = 0;
-    long l = strtoll(cstr, &endptr, 0);
+    auto l = strtoll(cstr, &endptr, 0);
     if (errno == ERANGE || cstr + str.length() != endptr) {
         throw StdlibException(TRACEMSG(std::string("Cannot parse int64_t from string:[" + str + "]")));
     }
@@ -87,7 +87,7 @@ uint64_t parse_uint64(const std::string& str) {
     auto cstr = str.c_str();
     char* endptr;
     errno = 0;
-    long l = strtoull(cstr, &endptr, 0);
+    auto l = strtoull(cstr, &endptr, 0);
     if (errno == ERANGE || cstr + str.length() != endptr) {
         throw StdlibException(TRACEMSG(std::string("Cannot parse uint64_t from string:[" + str + "]")));
     }
