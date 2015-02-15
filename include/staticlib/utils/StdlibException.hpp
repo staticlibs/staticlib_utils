@@ -8,10 +8,10 @@
 #ifndef STATICLIB_STDLIBEXCEPTION_HPP
 #define	STATICLIB_STDLIBEXCEPTION_HPP
 
-#include "staticlib/stdlib/BaseException.hpp"
+#include "staticlib/utils/BaseException.hpp"
 
 namespace staticlib {
-namespace stdlib {
+namespace utils {
 
 /**
  * Module specific exception

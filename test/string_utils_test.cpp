@@ -9,12 +9,12 @@
 #include <cstring>
 #include <iostream>
 
-#include "staticlib/stdlib/StdlibException.hpp"
-#include "staticlib/stdlib/string_utils.hpp"
+#include "staticlib/utils/StdlibException.hpp"
+#include "staticlib/utils/string_utils.hpp"
 
 namespace { // anonymous
 
-namespace ss = staticlib::stdlib;
+namespace ss = staticlib::utils;
 
 void test_to_string() {
     assert("42" == ss::to_string(42));

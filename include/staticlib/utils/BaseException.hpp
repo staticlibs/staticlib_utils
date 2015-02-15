@@ -11,10 +11,10 @@
 #include <string>
 #include <exception>
 
-#include "staticlib/stdlib/config.hpp"
+#include "staticlib/utils/config.hpp"
 
 namespace staticlib {
-namespace stdlib {
+namespace utils {
 
 /**
  * Base exception class for business exceptions in staticlib modules

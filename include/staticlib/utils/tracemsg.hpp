@@ -10,12 +10,12 @@
 
 #include <string>
 
-#include "staticlib/stdlib/config.hpp"
+#include "staticlib/utils/config.hpp"
 
-#define TRACEMSG(message) staticlib::stdlib::tracemsg(message, __FILE__, STATICLIB_CURRENT_FUNCTION, __LINE__)
+#define TRACEMSG(message) staticlib::utils::tracemsg(message, __FILE__, STATICLIB_CURRENT_FUNCTION, __LINE__)
 
 namespace staticlib {
-namespace stdlib {
+namespace utils {
 
 /**
  * Prepends specified message with formatted current function name, source file name and line number.

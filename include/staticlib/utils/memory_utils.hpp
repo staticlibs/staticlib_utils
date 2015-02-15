@@ -11,7 +11,7 @@
 #include <memory>
 
 namespace staticlib {
-namespace stdlib {
+namespace utils {
 
 /**
  * Shortcut template for creating `std::unique_ptr`, 

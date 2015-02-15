@@ -7,11 +7,11 @@
 
 #include <string>
 
-#include "staticlib/stdlib/string_utils.hpp"
-#include "staticlib/stdlib/tracemsg.hpp"
+#include "staticlib/utils/string_utils.hpp"
+#include "staticlib/utils/tracemsg.hpp"
 
 namespace staticlib {
-namespace stdlib {
+namespace utils {
 
 namespace {
 

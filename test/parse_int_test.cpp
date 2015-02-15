@@ -10,11 +10,11 @@
 #include <cassert>
 #include <iostream>
 
-#include "staticlib/stdlib/parse_int.hpp"
+#include "staticlib/utils/parse_int.hpp"
 
 namespace { // anonymous
 
-namespace ss = staticlib::stdlib;
+namespace ss = staticlib::utils;
 
 void test_parse_int16() {
     assert(42 == ss::parse_int16("42"));

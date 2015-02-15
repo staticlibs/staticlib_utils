@@ -8,11 +8,11 @@
 #include <cassert>
 #include <string>
 
-#include "staticlib/stdlib/memory_utils.hpp"
+#include "staticlib/utils/memory_utils.hpp"
 
 namespace { // anonymous
 
-namespace ss = staticlib::stdlib;
+namespace ss = staticlib::utils;
 
 void test_make_unique() {
     auto ptr = ss::make_unique<std::string>("42");

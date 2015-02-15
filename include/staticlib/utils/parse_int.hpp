@@ -14,7 +14,7 @@
 // std::stoi is not available on Android in NDK 9
 
 namespace staticlib {
-namespace stdlib {
+namespace utils {
 
 /**
  * Parses `int16_t` with base 10 from specified string using `strto*l`

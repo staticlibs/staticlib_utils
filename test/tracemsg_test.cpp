@@ -10,11 +10,10 @@
 #include <string>
 #include <iostream>
 
-#include "staticlib/stdlib/string_utils.hpp"
+#include "staticlib/utils/string_utils.hpp"
+#include "staticlib/utils/tracemsg.hpp"
 
-#include "staticlib/stdlib/tracemsg.hpp"
-
-namespace ss = staticlib::stdlib;
+namespace ss = staticlib::utils;
 
 namespace myfancynamespace {
 

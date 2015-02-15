@@ -10,13 +10,13 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "staticlib/stdlib/config.hpp"
-#include "staticlib/stdlib/tracemsg.hpp"
-#include "staticlib/stdlib/StdlibException.hpp"
-#include "staticlib/stdlib/string_utils.hpp"
+#include "staticlib/utils/config.hpp"
+#include "staticlib/utils/tracemsg.hpp"
+#include "staticlib/utils/StdlibException.hpp"
+#include "staticlib/utils/string_utils.hpp"
 
 namespace staticlib {
-namespace stdlib {
+namespace utils {
 
 namespace { // anonymous
 

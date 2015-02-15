@@ -9,12 +9,12 @@
 #include <cerrno>
 #include <climits>
 
-#include "staticlib/stdlib/StdlibException.hpp"
-#include "staticlib/stdlib/tracemsg.hpp"
-#include "staticlib/stdlib/parse_int.hpp"
+#include "staticlib/utils/StdlibException.hpp"
+#include "staticlib/utils/tracemsg.hpp"
+#include "staticlib/utils/parse_int.hpp"
 
 namespace staticlib {
-namespace stdlib {
+namespace utils {
 
 int16_t parse_int16(const std::string& str) {
     auto cstr = str.c_str();

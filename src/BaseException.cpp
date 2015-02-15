@@ -5,11 +5,11 @@
  * Created on January 2, 2015, 12:03 PM
  */
 
-#include "staticlib/stdlib/config.hpp"
-#include "staticlib/stdlib/BaseException.hpp"
+#include "staticlib/utils/config.hpp"
+#include "staticlib/utils/BaseException.hpp"
 
 namespace staticlib {
-namespace stdlib {
+namespace utils {
 
 BaseException::BaseException(std::string msg) : message(msg) { }
 

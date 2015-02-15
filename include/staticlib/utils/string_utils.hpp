@@ -12,12 +12,12 @@
 #include <sstream>
 #include <typeinfo>
 
-#include "staticlib/stdlib/config.hpp"
-#include "staticlib/stdlib/tracemsg.hpp"
-#include "staticlib/stdlib/StdlibException.hpp"
+#include "staticlib/utils/config.hpp"
+#include "staticlib/utils/tracemsg.hpp"
+#include "staticlib/utils/StdlibException.hpp"
 
 namespace staticlib {
-namespace stdlib {
+namespace utils {
 
 /**
  * Generic `to_string` implementation, already exists as `std::to_string`
