@@ -13,6 +13,7 @@
 #include "staticlib/utils/config.hpp"
 #include "staticlib/utils/memory_utils.hpp"
 #include "staticlib/utils/parse_int.hpp"
+#include "staticlib/utils/signal_utils.hpp"
 #include "staticlib/utils/string_utils.hpp"
 #include "staticlib/utils/tracemsg.hpp"
 

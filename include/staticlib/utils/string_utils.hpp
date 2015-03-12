@@ -5,8 +5,8 @@
  * Created on January 2, 2015, 12:59 PM
  */
 
-#ifndef STATICLIB_TO_STRING_HPP
-#define	STATICLIB_TO_STRING_HPP
+#ifndef STATICLIB_STRING_UTILS_HPP
+#define	STATICLIB_STRING_UTILS_HPP
 
 #include <string>
 #include <sstream>
@@ -69,7 +69,7 @@ wchar_t* get_buffer(std::wstring& str, std::wstring::size_type required_size);
 char* alloc_copy(const std::string& str) STATICLIB_NOEXCEPT;
 
 } // namespace
-} 
+}
 
-#endif	/* STATICLIB_TO_STRING_HPP */
+#endif	/* STATICLIB_STRING_UTILS_HPP */
 
