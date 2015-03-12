@@ -11,7 +11,6 @@
 #include <thread>
 
 #include <signal.h>
-#include <bits/atomic_base.h>
 
 #include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/signal_utils.hpp"
