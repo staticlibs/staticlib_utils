@@ -9,7 +9,7 @@
 #define	STATICLIB_UTILS_HPP
 
 #include "staticlib/utils/BaseException.hpp"
-#include "staticlib/utils/StdlibException.hpp"
+#include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/config.hpp"
 #include "staticlib/utils/memory_utils.hpp"
 #include "staticlib/utils/parse_int.hpp"

@@ -14,7 +14,7 @@
 
 #include "staticlib/utils/config.hpp"
 #include "staticlib/utils/tracemsg.hpp"
-#include "staticlib/utils/StdlibException.hpp"
+#include "staticlib/utils/UtilsException.hpp"
 
 namespace staticlib {
 namespace utils {
@@ -34,7 +34,7 @@ std::string to_string(T t) {
         return ss.str();
     } catch (const std::exception& e) {
         std::string tname{typeid (t).name()};
-        throw StdlibException(TRACEMSG(std::string(e.what()) + 
+        throw UtilsException(TRACEMSG(std::string(e.what()) + 
                 "\nError stringifying object, type: [" + tname + "]"));
     }
 }

@@ -9,7 +9,7 @@
 #include <cstring>
 #include <iostream>
 
-#include "staticlib/utils/StdlibException.hpp"
+#include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/string_utils.hpp"
 
 namespace { // anonymous
@@ -34,7 +34,7 @@ void test_to_string_exception() {
     try {
         BadExternalClass bc{};
         ss::to_string(bc);        
-    } catch(const ss::StdlibException& e) {
+    } catch(const ss::UtilsException& e) {
         (void) e;
         catched = true;
     }
@@ -65,7 +65,7 @@ Error getting buffer with required size: [18446744073709551615] from string, len
     std::string st{"foo"};
     try {
         ss::get_buffer(st, static_cast<std::string::size_type>(-1));
-    } catch(const ss::StdlibException& e) {
+    } catch(const ss::UtilsException& e) {
         (void) e;
         catched = true;
         //assert(expected == e.what());

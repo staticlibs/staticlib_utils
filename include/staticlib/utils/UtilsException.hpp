@@ -1,12 +1,12 @@
 /* 
- * File:   StdlibException.hpp
+ * File:   UtilsException.hpp
  * Author: alex
  *
  * Created on January 13, 2015, 9:36 PM
  */
 
-#ifndef STATICLIB_STDLIBEXCEPTION_HPP
-#define	STATICLIB_STDLIBEXCEPTION_HPP
+#ifndef STATICLIB_UTILSEXCEPTION_HPP
+#define	STATICLIB_UTILSEXCEPTION_HPP
 
 #include "staticlib/utils/BaseException.hpp"
 
@@ -16,19 +16,19 @@ namespace utils {
 /**
  * Module specific exception
  */
-class StdlibException : public BaseException {
+class UtilsException : public BaseException {
 public:
     /**
      * Default constructor
      */
-    StdlibException() = default;
+    UtilsException() = default;
 
     /**
      * Constructor with message
      * 
      * @param msg error message
      */
-    StdlibException(const std::string& msg) :
+    UtilsException(const std::string& msg) :
     BaseException(msg) { }
 
 };
@@ -36,5 +36,5 @@ public:
 }
 } //namespace
 
-#endif	/* STATICLIB_STDLIBEXCEPTION_HPP */
+#endif	/* STATICLIB_UTILSEXCEPTION_HPP */
 

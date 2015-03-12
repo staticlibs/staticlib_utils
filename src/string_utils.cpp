@@ -12,7 +12,7 @@
 
 #include "staticlib/utils/config.hpp"
 #include "staticlib/utils/tracemsg.hpp"
-#include "staticlib/utils/StdlibException.hpp"
+#include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/string_utils.hpp"
 
 namespace staticlib {
@@ -26,7 +26,7 @@ T* get_buffer_internal(std::basic_string<T>& str, typename std::basic_string<T>:
         str.resize(required_size);
         return &str.front();
     } catch (const std::exception& e) {
-        throw StdlibException(TRACEMSG(std::string(e.what()) + 
+        throw UtilsException(TRACEMSG(std::string(e.what()) + 
                 "\nError getting buffer with required size: [" + to_string(required_size) + "]" + 
                 " from string, length: [" + to_string(str.length()) + "]"));
     }
