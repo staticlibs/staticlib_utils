@@ -11,6 +11,9 @@
 #include <thread>
 
 #include <signal.h>
+#ifdef _MSC_VER
+#include <windows.h>
+#endif // _MSC_VER
 
 #include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/signal_utils.hpp"
@@ -45,7 +48,7 @@ BOOL WINAPI handler_platform(DWORD ctrl_type) {
     case CTRL_BREAK_EVENT:
     case CTRL_CLOSE_EVENT:
     case CTRL_SHUTDOWN_EVENT:
-        hadler_internal();
+        handler_internal();
         return TRUE;
     default:
         return FALSE;
