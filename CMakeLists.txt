@@ -8,7 +8,7 @@ set ( CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/cmake/toolchains/${STATICLI
 # project setup
 project ( staticlib_utils CXX )
 # common include
-include ( ${CMAKE_CURRENT_LIST_DIR}/cmake/CMakeLists_common.cmake )
+include ( ${CMAKE_CURRENT_LIST_DIR}/cmake/staticlibs_common.cmake )
 
 # build steps
 file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
