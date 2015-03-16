@@ -16,6 +16,7 @@
 #include <windows.h>
 
 #include "staticlib/utils/string_utils.hpp"
+#include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/windows.hpp"
 
 namespace staticlib {
@@ -47,12 +48,12 @@ public:
 
 std::wstring widen(const std::string& st) {
     auto size_needed = MultiByteToWideChar(CP_UTF8, 0, st.c_str(), static_cast<int> (st.length()), nullptr, 0);
-    if (0 == size_needed) throw WindowsException(TRACEMSG(std::string("Error on string widen calculation,") +
+    if (0 == size_needed) throw UtilsException(TRACEMSG(std::string("Error on string widen calculation,") +
             " string: [" + st + "], error: [" + errcode_to_string(GetLastError()) + "]"));
     std::wstring res{};
     auto buf = ss::get_buffer(res, size_needed);
     int chars_copied = MultiByteToWideChar(CP_UTF8, 0, st.c_str(), static_cast<int> (st.size()), buf, size_needed);
-    if (chars_copied != size_needed) throw WindowsException(TRACEMSG(std::string("Error on string widen execution,") +
+    if (chars_copied != size_needed) throw UtilsException(TRACEMSG(std::string("Error on string widen execution,") +
             " string: [" + st + "], error: [" + errcode_to_string(GetLastError()) + "]"));
     return res;
 }
@@ -63,12 +64,12 @@ std::string narrow(std::wstring wstr) {
 
 std::string narrow(const wchar_t* wbuf, size_t length) {
     int size_needed = WideCharToMultiByte(CP_UTF8, 0, wbuf, static_cast<int> (length), nullptr, 0, nullptr, nullptr);
-    if (0 == size_needed) throw WindowsException(TRACEMSG(std::string("Error on string narrow calculation,") +
+    if (0 == size_needed) throw UtilsException(TRACEMSG(std::string("Error on string narrow calculation,") +
             " string length: [" + ss::to_string(length) + "], error code: [" + ss::to_string(GetLastError()) + "]"));
     std::string res{};
     auto buf = ss::get_buffer(res, size_needed);
     int bytes_copied = WideCharToMultiByte(CP_UTF8, 0, wbuf, static_cast<int> (length), buf, size_needed, nullptr, nullptr);
-    if (bytes_copied != size_needed) throw WindowsException(TRACEMSG(std::string("Error on string narrow execution,") +
+    if (bytes_copied != size_needed) throw UtilsException(TRACEMSG(std::string("Error on string narrow execution,") +
             " string length: [" + ss::to_string(length) + "], error code: [" + ss::to_string(GetLastError()) + "]"));
     return res;
 }
@@ -100,8 +101,8 @@ std::string errcode_to_string(uint32_t code) STATICLIB_NOEXCEPT {
 std::string get_exec_dir() {
     std::wstring wst{};
     auto buf = ss::get_buffer(wst, MAX_PATH);
-    unsigned long success = GetModuleFileNameW(nullptr, buf, wst.length());
-    if (0 == success) throw WindowsException(TRACEMSG(std::string("Error getting current executable dir,") +
+    auto success = GetModuleFileNameW(nullptr, buf, static_cast<DWORD>(wst.length()));
+    if (0 == success) throw UtilsException(TRACEMSG(std::string("Error getting current executable dir,") +
             " error: [" + errcode_to_string(GetLastError()) + "]"));
     auto path = narrow(wst);
     std::replace(path.begin(), path.end(), '\\', '/');
@@ -110,6 +111,6 @@ std::string get_exec_dir() {
 }
 
 } // namespace
-)
+}
 
 #endif // STATICLIB_WINDOWS

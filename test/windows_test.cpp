@@ -15,7 +15,7 @@
 
 namespace { // anonymous
 
-namespace sw = staticlib::windows;
+namespace sw = staticlib::utils;
 
 void test_widen() {
     // hello in russian in utf-8
