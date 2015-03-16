@@ -11,9 +11,11 @@
 #include <thread>
 
 #include <signal.h>
-#ifdef _MSC_VER
+
+#include "staticlib/utils/config.hpp"
+#ifdef STATICLIB_WINDOWS
 #include <windows.h>
-#endif // _MSC_VER
+#endif // STATICLIB_WINDOWS
 
 #include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/signal_utils.hpp"
@@ -40,7 +42,7 @@ void handler_internal() {
     get_static_flag().clear();
 }
 
-#ifdef _MSC_VER
+#ifdef STATICLIB_WINDOWS
 
 BOOL WINAPI handler_platform(DWORD ctrl_type) {
     switch (ctrl_type) {
@@ -59,7 +61,7 @@ void initialize_signals_platform() {
     SetConsoleCtrlHandler(handler_platform, TRUE);
 }
 
-#else // _MSC_VER
+#else // STATICLIB_WINDOWS
 
 void handler_platform(int sig) {
     (void) sig;
@@ -71,7 +73,7 @@ void initialize_signals_platform() {
     signal(SIGTERM, handler_platform);
 }
 
-#endif // _MSC_VER
+#endif // STATICLIB_WINDOWS
 
 } // namespace
 

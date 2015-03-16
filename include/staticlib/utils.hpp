@@ -16,6 +16,9 @@
 #include "staticlib/utils/signal_utils.hpp"
 #include "staticlib/utils/string_utils.hpp"
 #include "staticlib/utils/tracemsg.hpp"
+#ifdef STATICLIB_WINDOWS
+#include "staticlib/utils/windows.hpp"
+#endif // STATICLIB_WINDOWS
 
 #endif	/* STATICLIB_UTILS_HPP */
 

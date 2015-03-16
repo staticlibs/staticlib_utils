@@ -29,8 +29,8 @@ namespace utils {
  */
 std::string tracemsg(const std::string& message, const std::string& file, const std::string& func, int line);
 
-}
 } //namespace
+}
 
 
 #endif	/* STATICLIB_TRACEMSG_HPP */
