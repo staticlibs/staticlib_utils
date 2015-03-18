@@ -44,6 +44,7 @@ void test_to_string_exception() {
 void test_get_buffer_char() {
     std::string st{"foo"};
     auto buf = ss::get_buffer(st, 42);
+    (void) buf;
     assert(3 == strlen(buf));
     assert(42 == st.size());
 }
@@ -51,6 +52,7 @@ void test_get_buffer_char() {
 void test_get_buffer_wchar() {
     std::wstring st{};
     auto buf = ss::get_buffer(st, 42);
+    (void) buf;
     assert(0 == wcslen(buf));
     assert(42 == st.size());
 }
