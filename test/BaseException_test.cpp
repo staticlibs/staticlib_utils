@@ -31,8 +31,7 @@ void test_throw() {
     try {
         throw TestExc(msg);
     } catch (const std::exception& e) {
-        (void) e;
-        catched = true;
+        (void) e; catched = true;
         assert(msgbytes == e.what());
     }
     assert(catched);
@@ -99,9 +98,8 @@ I've caught and rethrow it!
     bool catched = false;
     try {
         fun3();
-    } catch (const std::exception& e) {
-        (void) e;
-        catched = true;
+    } catch (const std::exception& e) {        
+        (void) e; catched = true;
         assert(expected == e.what());
     }
     assert(catched);
