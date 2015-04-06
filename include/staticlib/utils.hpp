@@ -11,6 +11,7 @@
 #include "staticlib/utils/BaseException.hpp"
 #include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/config.hpp"
+#include "staticlib/utils/io_utils.hpp"
 #include "staticlib/utils/memory_utils.hpp"
 #include "staticlib/utils/parse_int.hpp"
 #include "staticlib/utils/signal_utils.hpp"
