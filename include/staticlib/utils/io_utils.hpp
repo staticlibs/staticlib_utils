@@ -49,7 +49,7 @@ void write_all(std::streambuf& sink, const std::string& str);
  * @param buflen number of bytes to read from source
  * @return number of bytes read
  */
-std::streamsize read_all(std::streambuf& src, char* buf, std::streamsize buflen);
+size_t read_all(std::streambuf& src, char* buf, std::streamsize buflen);
 
 /**
  * Reads specified number of bytes from the Source into the buffer.
@@ -71,7 +71,7 @@ void read_exact(std::streambuf& src, char* buf, std::streamsize buflen);
  * @param buflen number of bytes to read from source
  * @return number of bytes copied
  */
-std::streamsize copy_all(std::streambuf& src, std::streambuf& sink, char* buf, std::streamsize buflen);
+size_t copy_all(std::streambuf& src, std::streambuf& sink, char* buf, std::streamsize buflen);
 
 
 /**

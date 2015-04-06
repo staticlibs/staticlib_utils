@@ -32,9 +32,11 @@ void write_all(std::streambuf& sink, const std::string& str) {
     write_all(sink, str.c_str(), static_cast<std::streamsize> (str.length()));
 }
 
-std::streamsize read_all(std::streambuf& src, char* buf, std::streamsize buflen) {
-    std::streamsize result = 0;
-    while (result < buflen) {
+size_t read_all(std::streambuf& src, char* buf, std::streamsize buflen) {
+    if (buflen < 0) return 0;
+    size_t ulen = static_cast<size_t>(buflen);
+    size_t result = 0;    
+    while (result < ulen) {
         std::streamsize amt = src.sgetn(buf + result, buflen - result);
         if (0 == amt && std::char_traits<char>::eof() == src.sbumpc()) break;
         result += amt;        
@@ -43,16 +45,20 @@ std::streamsize read_all(std::streambuf& src, char* buf, std::streamsize buflen)
 }
 
 void read_exact(std::streambuf& src, char* buf, std::streamsize buflen) {
+    if (buflen < 0) return;
+    size_t ulen = static_cast<size_t> (buflen);
     auto res = read_all(src, buf, buflen);
-    if (res != buflen) throw UtilsException(TRACEMSG(
+    if (res != ulen) throw UtilsException(TRACEMSG(
             std::string("Read amount: [" + to_string(res) + "]" +
             " of expected: [" + to_string(buflen) + "]")));
 }
 
-std::streamsize copy_all(std::streambuf& src, std::streambuf& sink, char* buf, std::streamsize buflen) {
-    std::streamsize result = 0;
-    std::streamsize amt;
-    while (buflen == (amt = read_all(src, buf, buflen))) {
+size_t copy_all(std::streambuf& src, std::streambuf& sink, char* buf, std::streamsize buflen) {
+    if (buflen < 0) return 0;
+    size_t ulen = static_cast<size_t> (buflen);
+    size_t result = 0;
+    size_t amt;
+    while (ulen == (amt = read_all(src, buf, buflen))) {
         write_all(sink, buf, amt);
         result += amt;
     }
