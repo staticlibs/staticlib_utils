@@ -55,7 +55,7 @@ size_t read_all(std::streambuf& src, char* buf, std::streamsize buflen) {
     while (result < ulen) {
         std::streamsize amt = src.sgetn(buf + result, buflen - result);
         if (0 == amt && std::char_traits<char>::eof() == src.sbumpc()) break;
-        result += amt;        
+        result += static_cast<size_t>(amt);        
     }
     return result;
 }

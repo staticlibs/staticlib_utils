@@ -167,7 +167,8 @@ protected:
  * Unbuffered implementation of input streambuf, wraps Source reference (in terms of Boost.Iostreams).
  * Should be used directly, must NOT be used wrapped into std::istream.
  */
-template <typename Source, std::streamsize source_eof=std::char_traits<char>::eof()>
+// use -1 as std::char_traits<char>::eof() won't work in msvc
+template <typename Source, std::streamsize source_eof=-1>
 class unbuffered_source : public unbuffered_streambuf_base {
     Source& source;
     bool exhausted = false;
@@ -214,6 +215,12 @@ protected:
             return 0;
         }
     }    
+
+private:
+    /**
+     * Deleted assignment operator to prevent msvc warnings
+     */
+    unbuffered_source& operator=(const unbuffered_source&) = delete;
 };
 
 /**
@@ -244,7 +251,14 @@ protected:
         return sink.write(s, count);
     }
     
+private:
+    /**
+     * Deleted assignment operator to prevent msvc warnings
+     */
+    unbuffered_sink& operator=(const unbuffered_sink&) = delete;
+
 };
+
 
 } // namespace
 }
