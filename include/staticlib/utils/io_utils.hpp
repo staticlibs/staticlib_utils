@@ -150,7 +150,7 @@ protected:
     /**
      * Unsupported method, throws 'UtilsException'
      */
-    virtual std::streampos seekoff(std::streamsize, std::ios_base::seekdir, std::ios_base::openmode) override {
+    virtual std::streampos seekoff(std::streamoff, std::ios_base::seekdir, std::ios_base::openmode) override {
         throw UtilsException(TRACEMSG("'seekoff' operation is not supported by unbuffered streambuf"));
     }
 
