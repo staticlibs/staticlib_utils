@@ -1,7 +1,7 @@
 Staticlibs common utilities library
 ===================================
 
-This project is part of [Staticlibs](http://staticlibs.net/).
+This project is a part of [Staticlibs](http://staticlibs.net/).
 
 This project contains common utilities for exceptions, IO, strings etc.
 
