@@ -32,8 +32,8 @@ target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE ${CMAKE_CURRENT_LIST
 # tests and docs
 set ( ${PROJECT_NAME}_TEST_INCLUDES ${CMAKE_CURRENT_LIST_DIR}/include )
 set ( ${PROJECT_NAME}_TEST_LIBS ${PROJECT_NAME} )
-set ( ${PROJECT_NAME}_TEST_DEFS "" )
-staticlib_enable_testing ( ${PROJECT_NAME}_TEST_INCLUDES ${PROJECT_NAME}_TEST_LIBS ${PROJECT_NAME}_TEST_DEFS )
+set ( ${PROJECT_NAME}_TEST_OPTS "" )
+staticlib_enable_testing ( ${PROJECT_NAME}_TEST_INCLUDES ${PROJECT_NAME}_TEST_LIBS ${PROJECT_NAME}_TEST_OPTS )
 if ( ( TARGET signal_utils_test ) AND ( STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_(clang|gcc)" ) )
     target_link_libraries ( signal_utils_test -pthread )
 endif ( )
