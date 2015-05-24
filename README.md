@@ -5,7 +5,7 @@ This project is a part of [Staticlibs](http://staticlibs.net/).
 
 This project contains common utilities for exceptions, IO, strings etc.
 
-Link to [API documentation](http://staticlibs.github.com/staticlib_utils/docs/html/namespacestaticlib_1_1utils.html).
+Link to [API documentation](http://staticlibs.github.io/staticlib_utils/docs/html/namespacestaticlib_1_1utils.html).
 
 How to build
 ------------
