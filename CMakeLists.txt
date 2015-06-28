@@ -37,6 +37,9 @@ staticlib_enable_testing ( ${PROJECT_NAME}_TEST_INCLUDES ${PROJECT_NAME}_TEST_LI
 if ( ( TARGET signal_utils_test ) AND ( STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_(clang|gcc)" ) )
     target_link_libraries ( signal_utils_test -pthread )
 endif ( )
+if ( ( TARGET ProducerConsumerQueue_test ) AND ( STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_(clang|gcc)" ) )
+    target_link_libraries ( ProducerConsumerQueue_test -pthread )
+endif ( )
 staticlib_enable_docs ( )
 
 # export headers
