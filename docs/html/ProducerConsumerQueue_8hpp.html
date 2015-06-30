@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_utils: staticlib/utils/string_utils.hpp File Reference</title>
+<title>staticlib_utils: staticlib/utils/ProducerConsumerQueue.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -86,37 +86,30 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">string_utils.hpp File Reference</div>  </div>
+<div class="title">ProducerConsumerQueue.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br/>
-<code>#include &lt;sstream&gt;</code><br/>
-<code>#include &lt;typeinfo&gt;</code><br/>
-<code>#include &quot;<a class="el" href="config_8hpp_source.html">staticlib/utils/config.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="tracemsg_8hpp_source.html">staticlib/utils/tracemsg.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="UtilsException_8hpp_source.html">staticlib/utils/UtilsException.hpp</a>&quot;</code><br/>
+<div class="textblock"><code>#include &lt;atomic&gt;</code><br/>
+<code>#include &lt;cassert&gt;</code><br/>
+<code>#include &lt;cstdlib&gt;</code><br/>
+<code>#include &lt;stdexcept&gt;</code><br/>
+<code>#include &lt;type_traits&gt;</code><br/>
+<code>#include &lt;utility&gt;</code><br/>
 </div>
-<p><a href="string__utils_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="ProducerConsumerQueue_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1ProducerConsumerQueue.html">staticlib::utils::ProducerConsumerQueue&lt; T &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classstaticlib_1_1utils_1_1ProducerConsumerQueue.html" title="ProducerConsumerQueue is a one producer and one consumer queue without locks.">ProducerConsumerQueue</a> is a one producer and one consumer queue without locks.  <a href="classstaticlib_1_1utils_1_1ProducerConsumerQueue.html#details">More...</a><br/></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacestaticlib"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib.html">staticlib</a></td></tr>
 <tr class="memitem:namespacestaticlib_1_1utils"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html">staticlib::utils</a></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:aa5e27f58ba981cddcecd22d8ec6bbe23"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa5e27f58ba981cddcecd22d8ec6bbe23"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aa5e27f58ba981cddcecd22d8ec6bbe23">staticlib::utils::to_string</a> (T t)</td></tr>
-<tr class="memdesc:aa5e27f58ba981cddcecd22d8ec6bbe23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic <code>to_string</code> implementation, already exists as <code>std::to_string</code> in most C++11 compilers except GCC 4.8.  <a href="#aa5e27f58ba981cddcecd22d8ec6bbe23"></a><br/></td></tr>
-<tr class="memitem:a03059fb672f5e42a233965e945731709"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a03059fb672f5e42a233965e945731709">staticlib::utils::get_buffer</a> (std::string &amp;str, std::string::size_type required_size)</td></tr>
-<tr class="memdesc:a03059fb672f5e42a233965e945731709"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access underlying string buffer as writable char array safely (according to C++11) Will resize specified string (memory will be default-initialized).  <a href="#a03059fb672f5e42a233965e945731709"></a><br/></td></tr>
-<tr class="memitem:a0df389aa8382d668568b27e886ee7e2b"><td class="memItemLeft" align="right" valign="top">wchar_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a0df389aa8382d668568b27e886ee7e2b">staticlib::utils::get_buffer</a> (std::wstring &amp;str, std::wstring::size_type required_size)</td></tr>
-<tr class="memdesc:a0df389aa8382d668568b27e886ee7e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access underlying wide string buffer as writable char array safely (according to C++11) Will resize specified string (memory will be default-initialized).  <a href="#a0df389aa8382d668568b27e886ee7e2b"></a><br/></td></tr>
-<tr class="memitem:a7a642d7cdb13029c9ebb5ac3f7428083"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a7a642d7cdb13029c9ebb5ac3f7428083">staticlib::utils::alloc_copy</a> (const std::string &amp;str) <a class="el" href="config_8hpp.html#a29fa1dcffe3359ad6403a7e32fa070da">STATICLIB_NOEXCEPT</a></td></tr>
-<tr class="memdesc:a7a642d7cdb13029c9ebb5ac3f7428083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a buffer and copies there contents of the string.  <a href="#a7a642d7cdb13029c9ebb5ac3f7428083"></a><br/></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
