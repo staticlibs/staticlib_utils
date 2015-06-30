@@ -48,7 +48,7 @@
 namespace staticlib {
 namespace utils {
 
-/*
+/**
  * ProducerConsumerQueue is a one producer and one consumer queue
  * without locks. See docs: https://github.com/facebook/folly/blob/master/folly/docs/ProducerConsumerQueue.md
  */
