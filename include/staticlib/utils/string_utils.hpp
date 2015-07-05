@@ -27,6 +27,7 @@
 #include <string>
 #include <sstream>
 #include <typeinfo>
+#include <cstdint>
 
 #include "staticlib/utils/config.hpp"
 #include "staticlib/utils/tracemsg.hpp"

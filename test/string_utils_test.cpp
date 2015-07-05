@@ -54,7 +54,7 @@ void test_to_string_exception() {
         (void) e;
         catched = true;
     }
-    assert(catched);
+    (void) catched; assert(catched);
 }
 
 void test_get_buffer_char() {
@@ -88,7 +88,7 @@ Error getting buffer with required size: [18446744073709551615] from string, len
         catched = true;
         //assert(expected == e.what());
     }
-    assert(catched);
+    (void) catched; assert(catched);
 }
 
 void test_alloc_copy() {

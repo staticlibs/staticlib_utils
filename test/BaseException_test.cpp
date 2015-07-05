@@ -50,7 +50,7 @@ void test_throw() {
         (void) e; catched = true;
         assert(msgbytes == e.what());
     }
-    assert(catched);
+    (void) catched; assert(catched);
 }
 
 } // namespace
@@ -118,7 +118,7 @@ I've caught and rethrow it!
         (void) e; catched = true;
         //assert(expected == e.what());
     }
-    assert(catched);
+    (void) catched; assert(catched);
 }
 
 } // namespace

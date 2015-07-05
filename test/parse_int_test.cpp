@@ -42,7 +42,7 @@ void test_parse_int16() {
         (void) e;
         catched_overflow_big = true;
     }
-    assert(catched_overflow_big);
+    (void) catched_overflow_big; assert(catched_overflow_big);
     bool catched_invalid = false;
     try {
         ss::parse_int16("-4242A");
@@ -50,7 +50,7 @@ void test_parse_int16() {
         (void) e;
         catched_invalid = true;
     }
-    assert(catched_invalid);
+    (void) catched_invalid; assert(catched_invalid);
 }
 
 void test_parse_uint16() {
@@ -64,7 +64,7 @@ void test_parse_uint16() {
         (void) e;
         catched_overflow_negative = true;
     }
-    assert(catched_overflow_negative);
+    (void) catched_overflow_negative; assert(catched_overflow_negative);
     bool catched_overflow_big = false;
     try {
         ss::parse_uint16("65536");
@@ -72,7 +72,7 @@ void test_parse_uint16() {
         (void) e;
         catched_overflow_big = true;
     }
-    assert(catched_overflow_big);
+    (void) catched_overflow_big; assert(catched_overflow_big);
     bool catched_invalid = false;
     try {
         ss::parse_uint16("4242A");
@@ -80,7 +80,7 @@ void test_parse_uint16() {
         (void) e;
         catched_invalid = true;
     }
-    assert(catched_invalid);
+    (void) catched_invalid; assert(catched_invalid);
 }
 
 void test_parse_int32() {
@@ -93,7 +93,7 @@ void test_parse_int32() {
         (void) e;
         catched_overflow_big = true;
     }
-    assert(catched_overflow_big);
+    (void) catched_overflow_big; assert(catched_overflow_big);
     bool catched_invalid = false;
     try {
         ss::parse_int32("-4242A");
@@ -101,7 +101,7 @@ void test_parse_int32() {
         (void) e;
         catched_invalid = true;
     }
-    assert(catched_invalid);
+    (void) catched_invalid; assert(catched_invalid);
 }
 
 void test_parse_uint32() {
@@ -114,7 +114,7 @@ void test_parse_uint32() {
         (void) e;
         catched_overflow_negative = true;
     }
-    assert(catched_overflow_negative);
+    (void) catched_overflow_negative; assert(catched_overflow_negative);
     bool catched_overflow_big = false;
     try {
         ss::parse_uint32("4294967296");
@@ -122,7 +122,7 @@ void test_parse_uint32() {
         (void) e;
         catched_overflow_big = true;
     }
-    assert(catched_overflow_big);
+    (void) catched_overflow_big; assert(catched_overflow_big);
     bool catched_invalid = false;
     try {
         ss::parse_uint32("4242A");
@@ -130,7 +130,7 @@ void test_parse_uint32() {
         (void) e;
         catched_invalid = true;
     }
-    assert(catched_invalid);
+    (void) catched_invalid; assert(catched_invalid);
 }
 
 void test_parse_int64() {
@@ -143,7 +143,7 @@ void test_parse_int64() {
         (void) e;
         catched_overflow_big = true;
     }
-    assert(catched_overflow_big);
+    (void) catched_overflow_big; assert(catched_overflow_big);
     bool catched_invalid = false;
     try {
         ss::parse_int64("-4242A");
@@ -151,7 +151,7 @@ void test_parse_int64() {
         (void) e;
         catched_invalid = true;
     }
-    assert(catched_invalid);
+    (void) catched_invalid; assert(catched_invalid);
 }
 
 void test_parse_uint64() {
@@ -173,7 +173,7 @@ void test_parse_uint64() {
         (void) e;
         catched_overflow_big = true;
     }
-    assert(catched_overflow_big);
+    (void) catched_overflow_big; assert(catched_overflow_big);
     bool catched_invalid = false;
     try {
         ss::parse_uint64("4242A");
@@ -181,7 +181,7 @@ void test_parse_uint64() {
         (void) e;
         catched_invalid = true;
     }
-    assert(catched_invalid);
+    (void) catched_invalid; assert(catched_invalid);
 }
 
 } // namespace
