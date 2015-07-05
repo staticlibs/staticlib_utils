@@ -4,6 +4,5 @@ var searchData=
   ['what',['what',['../classstaticlib_1_1utils_1_1BaseException.html#a937e4903cbe33434076778e4323a0013',1,'staticlib::utils::BaseException']]],
   ['widen',['widen',['../namespacestaticlib_1_1utils.html#a39da5f53686d31296aad3cf0493419a3',1,'staticlib::utils']]],
   ['windows_2ehpp',['windows.hpp',['../windows_8hpp.html',1,'']]],
-  ['write',['write',['../classstaticlib_1_1utils_1_1ProducerConsumerQueue.html#a5f808c3155c9a97b829b441d6b9b0360',1,'staticlib::utils::ProducerConsumerQueue']]],
   ['write_5fall',['write_all',['../namespacestaticlib_1_1utils.html#a7928eb06b7dc36f3eff0288d5a58e744',1,'staticlib::utils::write_all(std::streambuf &amp;sink, const char *buf, std::streamsize buflen)'],['../namespacestaticlib_1_1utils.html#a9c87220b87dd1a128245c71c23a6b85b',1,'staticlib::utils::write_all(std::streambuf &amp;sink, const std::string &amp;str)']]]
 ];
