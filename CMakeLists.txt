@@ -14,30 +14,23 @@
 
 cmake_minimum_required ( VERSION 2.8.12 )
 
-# toolchain setup
-set ( STATICLIB_TOOLCHAIN linux_amd64_gcc CACHE STRING "toolchain triplet" )
-set ( CMAKE_TOOLCHAIN_FILE ${CMAKE_CURRENT_LIST_DIR}/cmake/toolchains/${STATICLIB_TOOLCHAIN}.cmake CACHE INTERNAL "" )
-
 # project setup
 project ( staticlib_utils CXX )
 set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.2.0 )
-# common include
-include ( ${CMAKE_CURRENT_LIST_DIR}/cmake/staticlibs_common.cmake )
 
 # build steps
 file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
 add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} )
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include )
 
-# tests and docs
-set ( ${PROJECT_NAME}_TEST_INCLUDES ${CMAKE_CURRENT_LIST_DIR}/include )
-set ( ${PROJECT_NAME}_TEST_LIBS ${PROJECT_NAME} )
-set ( ${PROJECT_NAME}_TEST_OPTS "" )
-staticlib_enable_testing ( ${PROJECT_NAME}_TEST_INCLUDES ${PROJECT_NAME}_TEST_LIBS ${PROJECT_NAME}_TEST_OPTS )
-if ( ( TARGET signal_utils_test ) AND ( STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_(clang|gcc)" ) )
-    target_link_libraries ( signal_utils_test pthread )
+# pkg-config
+if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
+    set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
 endif ( )
-staticlib_enable_docs ( )
+configure_file ( ${CMAKE_CURRENT_LIST_DIR}/pkgconfig/${PROJECT_NAME}.pc.in 
+        ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pkgconfig/${PROJECT_NAME}.pc )
 
-# export headers
-set ( ${PROJECT_NAME}_INCLUDES ${CMAKE_CURRENT_LIST_DIR}/include CACHE INTERNAL "" )
+# docs
+if ( DEFINED STATICLIB_CMAKE )
+    configure_file ( ${STATICLIB_CMAKE}/doxygen/Doxyfile ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile )
+endif ( )
