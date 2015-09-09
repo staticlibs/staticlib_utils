@@ -21,7 +21,7 @@ if ( NOT DEFINED STATICLIB_CMAKE )
 endif ( )
 set ( CMAKE_TOOLCHAIN_FILE ${STATICLIB_CMAKE}/toolchains/${STATICLIB_TOOLCHAIN}.cmake CACHE INTERNAL "" )
 
-# project setup
+# project
 project ( staticlib_utils_test CXX )
 include ( ${CMAKE_CURRENT_LIST_DIR}/cmake/staticlibs_common.cmake )
 
@@ -32,7 +32,7 @@ staticlib_pkg_check_modules ( ${PROJECT_NAME} REQUIRED ${PROJECT_NAME}_PC_DEPS )
 
 # tests
 set ( ${PROJECT_NAME}_TEST_INCLUDES ${${PROJECT_NAME}_INCLUDE_DIRS} )
-set ( ${PROJECT_NAME}_TEST_LIBS staticlib_utils )
+set ( ${PROJECT_NAME}_TEST_LIBS ${${PROJECT_NAME}_LIBRARIES} )
 set ( ${PROJECT_NAME}_TEST_OPTS ${${PROJECT_NAME}_CFLAGS_OTHER} )
 staticlib_enable_testing ( ${PROJECT_NAME}_TEST_INCLUDES ${PROJECT_NAME}_TEST_LIBS ${PROJECT_NAME}_TEST_OPTS )
 if ( ( TARGET signal_utils_test ) AND ( STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_(clang|gcc)" ) )

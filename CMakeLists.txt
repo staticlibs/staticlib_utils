@@ -14,14 +14,9 @@
 
 cmake_minimum_required ( VERSION 2.8.12 )
 
-# project setup
+# project
 project ( staticlib_utils CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.2.0 )
-
-# build steps
-file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
-add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} )
-target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.3.0 )
 
 # pkg-config
 if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
@@ -29,6 +24,11 @@ if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
 endif ( )
 configure_file ( ${CMAKE_CURRENT_LIST_DIR}/pkgconfig/${PROJECT_NAME}.pc.in 
         ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pkgconfig/${PROJECT_NAME}.pc )
+
+# library
+file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
+add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} )
+target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include )
 
 # docs
 if ( DEFINED STATICLIB_CMAKE )
