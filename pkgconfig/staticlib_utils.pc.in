@@ -19,6 +19,6 @@ Version: ${${PROJECT_NAME}_STATICLIB_VERSION}
 
 Requires:
 Requires.private:
-Libs: -lstaticlib_utils
+Libs: -l${PROJECT_NAME}
 Libs.private:
-Cflags: -I${CMAKE_CURRENT_LIST_DIR}/include
+Cflags: ${${PROJECT_NAME}_PC_CFLAGS}
