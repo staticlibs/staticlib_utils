@@ -20,14 +20,18 @@ set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.3.0 )
 set ( ${PROJECT_NAME}_DESCRIPTION "Staticlibs common utilities library" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_utils )
 
+# docs
+option ( ${PROJECT_NAME}_ENABLE_DOCS "Generate doxyfile and exit build" OFF )
+if ( ${PROJECT_NAME}_ENABLE_DOCS )
+    configure_file ( ${CMAKE_CURRENT_LIST_DIR}/resources/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile )
+    return ( )
+endif ( )
+
 # library
 file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
 add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} )
 set ( ${PROJECT_NAME}_INCLUDES ${CMAKE_CURRENT_LIST_DIR}/include )
 target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE ${${PROJECT_NAME}_INCLUDES} )
-
-# docs
-configure_file ( ${CMAKE_CURRENT_LIST_DIR}/resources/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile )
 
 # pkg-config
 set ( ${PROJECT_NAME}_PC_CFLAGS "" )
@@ -40,7 +44,3 @@ if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
 endif ( )
 configure_file ( ${CMAKE_CURRENT_LIST_DIR}/resources/pkg-config.in 
         ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pkgconfig/${PROJECT_NAME}.pc )
-
-# exports
-set ( ${PROJECT_NAME}_INCLUDES ${${PROJECT_NAME}_INCLUDES} CACHE INTERNAL "" )
-set ( ${PROJECT_NAME}_OPTIONS "" CACHE INTERNAL "" )
