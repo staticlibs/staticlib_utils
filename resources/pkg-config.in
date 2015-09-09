@@ -13,12 +13,12 @@
 # limitations under the License.
 
 Name: ${PROJECT_NAME}
-Description: Staticlibs common utilities library
-URL: https://github.com/staticlibs/staticlib_utils
+Description: ${${PROJECT_NAME}_DESCRIPTION}
+URL: ${${PROJECT_NAME}_URL}
 Version: ${${PROJECT_NAME}_STATICLIB_VERSION}
 
-Requires:
-Requires.private:
-Libs: -l${PROJECT_NAME}
-Libs.private:
+Requires: ${${PROJECT_NAME}_PC_REQUIRES}
+Requires.private: ${${PROJECT_NAME}_PC_REQUIRES_PRIVATE}
+Libs: ${${PROJECT_NAME}_PC_LIBS}
+Libs.private: ${${PROJECT_NAME}_PC_LIBS_PRIVATE}
 Cflags: ${${PROJECT_NAME}_PC_CFLAGS}
