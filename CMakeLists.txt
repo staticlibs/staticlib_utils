@@ -13,7 +13,6 @@
 # limitations under the License.
 
 cmake_minimum_required ( VERSION 2.8.12 )
-include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
 
 # project
 project ( staticlib_utils CXX )

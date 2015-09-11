@@ -27,8 +27,10 @@
 // http://stackoverflow.com/a/18387764/314015
 #ifndef _MSC_VER
 #define STATICLIB_NOEXCEPT noexcept
+#define STATICLIB_NOEXCEPT_FALSE noexcept(false)
 #else
 #define STATICLIB_NOEXCEPT
+#define STATICLIB_NOEXCEPT_FALSE
 #endif // _MSC_VER
 
 // https://github.com/boostorg/assert/blob/94ebde8bcff31752b7ffe7fcd58ad4d783bf958c/include/boost/current_function.hpp
