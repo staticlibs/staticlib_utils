@@ -59,5 +59,23 @@
 #define STATICLIB__POSIX
 #endif
 
+// http://stackoverflow.com/a/5920028/314015
+#ifdef _WIN32
+#define STATICLIB_WINDOWS
+#elif __APPLE__
+    #include "TargetConditionals.h"
+    #if TARGET_IPHONE_SIMULATOR
+    #define STATICLIB_IOS
+    #elif TARGET_OS_IPHONE
+    #define STATICLIB_IOS
+    #elif TARGET_OS_MAC
+    #define STATICLIB_MAC
+    #endif
+#elif __linux
+#define STATICLIB_LINUX
+#elif __ANDROID__
+#define STATICLIB_ANDROID
+#endif
+
 #endif	/* STATICLIB_CONFIG_HPP */
 
