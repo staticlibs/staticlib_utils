@@ -36,7 +36,7 @@ int shell_exec_and_wait(const std::string& cmd) {
 #ifdef STATICLIB_WINDOWS
     std::string quoted = "\"" + cmd + "\"";
     std::wstring ws = widen(quoted);
-    return std::_wsystem(ws);
+    return _wsystem(ws.c_str());
 #else
     return std::system(cmd.c_str());
 #endif // STATICLIB_WINDOWS
