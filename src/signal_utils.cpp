@@ -22,9 +22,10 @@
  */
 
 #include <functional>
-#include <atomic>
 #include <vector>
 #include <thread>
+#include <mutex>
+#include <condition_variable>
 
 #include <signal.h>
 
@@ -44,18 +45,35 @@ namespace { // anonymous
 std::vector<std::function<void(void)>>& get_static_liteners() {
     static std::vector<std::function<void(void)>> vec{};
     return vec;
-} 
+}
 
-std::atomic_flag& get_static_flag() {
-    static std::atomic_flag flag = ATOMIC_FLAG_INIT;
-    return flag;
+std::mutex& get_static_mutex() {
+    static std::mutex mutex{};
+    return mutex;
+}
+
+std::condition_variable& get_static_cv() {
+    static std::condition_variable cv{};
+    return cv;
+}
+
+bool& get_static_initialized() {
+    static bool initialized = false;
+    return initialized;
+}
+
+bool& get_static_fired() {
+    static bool fired = false;
+    return fired;
 }
 
 void handler_internal() {
     for (std::function<void(void)> fu : get_static_liteners()) {
         fu();
     }
-    get_static_flag().clear();
+    bool& fired = get_static_fired();
+    fired = true;
+    get_static_cv().notify_all();
 }
 
 #ifdef STATICLIB_WINDOWS
@@ -94,25 +112,27 @@ void initialize_signals_platform() {
 } // namespace
 
 void initialize_signals() {
-    auto prev = get_static_flag().test_and_set();
-    if (prev) throw UtilsException("Signal listeners initialization error");
+    std::lock_guard<std::mutex> guard{get_static_mutex()};
+    bool& si = get_static_initialized();
+    if (si) throw UtilsException("Signal listeners double initialization error");
     initialize_signals_platform();
+    si = true;
 }
 
 void register_signal_listener(std::function<void(void)> listener) {
+    std::lock_guard<std::mutex> guard{get_static_mutex()};
     get_static_liteners().emplace_back(std::move(listener));
 }
 
-// can be done without sleep using semaphore
 void wait_for_signal() {
-    auto timeout = std::chrono::milliseconds{200};
-    while(get_static_flag().test_and_set()) {
-        std::this_thread::sleep_for(timeout);
-    }
-    get_static_flag().clear();
+    std::unique_lock<std::mutex> lock{get_static_mutex()};
+    bool& fired = get_static_fired();
+    fired = false;
+    get_static_cv().wait(lock, get_static_fired);
 }
 
 void fire_signal() {
+    std::lock_guard<std::mutex> guard{get_static_mutex()};
     handler_internal();
 }
 

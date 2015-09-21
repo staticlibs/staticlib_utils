@@ -46,8 +46,6 @@ void register_signal_listener(std::function<void(void)> listener);
 /*
  * Blocks current thread until the SIGINT/SIGTERM
  * signal will be received by this process.
- * Do not uses locks, uses 'atomic_flag' and 'sleep_for' instead
- * (so 100-200 ms timeout is expected after signal receiving).
  */
 void wait_for_signal();
 
