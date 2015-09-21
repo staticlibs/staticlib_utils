@@ -15,29 +15,33 @@
  */
 
 /* 
- * File:   utils.hpp
+ * File:   process_utils.cpp
  * Author: alex
- *
- * Created on January 29, 2015, 12:28 PM
+ * 
+ * Created on September 21, 2015, 8:47 AM
  */
 
-#ifndef STATICLIB_UTILS_HPP
-#define	STATICLIB_UTILS_HPP
+#include <cstdlib>
 
-#include "staticlib/utils/BaseException.hpp"
-#include "staticlib/utils/RandomStringGenerator.hpp"
-#include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/config.hpp"
-#include "staticlib/utils/io_utils.hpp"
-#include "staticlib/utils/memory_utils.hpp"
-#include "staticlib/utils/parse_int.hpp"
-#include "staticlib/utils/process_utils.hpp"
-#include "staticlib/utils/signal_utils.hpp"
-#include "staticlib/utils/string_utils.hpp"
-#include "staticlib/utils/tracemsg.hpp"
 #ifdef STATICLIB_WINDOWS
 #include "staticlib/utils/windows.hpp"
 #endif // STATICLIB_WINDOWS
+#include "staticlib/utils/process_utils.hpp"
 
-#endif	/* STATICLIB_UTILS_HPP */
+namespace staticlib {
+namespace utils {
+
+int shell_exec_and_wait(const std::string& cmd) {
+#ifdef STATICLIB_WINDOWS
+    std::string quoted = "\"" + cmd + "\"";
+    std::wstring ws = widen(quoted);
+    return std::_wsystem(ws);
+#else
+    return std::system(cmd.c_str());
+#endif // STATICLIB_WINDOWS
+}
+
+} // namespace
+}
 
