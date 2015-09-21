@@ -52,13 +52,6 @@
 #define STATICLIB_CURRENT_FUNCTION "(unknown)"
 #endif
 
-// https://github.com/boostorg/iostreams/blob/a5b52f079b29dd8fe61ff13d896ec24c48248d49/include/boost/iostreams/detail/config/windows_posix.hpp#L12
-#if (defined(_WIN32) || defined(__WIN32__) || defined(WIN32)) && !defined(__CYGWIN__)
-#define STATICLIB_WINDOWS
-#else
-#define STATICLIB__POSIX
-#endif
-
 // http://stackoverflow.com/a/5920028/314015
 #ifdef _WIN32
 #define STATICLIB_WINDOWS
