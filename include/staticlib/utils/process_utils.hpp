@@ -37,6 +37,24 @@ namespace utils {
  */
 int shell_exec_and_wait(const std::string& cmd);
 
+/**
+ * Starts the process with the specified command and waits for it to exit
+ * 
+ * @param executable path to executable binary or script
+ * @param args list of arguments
+ * @return command return code
+ */
+int exec_and_wait(const std::string& executable, const std::vector<std::string>& args, const std::string& out);
+
+/**
+ * Starts the process with the specified command and waits for it to exit
+ * 
+ * @param executable path to executable binary or script
+ * @param args list of arguments
+ * @return child process pid
+ */
+int exec_async(const std::string& executable, const std::vector<std::string>& args, const std::string& out);
+
 } // namespace
 }
 

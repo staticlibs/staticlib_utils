@@ -21,16 +21,155 @@
  * Created on September 21, 2015, 8:47 AM
  */
 
+#include <array>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 #include <cstdlib>
+#include <cstring>
 
 #include "staticlib/utils/config.hpp"
 #ifdef STATICLIB_WINDOWS
 #include "staticlib/utils/windows.hpp"
 #endif // STATICLIB_WINDOWS
+#ifdef STATICLIB_LINUX
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <dirent.h>
+#include <unistd.h>
+#include <fcntl.h>
+#endif // STATICLIB_LINUX
+#include "staticlib/utils/UtilsException.hpp"
+#include "staticlib/utils/tracemsg.hpp"
+#include "staticlib/utils/string_utils.hpp"
 #include "staticlib/utils/process_utils.hpp"
 
 namespace staticlib {
 namespace utils {
+
+namespace { // anonymous
+
+#ifdef STATICLIB_LINUX
+int parse_int_nothrow(char* fd_name) {
+    size_t i = 0;
+    while('\0' != fd_name[i]) {
+        if(fd_name[i] < '0' || fd_name[i] > '9') return -1;
+        i+=1;
+    }
+    errno = 0;
+    int res = strtol(fd_name, NULL, 10);
+    if (errno > 0) {
+        errno = 0;
+        return -1;
+    }
+    return res;
+}
+
+void close_descriptors_nothrow() {    
+    for (;;) {        
+        // open descriptors dir
+        DIR* dp = opendir("/proc/self/fd");
+        if (NULL == dp) {
+            std::cout << TRACEMSG(std::string{} + 
+                    "Process opendir(\"/proc/self/fd\") failed: [" + strerror(errno) + "]") 
+                    << std::endl;
+            _exit(errno);
+        }
+        // collect descriptors
+        std::array<int, 1024> fd_list{{}};
+        errno = 0;
+        size_t idx = 0;
+        struct dirent64* dirp;
+        while ((dirp = readdir64(dp)) != NULL) {
+            int fd = parse_int_nothrow(dirp->d_name);            
+            if (-1 != fd && STDOUT_FILENO != fd && STDERR_FILENO != fd) {
+               fd_list[idx++] = fd;
+               if (idx >= fd_list.size()) break;
+            }
+            errno = 0;
+        }                
+        // readdir64 failed
+        if (errno > 0) {
+            std::cout << TRACEMSG(std::string{} + 
+                    "Process readdir64 failed: [" + strerror(errno) + "]") << std::endl;
+            _exit(errno);
+        }
+        for (size_t i = 0; i < idx; i++) {
+            close(fd_list[i]);
+        }
+        closedir(dp);
+        // if fd_list was 
+        if (idx < fd_list.size()) break;
+    }
+}
+
+void copy_descriptor_nothrow(int from, int to) {
+    long int res;
+    do {
+        res = dup2(from, to);
+    } while ((-1 == res) && (errno == EINTR));
+    // cannot throw here and it is yet no destination to write error to
+    if (-1 == res) _exit(errno);
+}
+
+int open_fd(const std::string& path) {
+    int fd;
+    errno = 0;
+    do {
+        fd = open(path.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+    } while ((-1 == fd) && (EINTR == errno));
+    if (-1 == fd) throw UtilsException(TRACEMSG(std::string{} + 
+            "Error opening out file descriptor: [" + strerror(errno) + "]" +
+            ", specified out path: [" + path + "]"));
+    return fd;
+}
+
+std::vector<char*> prepare_args(const std::string& executable, const std::vector<std::string>& args) {
+    std::vector<char*> res;
+    res.reserve(args.size() + 2);
+    // generally UB, but okay here
+    res.push_back(const_cast<char*> (std::addressof(executable.front())));
+    std::transform(args.begin(), args.end(), std::back_inserter(res), [](const std::string & st) {
+        return const_cast<char*> (std::addressof(st.front()));
+    });
+    res.push_back(nullptr);
+    return res;
+}
+
+int exec_async_linux(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
+    // some preparations
+    volatile const char* exec_path = executable.c_str();
+    volatile std::vector<char*> args_ptrs = prepare_args(executable, args);    
+    volatile int out_fd = open_fd(out);    
+    // do fork
+    volatile pid_t pid = vfork();
+    if (-1 == pid) { // no child created
+        throw UtilsException{TRACEMSG(std::string{} + "Process vfork error: [" + strerror(errno) + "]")};
+    } else if (pid > 0) { // return pid to parent
+        return pid;
+    } else { // we are in child process      
+        copy_descriptor_nothrow(out_fd, STDOUT_FILENO);
+        copy_descriptor_nothrow(out_fd, STDERR_FILENO);
+        close_descriptors_nothrow();
+        pid_t sid = setsid();        
+        if (sid < 0) {
+            std::cout << TRACEMSG(std::string{} + "Process setsid error: [" + strerror(errno) + "]") << std::endl;
+            _exit(sid);
+        }
+        errno = 0;
+        // cast away volatileness
+        const char* exec_path_child = const_cast<const char*>(exec_path);
+        std::vector<char*>& arg_ptrs_child = const_cast<std::vector<char*>&>(args_ptrs);
+        int res = execv(exec_path_child, arg_ptrs_child.data());
+        std::cout << TRACEMSG(std::string{} + " Process execv error: [" + strerror(errno) + "]," +
+                " executable: [" + executable + "], args size: [" + to_string(args.size()) + "]") << std::endl;
+        if (-1 == res) _exit(errno);        
+        return 0;
+    }
+}
+#endif
+
+} // namespace
 
 int shell_exec_and_wait(const std::string& cmd) {
 #ifdef STATICLIB_WINDOWS
@@ -40,6 +179,31 @@ int shell_exec_and_wait(const std::string& cmd) {
 #else
     return std::system(cmd.c_str());
 #endif // STATICLIB_WINDOWS
+}
+
+int exec_and_wait(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
+#ifdef STATICLIB_LINUX
+    int pid = exec_async(executable, args, out);
+    int status;
+    while (waitpid(pid, &status, 0) < 0) {
+        switch (errno) {
+        case ECHILD: return 0;
+        case EINTR: break;
+        default: return -1;
+        }
+    }
+    return WEXITSTATUS(status);
+#else 
+    return -1;
+#endif // STATICLIB_LINUX    
+}
+
+int exec_async(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
+#ifdef STATICLIB_LINUX
+    return exec_async_linux(executable, args, out);
+#else 
+    return -1;
+#endif // STATICLIB_LINUX
 }
 
 } // namespace
