@@ -38,6 +38,7 @@
 #include <dirent.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <signal.h>
 #endif // STATICLIB_LINUX || STATICLIB_MAC
 #include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/tracemsg.hpp"
@@ -65,6 +66,7 @@ int parse_int_nothrow(char* fd_name) {
     return res;
 }
 
+#ifdef STATICLIB_LINUX
 void close_descriptors_nothrow() {    
     for (;;) {        
         // open descriptors dir
@@ -79,8 +81,8 @@ void close_descriptors_nothrow() {
         std::array<int, 1024> fd_list{{}};
         errno = 0;
         size_t idx = 0;
-        struct dirent64* dirp;
-        while ((dirp = readdir64(dp)) != NULL) {
+        struct dirent* dirp;
+        while ((dirp = readdir(dp)) != NULL) {
             int fd = parse_int_nothrow(dirp->d_name);            
             if (-1 != fd && STDOUT_FILENO != fd && STDERR_FILENO != fd) {
                fd_list[idx++] = fd;
@@ -88,10 +90,10 @@ void close_descriptors_nothrow() {
             }
             errno = 0;
         }                
-        // readdir64 failed
+        // readdir failed
         if (errno > 0) {
             std::cout << TRACEMSG(std::string{} + 
-                    "Process readdir64 failed: [" + ::strerror(errno) + "]") << std::endl;
+                    "Process readdir failed: [" + ::strerror(errno) + "]") << std::endl;
             _exit(errno);
         }
         for (size_t i = 0; i < idx; i++) {
@@ -102,6 +104,17 @@ void close_descriptors_nothrow() {
         if (idx < fd_list.size()) break;
     }
 }
+#endif // STATICLIB_LINUX
+#ifdef STATICLIB_MAC
+void close_descriptors_nothrow() {    
+    (void) parse_int_nothrow;	
+    int max_fd = static_cast<int>(::sysconf(_SC_OPEN_MAX));
+    close(STDIN_FILENO);
+    for (int fd = STDERR_FILENO + 1; fd < max_fd; fd++) {
+        close(fd);
+    }
+}
+#endif // STATICLIB_MAC
 
 void copy_descriptor_nothrow(int from, int to) {
     long int res;
@@ -113,12 +126,14 @@ void copy_descriptor_nothrow(int from, int to) {
 }
 
 void setsid_nothrow() {
+#ifdef STATICLIB_LINUX
     pid_t sid = setsid();
     if (sid < 0) {
         std::cout << TRACEMSG(std::string{} + 
                 "Process setsid error: [" + ::strerror(errno) + "]") << std::endl;
         _exit(sid);
     }
+#endif // STATICLIB_LINUX
 }
 
 void reset_signals_nothrow() {
@@ -126,13 +141,13 @@ void reset_signals_nothrow() {
     struct sigaction sig_action;
     sig_action.sa_handler = SIG_DFL;
     sig_action.sa_flags = 0;
-    ::sigemptyset(std::addressof(sig_action.sa_mask));
+    sigemptyset(std::addressof(sig_action.sa_mask));
     for (int i = 0; i < NSIG; i++) {
         ::sigaction(i, std::addressof(sig_action), nullptr);
     }
     // resume all signals
     sigset_t allmask;
-    ::sigfillset(std::addressof(allmask));
+    sigfillset(std::addressof(allmask));
     int err = ::pthread_sigmask(SIG_SETMASK, std::addressof(allmask), nullptr);
     if (0 != err) {
         std::cout << TRACEMSG(std::string{} +
@@ -151,7 +166,7 @@ void sigchild_handler(int) {
 void register_signal(int signum, int flags, void (*handler)(int)) {
     struct sigaction sa;
     sa.sa_handler = handler;
-    ::sigemptyset(std::addressof(sa.sa_mask));
+    sigemptyset(std::addressof(sa.sa_mask));
     sa.sa_flags = flags;
     int res = ::sigaction(signum, std::addressof(sa), 0);
     if (-1 == res) throw UtilsException(TRACEMSG(std::string{} + 
@@ -161,7 +176,7 @@ void register_signal(int signum, int flags, void (*handler)(int)) {
 
 sigset_t block_signals() {
     sigset_t oldmask, newmask;
-    ::sigfillset(std::addressof(newmask));
+    sigfillset(std::addressof(newmask));
     int err = ::pthread_sigmask(SIG_SETMASK, std::addressof(newmask), std::addressof(oldmask));
     if (0 != err) throw UtilsException(TRACEMSG(std::string{} +
             "Error blocking signals in parent: [" + ::strerror(err) + "]"));
