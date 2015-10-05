@@ -15,7 +15,7 @@ namespace { // anonymous
 namespace su = staticlib::utils;
 
 void test_shell_exec() {
-//    su::shell_exec_and_wait("echo aaa > echo_out1.txt");
+    su::shell_exec_and_wait("echo aaa > echo_out.txt");
 }
 
 void test_exec_async() {
