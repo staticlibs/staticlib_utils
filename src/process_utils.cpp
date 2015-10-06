@@ -126,6 +126,7 @@ void copy_descriptor_nothrow(int from, int to) {
 }
 
 void setsid_nothrow() {
+// todo: fixme for mac
 #ifdef STATICLIB_LINUX
     pid_t sid = setsid();
     if (sid < 0) {
@@ -245,6 +246,58 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
     }
 }
 #endif
+#ifdef STATICLIB_WINDOWS
+HANDLE exec_async_windows(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
+    // open stdout file
+    SECURITY_ATTRIBUTES sa;
+    sa.nLength = sizeof(sa);
+    sa.lpSecurityDescriptor = nullptr;
+    sa.bInheritHandle = TRUE; 
+    HANDLE out_handle = ::CreateFileW(
+            std::addressof(widen(out).front()), 
+            FILE_WRITE_DATA | FILE_APPEND_DATA,
+            FILE_SHARE_WRITE | FILE_SHARE_READ,
+            std::addressof(sa),
+            CREATE_ALWAYS,
+            FILE_ATTRIBUTE_NORMAL,
+            nullptr);
+    if (INVALID_HANDLE_VALUE == out_handle) throw UtilsException(TRACEMSG(std::string{} +
+            "Error opening out file descriptor: [" + errcode_to_string(::GetLastError()) + "]" +
+            ", specified out path: [" + out + "]"));
+    // prepare process
+    STARTUPINFO si;
+    ::memset(std::addressof(si), 0, sizeof(STARTUPINFO));
+    si.cb = sizeof(si);
+    si.dwFlags = STARTF_USESTDHANDLES;
+    si.hStdInput = nullptr;
+    si.hStdError = out_handle;
+    si.hStdOutput = out_handle;
+    PROCESS_INFORMATION pi;
+    memset(&pi, 0, sizeof(PROCESS_INFORMATION));
+    std::string cmd_string = "\"" + executable + "\"";
+    for (std::string& arg : args) {
+        cmd_string += " ";
+        cmd_string += arg;
+    }
+    // run process
+    auto ret = ::CreateProcessW(
+            nullptr, 
+            std::addressof(widen(cmd_string).front()), 
+            nullptr, 
+            nullptr, 
+            false, 
+            CREATE_NEW_PROCESS_GROUP | DETACHED_PROCESS | CREATE_NO_WINDOW | CREATE_UNICODE_ENVIRONMENT, 
+            nullptr, 
+            nullptr, 
+            &si, 
+            &pi);
+    if (0 == ret) throw UtilsException(TRACEMSG(std::string{} +
+            " Process create error: [" + errcode_to_string(::GetLastError()) + "]," +
+            " command line: [" + cmd_string + "], output: [" + out + "]")
+    CloseHandle(pi.hThread);
+    return pi.hProcess;
+}
+#endif // STATICLIB_WINDOWS
 
 } // namespace
 
@@ -270,9 +323,15 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
         }
     }
     return WEXITSTATUS(status);
-#else 
-    return -1;
-#endif // STATICLIB_LINUX    
+#elif defined(STATICLIB_WINDOWS)
+    HANDLE ha = exec_async_windows(executable, args, out);
+    auto ret = WaitForSingleObject(ha, INFINITE);
+    if (WAIT_FAILED == ret) throw UtilsException(TRACEMSG(std::string{} +
+            "Error waiting for child process: [" + errcode_to_string(::GetLastError()) + "]" +
+            " executable: [" + executable + "], args size: [" + to_string(args.size()) + "], " +
+            " specified out path: [" + out + "]"));
+    return ::GetExitCodeProcess(ha);
+#endif
 }
 
 int exec_async(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
@@ -280,9 +339,12 @@ int exec_async(const std::string& executable, const std::vector<std::string>& ar
     pid_t pid =  exec_async_unix(executable, args, out);
     register_signal(SIGCHLD, SA_RESTART | SA_NOCLDSTOP, sigchild_handler);
     return pid;
-#else 
+#elif defined(STATICLIB_WINDOWS)
+    HANDLE ha = exec_async_windows(executable, args, out);
+    return ::GetProcessId(ha);
+#else
     return -1;
-#endif // STATICLIB_LINUX
+#endif
 }
 
 } // namespace
