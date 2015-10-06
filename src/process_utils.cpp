@@ -30,6 +30,7 @@
 
 #include "staticlib/utils/config.hpp"
 #ifdef STATICLIB_WINDOWS
+#include <windows.h>
 #include "staticlib/utils/windows.hpp"
 #endif // STATICLIB_WINDOWS
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
@@ -245,8 +246,9 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
         return 0;
     }
 }
-#endif
+#endif // STATICLIB_LINUX || STATICLIB_MAC
 #ifdef STATICLIB_WINDOWS
+// todo: fixme, zero output
 HANDLE exec_async_windows(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
     // open stdout file
     SECURITY_ATTRIBUTES sa;
@@ -265,7 +267,7 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
             "Error opening out file descriptor: [" + errcode_to_string(::GetLastError()) + "]" +
             ", specified out path: [" + out + "]"));
     // prepare process
-    STARTUPINFO si;
+    STARTUPINFOW si;
     ::memset(std::addressof(si), 0, sizeof(STARTUPINFO));
     si.cb = sizeof(si);
     si.dwFlags = STARTF_USESTDHANDLES;
@@ -275,7 +277,7 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
     PROCESS_INFORMATION pi;
     memset(&pi, 0, sizeof(PROCESS_INFORMATION));
     std::string cmd_string = "\"" + executable + "\"";
-    for (std::string& arg : args) {
+    for (const std::string& arg : args) {
         cmd_string += " ";
         cmd_string += arg;
     }
@@ -289,12 +291,12 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
             CREATE_NEW_PROCESS_GROUP | DETACHED_PROCESS | CREATE_NO_WINDOW | CREATE_UNICODE_ENVIRONMENT, 
             nullptr, 
             nullptr, 
-            &si, 
-            &pi);
+            std::addressof(si), 
+            std::addressof(pi));
     if (0 == ret) throw UtilsException(TRACEMSG(std::string{} +
             " Process create error: [" + errcode_to_string(::GetLastError()) + "]," +
-            " command line: [" + cmd_string + "], output: [" + out + "]")
-    CloseHandle(pi.hThread);
+            " command line: [" + cmd_string + "], output: [" + out + "]"));
+    ::CloseHandle(pi.hThread);
     return pi.hProcess;
 }
 #endif // STATICLIB_WINDOWS
@@ -330,7 +332,9 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
             "Error waiting for child process: [" + errcode_to_string(::GetLastError()) + "]" +
             " executable: [" + executable + "], args size: [" + to_string(args.size()) + "], " +
             " specified out path: [" + out + "]"));
-    return ::GetExitCodeProcess(ha);
+    DWORD res;
+    ::GetExitCodeProcess(ha, std::addressof(res));
+    return res;
 #endif
 }
 

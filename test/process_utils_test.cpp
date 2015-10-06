@@ -7,7 +7,9 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
+#include "staticlib/utils/config.hpp"
 #include "staticlib/utils/process_utils.hpp"
 
 namespace { // anonymous
@@ -19,11 +21,19 @@ void test_shell_exec() {
 }
 
 void test_exec_async() {
-    su::exec_async("/bin/ls", {"-l", "-a", "-h"},"ls_async_out.txt");
+#ifdef STATICLIB_WINDOWS
+    su::exec_async("c:/windows/system32/ipconfig", {"/all"}, "ipconfig_async_out.txt");
+#else
+    su::exec_async("/bin/ls", {"-l", "-a", "-h"}, "ls_async_out.txt");
+#endif // STATICLIB_WINDOWS
 }
 
 void test_exec_and_wait() {
-    su::exec_and_wait("/bin/ls", {"-l", "-a", "-h"}, "ls_wait_out.txt");
+#ifdef STATICLIB_WINDOWS
+    su::exec_and_wait("c:/windows/system32/ipconfig", {"/all"}, "ipconfig_wait_out.txt");
+#else
+    su::exec_and_wait("/bin/ls", {"-l", "-a", "-h"}, "ls_async_out.txt");
+#endif // STATICLIB_WINDOWS
 }
 
 } // namespace
