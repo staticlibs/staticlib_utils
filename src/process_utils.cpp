@@ -30,6 +30,7 @@
 
 #include "staticlib/utils/config.hpp"
 #ifdef STATICLIB_WINDOWS
+#include <mutex>
 #include <windows.h>
 #include "staticlib/utils/windows.hpp"
 #endif // STATICLIB_WINDOWS
@@ -248,8 +249,15 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
 }
 #endif // STATICLIB_LINUX || STATICLIB_MAC
 #ifdef STATICLIB_WINDOWS
-// todo: fixme, zero output
+std::mutex& get_static_mutex() {
+    static std::mutex mutex{};
+    return mutex;
+}
+
 HANDLE exec_async_windows(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
+    // workaround for handle inheritance race condition here, solution exists for vista+
+    // http://blogs.msdn.com/b/oldnewthing/archive/2011/12/16/10248328.aspx
+    std::lock_guard<std::mutex> guard{get_static_mutex()};
     // open stdout file
     SECURITY_ATTRIBUTES sa;
     sa.nLength = sizeof(sa);
@@ -275,7 +283,7 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
     si.hStdError = out_handle;
     si.hStdOutput = out_handle;
     PROCESS_INFORMATION pi;
-    memset(&pi, 0, sizeof(PROCESS_INFORMATION));
+    memset(std::addressof(pi), 0, sizeof(PROCESS_INFORMATION));
     std::string cmd_string = "\"" + executable + "\"";
     for (const std::string& arg : args) {
         cmd_string += " ";
@@ -287,12 +295,13 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
             std::addressof(widen(cmd_string).front()), 
             nullptr, 
             nullptr, 
-            false, 
+            true, 
             CREATE_NEW_PROCESS_GROUP | DETACHED_PROCESS | CREATE_NO_WINDOW | CREATE_UNICODE_ENVIRONMENT, 
             nullptr, 
             nullptr, 
             std::addressof(si), 
             std::addressof(pi));
+    ::CloseHandle(out_handle);
     if (0 == ret) throw UtilsException(TRACEMSG(std::string{} +
             " Process create error: [" + errcode_to_string(::GetLastError()) + "]," +
             " command line: [" + cmd_string + "], output: [" + out + "]"));
@@ -345,7 +354,9 @@ int exec_async(const std::string& executable, const std::vector<std::string>& ar
     return pid;
 #elif defined(STATICLIB_WINDOWS)
     HANDLE ha = exec_async_windows(executable, args, out);
-    return ::GetProcessId(ha);
+    int res = ::GetProcessId(ha);
+    ::CloseHandle(ha);
+    return res;
 #else
     return -1;
 #endif
