@@ -28,6 +28,7 @@
 #include "staticlib/utils/RandomStringGenerator.hpp"
 #include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/config.hpp"
+#include "staticlib/utils/file_io.hpp"
 #include "staticlib/utils/io_utils.hpp"
 #include "staticlib/utils/memory_utils.hpp"
 #include "staticlib/utils/parse_int.hpp"

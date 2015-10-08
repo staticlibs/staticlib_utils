@@ -247,7 +247,7 @@ protected:
      * @param s source buffer 
      * @param count number of characters to erite
      */
-    virtual std::streamsize xsputn(const char_type* s, std::streamsize count) override {
+    virtual std::streamsize xsputn(const char* s, std::streamsize count) override {
         return sink.write(s, count);
     }
     
