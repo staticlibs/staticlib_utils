@@ -48,7 +48,7 @@ FileDescriptor::FileDescriptor(std::string file_path, char mode) :
 handle(nullptr),
 file_path(std::move(file_path)),
 mode(mode) {        
-    std::wstring wpath = widen(file_path);
+    std::wstring wpath = widen(this->file_path);
     DWORD dwDesiredAccess;
     DWORD dwCreationDisposition;
     switch (mode) {
@@ -61,7 +61,7 @@ mode(mode) {
         dwCreationDisposition = CREATE_ALWAYS;
         break;
     default: throw UtilsException(TRACEMSG(std::string{} +
-        "Invalid open mode: [" + mode + "] for file: [" + file_path + "]"));
+        "Invalid open mode: [" + mode + "] for file: [" + this->file_path + "]"));
     }
     handle = ::CreateFileW(
             wpath.c_str(),
@@ -73,7 +73,7 @@ mode(mode) {
             NULL);
     if (INVALID_HANDLE_VALUE == handle) throw UtilsException(TRACEMSG(std::string{} +
             "Error opening file descriptor: [" + errcode_to_string(::GetLastError()) + "]" +
-            ", specified path: [" + file_path + "]"));
+            ", specified path: [" + this->file_path + "]"));
 }
 
 FileDescriptor::~FileDescriptor() STATICLIB_NOEXCEPT {
@@ -82,10 +82,9 @@ FileDescriptor::~FileDescriptor() STATICLIB_NOEXCEPT {
 
 std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
     if ('r' == mode) {
-        if (-1 != fd) {
+        if (nullptr != handle) {
             DWORD res;
-            ::ReadFile(handle, buf, count, std::addressof(result), nullptr)
-            auto err = ::read(fd, buf, count);
+            auto err = ::ReadFile(handle, buf, static_cast<DWORD>(count), std::addressof(res), nullptr);
             if (0 != err) return res;
             throw UtilsException(TRACEMSG(std::string{} +
                     "Read error from file: [" + file_path + "]," +
@@ -98,10 +97,10 @@ std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
 
 std::streamsize FileDescriptor::write(const char* buf, std::streamsize count) {
     if ('w' == mode) {
-        if (-1 != fd) {
+        if (nullptr != handle) {
             DWORD res;
-            auto err = ::WriteFile(handle, buf, count, std::addressof(res), nullptr);
-            if (0 != res) return res;
+            auto err = ::WriteFile(handle, buf, static_cast<DWORD>(count), std::addressof(res), nullptr);
+            if (0 != err) return res;
             throw UtilsException(TRACEMSG(std::string{} +
                     "Write error to file: [" + file_path + "]," +
                     " error: [" + errcode_to_string(::GetLastError()) + "]"));
@@ -112,8 +111,8 @@ std::streamsize FileDescriptor::write(const char* buf, std::streamsize count) {
 }
 
 std::streampos FileDescriptor::seek(std::streamsize offset, char whence) {
-    if (-1 != fd) {
-        DWORD dwMoveMethod
+    if (nullptr != handle) {
+        DWORD dwMoveMethod;
         switch (whence) {
         case 'b': dwMoveMethod = FILE_BEGIN; break;
         case 'c': dwMoveMethod = FILE_CURRENT; break;
@@ -129,12 +128,11 @@ std::streampos FileDescriptor::seek(std::streamsize offset, char whence) {
                 std::addressof(lDistanceToMoveHigh),
                 dwMoveMethod);
         if (INVALID_SET_FILE_POINTER != dwResultLow || ::GetLastError() == NO_ERROR) {
-            return (lDistanceToMoveHigh) << 32) + dwResultLow;
+            return (static_cast<long long int>(lDistanceToMoveHigh) << 32) + dwResultLow;
         }
         throw UtilsException(TRACEMSG(std::string{} +
                 "Seek error over file: [" + file_path + "]," +
                 " error: [" + errcode_to_string(::GetLastError()) + "]"));
-        return res;
     } else throw UtilsException(TRACEMSG(std::string{} +
             "Attempt to seek over closed file: [" + file_path + "]"));
 }

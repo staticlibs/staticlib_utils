@@ -34,7 +34,11 @@ namespace { // anonymous
 namespace su = staticlib::utils;
 
 void test_desc() {
-    su::FileDescriptor desc{"CMakeCache.txt", 'r'};
+    //try {
+        su::FileDescriptor desc{"CMakeCache.txt", 'r'};
+    //} catch (const std::exception& e) {
+    //    std::cout << e.what() << std::endl;
+    //}
 }
 
 void test_desc_fail() {
