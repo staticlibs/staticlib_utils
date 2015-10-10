@@ -226,5 +226,9 @@ void FileDescriptor::close() STATICLIB_NOEXCEPT {
 
 #endif // STATICLIB_WINDOWS
 
+std::streamsize FileDescriptor::flush() {
+    return 0;
+}
+
 } // namespace
 }

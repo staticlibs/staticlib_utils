@@ -51,6 +51,8 @@ public:
     
     std::streampos seek(std::streamsize offset, char whence = 'b');
     
+    std::streamsize flush();
+    
     void close() STATICLIB_NOEXCEPT;
 };
 
