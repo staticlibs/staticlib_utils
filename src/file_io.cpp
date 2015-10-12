@@ -28,6 +28,7 @@
 #include <windows.h>
 #include "staticlib/utils/windows.hpp"
 #else // STATICLIB_WINDOWS
+#include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <cstdlib>
@@ -105,7 +106,7 @@ std::streamsize FileDescriptor::write(const char* buf, std::streamsize count) {
                     "Write error to file: [" + file_path + "]," +
                     " error: [" + errcode_to_string(::GetLastError()) + "]"));
         } else throw UtilsException(TRACEMSG(std::string{} +
-        "Attempt to write into closed file: [" + file_path + "]"));
+                "Attempt to write into closed file: [" + file_path + "]"));
     } else throw UtilsException(TRACEMSG(std::string{} +
     "Attempt to write into file opened in 'r' mode: [" + file_path + "]"));
 }
@@ -142,6 +143,19 @@ void FileDescriptor::close() STATICLIB_NOEXCEPT {
         ::CloseHandle(handle);
         handle = nullptr;
     }
+}
+
+off_t FileDescriptor::size() {
+    if (nullptr != handle) {
+        LARGE_INTEGER res = -1;
+        auto err = ::GetFileSizeEx(handle, std::addressof(res));
+        if (0 != err) {
+            return static_cast<off_t>(res);
+        } throw UtilsException(TRACEMSG(std::string{} +
+                "Error getting size of file: [" + file_path + "]," +
+                " error: [" + errcode_to_string(::GetLastError()) + "]"));
+    } else throw UtilsException(TRACEMSG(std::string{} +
+            "Attempt to get size of closed file: [" + file_path + "]"));
 }
 
 #else // STATICLIB_WINDOWS
@@ -222,6 +236,20 @@ void FileDescriptor::close() STATICLIB_NOEXCEPT {
         ::close(fd);
         fd = -1;
     }
+}
+
+off_t FileDescriptor::size() {
+    if (-1 != fd) {
+        struct stat64 stat_buf;
+        int rc = ::fstat64(fd, &stat_buf);
+        if (0 == rc) {
+            return stat_buf.st_size;
+        }
+        throw UtilsException(TRACEMSG(std::string{} +
+                "Error getting size of file: [" + file_path + "]," +
+                " error: [" + ::strerror(errno) + "]"));
+    } else throw UtilsException(TRACEMSG(std::string{} +
+            "Attempt to get size of closed file: [" + file_path + "]"));
 }
 
 #endif // STATICLIB_WINDOWS

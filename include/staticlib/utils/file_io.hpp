@@ -53,6 +53,8 @@ public:
     
     std::streamsize flush();
     
+    off_t size();
+    
     void close() STATICLIB_NOEXCEPT;
 };
 

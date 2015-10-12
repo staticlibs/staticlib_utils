@@ -35,7 +35,7 @@ namespace su = staticlib::utils;
 
 void test_desc() {
     //try {
-        su::FileDescriptor desc{"CMakeCache.txt", 'r'};
+    su::FileDescriptor desc{"CMakeCache.txt", 'r'};
     //} catch (const std::exception& e) {
     //    std::cout << e.what() << std::endl;
     //}
@@ -68,6 +68,11 @@ void test_write() {
     desc.write("aaa", 3);
 }
 
+void test_size() {
+    su::FileDescriptor desc{"file_io_test_out.txt", 'r'};
+    assert(3 == desc.size());
+}
+
 }
 
 int main() {
@@ -75,6 +80,7 @@ int main() {
     test_desc_fail();
     test_read();
     test_write();
+    test_size();
     
     return 0;
 }
