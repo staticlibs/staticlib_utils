@@ -73,6 +73,12 @@ void test_size() {
     assert(3 == desc.size());
 }
 
+void test_move() {
+    su::FileDescriptor desc{"file_io_test_out.txt", 'r'};
+    su::FileDescriptor moved{std::move(desc)};
+    assert(3 == moved.size());
+}
+
 }
 
 int main() {
@@ -81,6 +87,7 @@ int main() {
     test_read();
     test_write();
     test_size();
+    test_move();
     
     return 0;
 }

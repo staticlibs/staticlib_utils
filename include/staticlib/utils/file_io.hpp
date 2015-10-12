@@ -44,6 +44,14 @@ public:
     FileDescriptor(std::string file_path, char mode);
     
     ~FileDescriptor() STATICLIB_NOEXCEPT;
+    
+    FileDescriptor(const FileDescriptor&) = delete;
+    
+    FileDescriptor& operator=(const FileDescriptor&) = delete;
+
+    FileDescriptor(FileDescriptor&& other);
+
+    FileDescriptor& operator=(FileDescriptor&& other);
 
     std::streamsize read(char* buf, std::streamsize count);
     

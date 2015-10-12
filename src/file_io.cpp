@@ -184,6 +184,19 @@ FileDescriptor::~FileDescriptor() STATICLIB_NOEXCEPT {
     close();
 }
 
+FileDescriptor::FileDescriptor(FileDescriptor&& other) :
+fd(other.fd),
+mode(other.mode) {
+    other.fd = -1;
+}
+
+FileDescriptor& FileDescriptor::operator=(FileDescriptor&& other) {
+    fd = other.fd;
+    other.fd = -1;
+    mode = other.mode;
+    return *this;
+}
+
 std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
     if ('r' == mode) {
         if (-1 != fd) {
