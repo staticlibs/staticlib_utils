@@ -21,6 +21,8 @@
  * Created on October 8, 2015, 12:54 PM
  */
 
+#include <iostream>
+
 #include <string>
 
 #include "staticlib/utils/config.hpp"
@@ -100,8 +102,9 @@ std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
         if (nullptr != handle) {
             DWORD res;
             auto err = ::ReadFile(handle, buf, static_cast<DWORD>(count), std::addressof(res), nullptr);
-            if (0 != err) return res;
-            if (ERROR_HANDLE_EOF == ::GetLastError()) return std::char_traits<char>::eof();
+            if (0 != err) {
+                return res > 0 ? res : std::char_traits<char>::eof();
+            }
             throw UtilsException(TRACEMSG(std::string{} +
                     "Read error from file: [" + file_path + "]," +
                     " error: [" + errcode_to_string(::GetLastError()) + "]"));
