@@ -77,6 +77,20 @@ mode(mode) {
             ", specified path: [" + this->file_path + "]"));
 }
 
+
+FileDescriptor::FileDescriptor(FileDescriptor&& other) :
+handle(other.handle),
+mode(other.mode) {
+    other.handle = nullptr;
+}
+
+FileDescriptor& FileDescriptor::operator=(FileDescriptor&& other) {
+    handle = other.handle;
+    other.handle = nullptr;
+    mode = other.mode;
+    return *this;
+}
+
 FileDescriptor::~FileDescriptor() STATICLIB_NOEXCEPT {
     close();
 }
@@ -148,9 +162,8 @@ void FileDescriptor::close() STATICLIB_NOEXCEPT {
 
 off_t FileDescriptor::size() {
     if (nullptr != handle) {
-        LARGE_INTEGER res = -1;
-        auto err = ::GetFileSizeEx(handle, std::addressof(res));
-        if (0 != err) {
+        DWORD res = ::GetFileSize(handle, nullptr);
+        if (INVALID_FILE_SIZE != res || ::GetLastError() == NO_ERROR) {
             return static_cast<off_t>(res);
         } throw UtilsException(TRACEMSG(std::string{} +
                 "Error getting size of file: [" + file_path + "]," +
