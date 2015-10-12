@@ -21,8 +21,6 @@
  * Created on October 8, 2015, 12:54 PM
  */
 
-#include <iostream>
-
 #include <string>
 
 #include "staticlib/utils/config.hpp"
