@@ -87,6 +87,7 @@ std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
             DWORD res;
             auto err = ::ReadFile(handle, buf, static_cast<DWORD>(count), std::addressof(res), nullptr);
             if (0 != err) return res;
+            if (ERROR_HANDLE_EOF == ::GetLastError()) return std::char_traits<char>::eof();
             throw UtilsException(TRACEMSG(std::string{} +
                     "Read error from file: [" + file_path + "]," +
                     " error: [" + errcode_to_string(::GetLastError()) + "]"));
@@ -201,7 +202,9 @@ std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
     if ('r' == mode) {
         if (-1 != fd) {
             auto res = ::read(fd, buf, count);
-            if (-1 != res) return res;
+            if (-1 != res) {
+                return res > 0 ? res : std::char_traits<char>::eof();
+            }
             throw UtilsException(TRACEMSG(std::string{} +
                     "Read error from file: [" + file_path +"]," +
                     " error: [" + ::strerror(errno) + "]"));
