@@ -63,11 +63,11 @@
     #define STATICLIB_IOS
     #elif TARGET_OS_MAC
     #define STATICLIB_MAC
-    #endif
-#elif __linux
-#define STATICLIB_LINUX
+#endif
 #elif __ANDROID__
 #define STATICLIB_ANDROID
+#elif __linux
+#define STATICLIB_LINUX
 #endif
 
 #endif	/* STATICLIB_CONFIG_HPP */
