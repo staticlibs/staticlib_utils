@@ -24,6 +24,7 @@
 #ifndef STATICLIB_FILE_IO_HPP
 #define	STATICLIB_FILE_IO_HPP
 
+#include <ios>
 #include <string>
 #include <memory>
 

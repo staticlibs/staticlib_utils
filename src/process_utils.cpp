@@ -344,6 +344,11 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
     DWORD res;
     ::GetExitCodeProcess(ha, std::addressof(res));
     return res;
+#else
+    (void) executable;
+    (void) args;
+    (void) out;
+    return -1;
 #endif
 }
 
@@ -358,6 +363,9 @@ int exec_async(const std::string& executable, const std::vector<std::string>& ar
     ::CloseHandle(ha);
     return res;
 #else
+    (void) executable;
+    (void) args;
+    (void) out;
     return -1;
 #endif
 }

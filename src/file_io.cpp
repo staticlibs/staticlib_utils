@@ -270,8 +270,13 @@ void FileDescriptor::close() STATICLIB_NOEXCEPT {
 
 off_t FileDescriptor::size() {
     if (-1 != fd) {
+#if defined(STATICLIB_MAC) || defined(STATICLIB_IOS)
+        struct stat stat_buf;
+        int rc = ::fstat(fd, &stat_buf);
+#else
         struct stat64 stat_buf;
         int rc = ::fstat64(fd, &stat_buf);
+#endif // STATICLIB_MAC || STATICLIB_IOS
         if (0 == rc) {
             return stat_buf.st_size;
         }
