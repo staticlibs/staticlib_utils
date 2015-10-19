@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['seekoff',['seekoff',['../classstaticlib_1_1utils_1_1unbuffered__streambuf__base.html#af9a8cb8fccb7e1dcaacacf5b51a2dc80',1,'staticlib::utils::unbuffered_streambuf_base']]],
-  ['seekpos',['seekpos',['../classstaticlib_1_1utils_1_1unbuffered__streambuf__base.html#ab647c6f76c2e636d0888b00ed6cbef9b',1,'staticlib::utils::unbuffered_streambuf_base']]],
-  ['setbuf',['setbuf',['../classstaticlib_1_1utils_1_1unbuffered__streambuf__base.html#ac48b05f3481aab09e489a7e64e0aeeae',1,'staticlib::utils::unbuffered_streambuf_base']]]
+  ['seek',['seek',['../classstaticlib_1_1utils_1_1FileDescriptor.html#a6cf385feb8ef95edc8fa11741d8c96f8',1,'staticlib::utils::FileDescriptor']]],
+  ['shell_5fexec_5fand_5fwait',['shell_exec_and_wait',['../namespacestaticlib_1_1utils.html#ad40a4f02e9668fe1a377be36efeacd91',1,'staticlib::utils']]],
+  ['size',['size',['../classstaticlib_1_1utils_1_1FileDescriptor.html#a6e75650c416f47c9f38de036acd4297a',1,'staticlib::utils::FileDescriptor']]]
 ];

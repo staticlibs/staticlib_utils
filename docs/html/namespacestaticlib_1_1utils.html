@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_utils
-   &#160;<span id="projectnumber">1.2.0</span>
+   &#160;<span id="projectnumber">1.3.0</span>
    </div>
   </td>
  </tr>
@@ -97,12 +97,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1BaseException.html">BaseException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base exception class for business exceptions in staticlib modules.  <a href="classstaticlib_1_1utils_1_1BaseException.html#details">More...</a><br/></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1unbuffered__streambuf__base.html">unbuffered_streambuf_base</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for unbuffered streambuf implementations.  <a href="classstaticlib_1_1utils_1_1unbuffered__streambuf__base.html#details">More...</a><br/></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1unbuffered__source.html">unbuffered_source</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unbuffered implementation of input streambuf, wraps Source reference (in terms of Boost.Iostreams).  <a href="classstaticlib_1_1utils_1_1unbuffered__source.html#details">More...</a><br/></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1unbuffered__sink.html">unbuffered_sink</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unbuffered implementation of output streambuf, wraps Sink reference (in terms of Boost.Iostreams).  <a href="classstaticlib_1_1utils_1_1unbuffered__sink.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1FileDescriptor.html">FileDescriptor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of a file descriptor/handle wrapper with a unified interface for *nix and windows.  <a href="classstaticlib_1_1utils_1_1FileDescriptor.html#details">More...</a><br/></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1free__deleter.html">free_deleter</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deleter implementation for smart pointer classes.  <a href="classstaticlib_1_1utils_1_1free__deleter.html#details">More...</a><br/></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1RandomStringGenerator.html">RandomStringGenerator</a></td></tr>
@@ -112,16 +108,6 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7928eb06b7dc36f3eff0288d5a58e744"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a7928eb06b7dc36f3eff0288d5a58e744">write_all</a> (std::streambuf &amp;sink, const char *buf, std::streamsize buflen)</td></tr>
-<tr class="memdesc:a7928eb06b7dc36f3eff0288d5a58e744"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes buffer contents to the specified Sink ensuring that the specified number of bytes are written to Sink (making multiple write calls to Sink if needed).  <a href="#a7928eb06b7dc36f3eff0288d5a58e744"></a><br/></td></tr>
-<tr class="memitem:a9c87220b87dd1a128245c71c23a6b85b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a9c87220b87dd1a128245c71c23a6b85b">write_all</a> (std::streambuf &amp;sink, const std::string &amp;str)</td></tr>
-<tr class="memdesc:a9c87220b87dd1a128245c71c23a6b85b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes string contents to the specified Sink ensuring that the specified number of bytes are written to Sink (making multiple write calls to Sink if needed).  <a href="#a9c87220b87dd1a128245c71c23a6b85b"></a><br/></td></tr>
-<tr class="memitem:af63df1b175d8aaa3b5e1055cd2a30335"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#af63df1b175d8aaa3b5e1055cd2a30335">read_all</a> (std::streambuf &amp;src, char *buf, std::streamsize buflen)</td></tr>
-<tr class="memdesc:af63df1b175d8aaa3b5e1055cd2a30335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads specified number of bytes from the Source into the buffer.  <a href="#af63df1b175d8aaa3b5e1055cd2a30335"></a><br/></td></tr>
-<tr class="memitem:a9aff58dbd4bdfec7ce27d785f2c22cf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a9aff58dbd4bdfec7ce27d785f2c22cf5">read_exact</a> (std::streambuf &amp;src, char *buf, std::streamsize buflen)</td></tr>
-<tr class="memdesc:a9aff58dbd4bdfec7ce27d785f2c22cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads specified number of bytes from the Source into the buffer.  <a href="#a9aff58dbd4bdfec7ce27d785f2c22cf5"></a><br/></td></tr>
-<tr class="memitem:a070176935f88b13bdbdda89a9883ef59"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a070176935f88b13bdbdda89a9883ef59">copy_all</a> (std::streambuf &amp;src, std::streambuf &amp;sink, char *buf, std::streamsize buflen)</td></tr>
-<tr class="memdesc:a070176935f88b13bdbdda89a9883ef59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies data from Source to Sink using specified buffer until source will be exhausted.  <a href="#a070176935f88b13bdbdda89a9883ef59"></a><br/></td></tr>
 <tr class="memitem:a03ff86f3818f9bad5622b3d18a82a70c"><td class="memTemplParams" colspan="2">template&lt;typename T , typename... Args&gt; </td></tr>
 <tr class="memitem:a03ff86f3818f9bad5622b3d18a82a70c"><td class="memTemplItemLeft" align="right" valign="top">std::unique_ptr&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a03ff86f3818f9bad5622b3d18a82a70c">make_unique</a> (Args &amp;&amp;...args)</td></tr>
 <tr class="memdesc:a03ff86f3818f9bad5622b3d18a82a70c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shortcut template for creating <code>std::unique_ptr</code>, see <a href="http://herbsutter.com/gotw/_102/">details</a>.  <a href="#a03ff86f3818f9bad5622b3d18a82a70c"></a><br/></td></tr>
@@ -137,6 +123,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:a7271954bfde175ff8f30d34ed391fd84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses <code>int64_t</code> with base 10 from specified string using <code>strto*l</code>  <a href="#a7271954bfde175ff8f30d34ed391fd84"></a><br/></td></tr>
 <tr class="memitem:a488e13cac127e99a1299835cb3c59c7e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a488e13cac127e99a1299835cb3c59c7e">parse_uint64</a> (const std::string &amp;str)</td></tr>
 <tr class="memdesc:a488e13cac127e99a1299835cb3c59c7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses <code>uint64_t</code> with base 10 from specified string using <code>strto*l</code>  <a href="#a488e13cac127e99a1299835cb3c59c7e"></a><br/></td></tr>
+<tr class="memitem:ad40a4f02e9668fe1a377be36efeacd91"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#ad40a4f02e9668fe1a377be36efeacd91">shell_exec_and_wait</a> (const std::string &amp;cmd)</td></tr>
+<tr class="memdesc:ad40a4f02e9668fe1a377be36efeacd91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts shell process with the specified command and waits for it to exit.  <a href="#ad40a4f02e9668fe1a377be36efeacd91"></a><br/></td></tr>
+<tr class="memitem:a5ac77221de8781b3ff3224b19d32b07f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a5ac77221de8781b3ff3224b19d32b07f">exec_and_wait</a> (const std::string &amp;executable, const std::vector&lt; std::string &gt; &amp;args, const std::string &amp;out)</td></tr>
+<tr class="memdesc:a5ac77221de8781b3ff3224b19d32b07f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the process with the specified command and waits for it to exit.  <a href="#a5ac77221de8781b3ff3224b19d32b07f"></a><br/></td></tr>
+<tr class="memitem:a9588db69ff493053300e4a48747ef0c2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a9588db69ff493053300e4a48747ef0c2">exec_async</a> (const std::string &amp;executable, const std::vector&lt; std::string &gt; &amp;args, const std::string &amp;out)</td></tr>
+<tr class="memdesc:a9588db69ff493053300e4a48747ef0c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the process with the specified command and waits for it to exit.  <a href="#a9588db69ff493053300e4a48747ef0c2"></a><br/></td></tr>
 <tr class="memitem:a3abace79d013f9ef37aede14771a1239"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a3abace79d013f9ef37aede14771a1239">initialize_signals</a> ()</td></tr>
 <tr class="memdesc:a3abace79d013f9ef37aede14771a1239"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes signal handlers to be used with 'wait_for_signal'.  <a href="#a3abace79d013f9ef37aede14771a1239"></a><br/></td></tr>
 <tr class="memitem:ae4c86dfe1b6476a2cbaef8c94305e4a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#ae4c86dfe1b6476a2cbaef8c94305e4a5">register_signal_listener</a> (std::function&lt; void(void)&gt; listener)</td></tr>
@@ -193,56 +185,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a070176935f88b13bdbdda89a9883ef59"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t staticlib::utils::copy_all </td>
-          <td>(</td>
-          <td class="paramtype">std::streambuf &amp;&#160;</td>
-          <td class="paramname"><em>src</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::streambuf &amp;&#160;</td>
-          <td class="paramname"><em>sink</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>buf</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::streamsize&#160;</td>
-          <td class="paramname"><em>buflen</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Copies data from Source to Sink using specified buffer until source will be exhausted. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">src</td><td>iostreams source </td></tr>
-    <tr><td class="paramname">sink</td><td>iostreams sink </td></tr>
-    <tr><td class="paramname">buf</td><td>dest buffer </td></tr>
-    <tr><td class="paramname">buflen</td><td>number of bytes to read from source </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>number of bytes copied </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="afadbc64cc921a1b16a10d1cab8b8d2e4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -265,6 +207,90 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>message in english </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5ac77221de8781b3ff3224b19d32b07f"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int staticlib::utils::exec_and_wait </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>executable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts the process with the specified command and waits for it to exit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">executable</td><td>path to executable binary or script </td></tr>
+    <tr><td class="paramname">args</td><td>list of arguments </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>command return code </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a9588db69ff493053300e4a48747ef0c2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int staticlib::utils::exec_async </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>executable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>out</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts the process with the specified command and waits for it to exit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">executable</td><td>path to executable binary or script </td></tr>
+    <tr><td class="paramname">args</td><td>list of arguments </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>child process pid </dd></dl>
 
 </div>
 </div>
@@ -632,93 +658,6 @@ template&lt;typename T , typename... Args&gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="af63df1b175d8aaa3b5e1055cd2a30335"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">size_t staticlib::utils::read_all </td>
-          <td>(</td>
-          <td class="paramtype">std::streambuf &amp;&#160;</td>
-          <td class="paramname"><em>src</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>buf</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::streamsize&#160;</td>
-          <td class="paramname"><em>buflen</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads specified number of bytes from the Source into the buffer. </p>
-<p>May read less then specified bytes only if Source became exhausted.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">src</td><td>iostreams source </td></tr>
-    <tr><td class="paramname">buf</td><td>dest buffer </td></tr>
-    <tr><td class="paramname">buflen</td><td>number of bytes to read from source </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>number of bytes read </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a9aff58dbd4bdfec7ce27d785f2c22cf5"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::utils::read_exact </td>
-          <td>(</td>
-          <td class="paramtype">std::streambuf &amp;&#160;</td>
-          <td class="paramname"><em>src</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>buf</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::streamsize&#160;</td>
-          <td class="paramname"><em>buflen</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Reads specified number of bytes from the Source into the buffer. </p>
-<p>Will throw exception if exact specified amount won't be available.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">src</td><td>iostreams source </td></tr>
-    <tr><td class="paramname">buf</td><td>dest buffer </td></tr>
-    <tr><td class="paramname">buflen</td><td>number of bytes to read from source </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="ae4c86dfe1b6476a2cbaef8c94305e4a5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -740,6 +679,31 @@ template&lt;typename T , typename... Args&gt; </div>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a class="anchor" id="ad40a4f02e9668fe1a377be36efeacd91"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int staticlib::utils::shell_exec_and_wait </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>cmd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Starts shell process with the specified command and waits for it to exit. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>command to execute in shell </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>command return code </dd></dl>
 
 </div>
 </div>
@@ -861,87 +825,10 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a class="anchor" id="a7928eb06b7dc36f3eff0288d5a58e744"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::utils::write_all </td>
-          <td>(</td>
-          <td class="paramtype">std::streambuf &amp;&#160;</td>
-          <td class="paramname"><em>sink</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>buf</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::streamsize&#160;</td>
-          <td class="paramname"><em>buflen</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Writes buffer contents to the specified Sink ensuring that the specified number of bytes are written to Sink (making multiple write calls to Sink if needed). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sink</td><td>iostreams sink </td></tr>
-    <tr><td class="paramname">buf</td><td>data buffer </td></tr>
-    <tr><td class="paramname">buflen</td><td>data buffer length </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a9c87220b87dd1a128245c71c23a6b85b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void staticlib::utils::write_all </td>
-          <td>(</td>
-          <td class="paramtype">std::streambuf &amp;&#160;</td>
-          <td class="paramname"><em>sink</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>str</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Writes string contents to the specified Sink ensuring that the specified number of bytes are written to Sink (making multiple write calls to Sink if needed). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sink</td><td>iostreams sink </td></tr>
-    <tr><td class="paramname">str</td><td>data string </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jul 5 2015 17:20:29 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 19 2015 12:56:09 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
