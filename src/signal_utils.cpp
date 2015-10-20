@@ -30,6 +30,7 @@
 
 #include "staticlib/utils/config.hpp"
 #ifdef STATICLIB_WINDOWS
+#define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #endif // STATICLIB_WINDOWS
 

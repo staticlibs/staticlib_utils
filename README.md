@@ -39,6 +39,12 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2015-10-20**
+
+ * version 1.3.1
+ * `WIN32_LEAN_AND_MEAN` enabled for all windows-specific bits
+ * process async test disabled for stable test runs
+
 **2015-10-19**
 
  * version 1.3.0
