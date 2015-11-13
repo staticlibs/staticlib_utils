@@ -81,6 +81,7 @@ mode(mode) {
 
 FileDescriptor::FileDescriptor(FileDescriptor&& other) :
 handle(other.handle),
+file_path(std::move(other.file_path)),
 mode(other.mode) {
     other.handle = nullptr;
 }
@@ -88,6 +89,7 @@ mode(other.mode) {
 FileDescriptor& FileDescriptor::operator=(FileDescriptor&& other) {
     handle = other.handle;
     other.handle = nullptr;
+    file_path = std::move(other.file_path);
     mode = other.mode;
     return *this;
 }
@@ -202,6 +204,7 @@ FileDescriptor::~FileDescriptor() STATICLIB_NOEXCEPT {
 
 FileDescriptor::FileDescriptor(FileDescriptor&& other) :
 fd(other.fd),
+file_path(std::move(other.file_path)),
 mode(other.mode) {
     other.fd = -1;
 }
@@ -209,6 +212,7 @@ mode(other.mode) {
 FileDescriptor& FileDescriptor::operator=(FileDescriptor&& other) {
     fd = other.fd;
     other.fd = -1;
+    file_path = std::move(other.file_path);
     mode = other.mode;
     return *this;
 }
