@@ -15,7 +15,7 @@
  */
 
 /* 
- * File:   file_io.cpp
+ * File:   FileDescriptor.cpp
  * Author: alex
  * 
  * Created on October 8, 2015, 12:54 PM
@@ -39,7 +39,7 @@
 
 #include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/tracemsg.hpp"
-#include "staticlib/utils/file_io.hpp"
+#include "staticlib/utils/FileDescriptor.hpp"
 
 namespace staticlib {
 namespace utils {
@@ -292,6 +292,14 @@ off_t FileDescriptor::size() {
 
 std::streamsize FileDescriptor::flush() {
     return 0;
+}
+
+const std::string& FileDescriptor::get_file_path() {
+    return file_path;
+}
+
+char FileDescriptor::get_mode() {
+    return mode;
 }
 
 } // namespace

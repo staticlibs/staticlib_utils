@@ -15,14 +15,14 @@
  */
 
 /* 
- * File:   file_io.hpp
+ * File:   FileDescriptor.hpp
  * Author: alex
  *
  * Created on October 8, 2015, 12:51 PM
  */
 
-#ifndef STATICLIB_FILE_IO_HPP
-#define	STATICLIB_FILE_IO_HPP
+#ifndef STATICLIB_FILEDESCRIPTOR_HPP
+#define	STATICLIB_FILEDESCRIPTOR_HPP
 
 #include <ios>
 #include <string>
@@ -146,10 +146,24 @@ public:
      * on destruction
      */
     void close() STATICLIB_NOEXCEPT;
+    
+    /**
+     * File path accessor
+     * 
+     * @return path to this file
+     */
+    const std::string& get_file_path();
+    
+    /**
+     * Mode accessor
+     * 
+     * @return mode with which this file was opened
+     */
+    char get_mode();
 };
 
 } // namespace
 }
 
-#endif	/* STATICLIB_FILE_IO_HPP */
+#endif	/* STATICLIB_FILEDESCRIPTOR_HPP */
 

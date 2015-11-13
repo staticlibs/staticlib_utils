@@ -15,7 +15,7 @@
  */
 
 /* 
- * File:   file_io_test.cpp
+ * File:   FileDescriptor_test.cpp
  * Author: alex
  *
  * Created on October 8, 2015, 5:17 PM
@@ -26,7 +26,7 @@
 #include <array>
 #include <cassert>
 
-#include "staticlib/utils/file_io.hpp"
+#include "staticlib/utils/FileDescriptor.hpp"
 #include "staticlib/utils/UtilsException.hpp"
 
 namespace { // anonymous
@@ -64,19 +64,28 @@ void test_read() {
 }
 
 void test_write() {
-    su::FileDescriptor desc{"file_io_test_out.txt", 'w'};
+    su::FileDescriptor desc{"FileDescriptor_test_out.txt", 'w'};
     desc.write("aaa", 3);
 }
 
 void test_size() {
-    su::FileDescriptor desc{"file_io_test_out.txt", 'r'};
+    su::FileDescriptor desc{"FileDescriptor_test_out.txt", 'r'};
+    (void) desc;
     assert(3 == desc.size());
 }
 
 void test_move() {
-    su::FileDescriptor desc{"file_io_test_out.txt", 'r'};
+    su::FileDescriptor desc{"FileDescriptor_test_out.txt", 'r'};
     su::FileDescriptor moved{std::move(desc)};
+    (void) moved;
     assert(3 == moved.size());
+}
+
+void test_accessors() {
+    su::FileDescriptor file{"FileDescriptor_test_accessors.txt", 'w'};
+    (void) file;
+    assert("FileDescriptor_test_accessors.txt" == file.get_file_path());
+    assert('w' == file.get_mode());
 }
 
 }
@@ -88,6 +97,7 @@ int main() {
     test_write();
     test_size();
     test_move();
+    test_accessors();
     
     return 0;
 }
