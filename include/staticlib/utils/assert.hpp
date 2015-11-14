@@ -32,7 +32,7 @@
 /**
  * Assert macro, will throw `AssertException` on expression fail
  */
-#define slassert(_expr) if (!(_expr)) throw staticlib::utils::AssertException(TRACEMSG("ASSERTION ERROR"));
+#define slassert(_expr) if (!(_expr)) throw staticlib::utils::AssertException(TRACEMSG("ASSERTION ERROR:"));
 
 namespace staticlib {
 namespace utils {
