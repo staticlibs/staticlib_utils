@@ -21,26 +21,23 @@
  * Created on January 2, 2015, 1:06 PM
  */
 
-#include <cassert>
 #include <cstring>
 #include <iostream>
+
+#include "staticlib/utils/assert.hpp"
 
 #include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/string_utils.hpp"
 
-namespace { // anonymous
-
 namespace ss = staticlib::utils;
 
 void test_to_string() {
-    assert("42" == ss::to_string(42));
-    assert("42" == ss::to_string(std::string("42")));
+    slassert("42" == ss::to_string(42));
+    slassert("42" == ss::to_string(std::string("42")));
 }
 
 class BadExternalClass {
-    friend std::ostream &operator<<(std::ostream& output, const BadExternalClass& bc) {
-        (void) bc;
-        (void) output;
+    friend std::ostream &operator<<(std::ostream&, const BadExternalClass&) {
         throw std::exception();
     }
 };
@@ -50,27 +47,24 @@ void test_to_string_exception() {
     try {
         BadExternalClass bc{};
         ss::to_string(bc);        
-    } catch(const ss::UtilsException& e) {
-        (void) e;
+    } catch(const ss::UtilsException&) {
         catched = true;
     }
-    (void) catched; assert(catched);
+    slassert(catched);
 }
 
 void test_get_buffer_char() {
     std::string st{"foo"};
     auto buf = ss::get_buffer(st, 42);
-    (void) buf;
-    assert(3 == strlen(buf));
-    assert(42 == st.size());
+    slassert(3 == strlen(buf));
+    slassert(42 == st.size());
 }
 
 void test_get_buffer_wchar() {
     std::wstring st{};
     auto buf = ss::get_buffer(st, 42);
-    (void) buf;
-    assert(0 == wcslen(buf));
-    assert(42 == st.size());
+    slassert(0 == wcslen(buf));
+    slassert(42 == st.size());
 }
 
 void test_get_buffer_exception() {
@@ -83,33 +77,33 @@ Error getting buffer with required size: [18446744073709551615] from string, len
     std::string st{"foo"};
     try {
         ss::get_buffer(st, static_cast<std::string::size_type>(-1));
-    } catch(const ss::UtilsException& e) {
-        (void) e;
+    } catch(const ss::UtilsException&) {
         catched = true;
-        //assert(expected == e.what());
+        //slassert(expected == e.what());
     }
-    (void) catched; assert(catched);
+    slassert(catched);
 }
 
 void test_alloc_copy() {
     std::string st{"foo"};
     auto buf = ss::alloc_copy(st);
-    assert(3 == strlen(buf));
-    assert('\0' == buf[3]);
+    slassert(3 == strlen(buf));
+    slassert('\0' == buf[3]);
     free(buf);
 }
 
-} // namespace
-
-
 int main() {
-    test_to_string();
-    test_to_string_exception();
-    test_get_buffer_char();
-    test_get_buffer_wchar();
-    test_get_buffer_exception();
-    test_alloc_copy();
-    
+    try {
+        test_to_string();
+        test_to_string_exception();
+        test_get_buffer_char();
+        test_get_buffer_wchar();
+        test_get_buffer_exception();
+        test_alloc_copy();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
     return 0;
 }
 

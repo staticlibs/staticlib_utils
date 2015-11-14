@@ -6,23 +6,22 @@
  */
 
 #include <iostream>
-#include <cassert>
+
+#include "staticlib/utils/assert.hpp"
 
 #include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/RandomStringGenerator.hpp"
-
-namespace { // anonymous
 
 namespace su = staticlib::utils;
 
 void test_gen() {
     su::RandomStringGenerator gen{};
     std::string str = gen.generate(42);
-    assert(42 == str.size());
+    slassert(42 == str.size());
     for (char ch : str) {
         int code = ch;
         int last = 'z';
-        (void) code; (void) last; assert(code <= last);
+        slassert(code <= last);
     }
 }
 
@@ -31,16 +30,16 @@ void test_gen_fill() {
     std::string str{' ', 42};
     gen.generate(str);
     for (char ch : str) {
-        (void) ch; assert(' ' != ch);
+        slassert(' ' != ch);
     }
 }
 
 void test_charset() {
     su::RandomStringGenerator gen{"a"};
     std::string str = gen.generate(42);
-    assert(42 == str.size());
+    slassert(42 == str.size());
     for (char ch : str) {
-        (void) ch; assert('a' == ch);
+        slassert('a' == ch);
     }
 }
 
@@ -49,20 +48,21 @@ void test_empty() {
     try {
         su::RandomStringGenerator gen{""};
         (void) gen;
-    } catch (su::UtilsException e) {
-        (void) e;
+    } catch (const su::UtilsException&) {
         catched = true;
     }
-    (void) catched; assert(catched);
+    slassert(catched);
 }
-
-} // namespace
 
 int main() {
-    test_gen();
-    test_gen_fill();
-    test_charset();
-    test_empty();
+    try {
+        test_gen();
+        test_gen_fill();
+        test_charset();
+        test_empty();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
     return 0;
 }
-

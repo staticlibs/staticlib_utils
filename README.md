@@ -39,6 +39,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2015-11-14**
+
+ * version 1.3.3
+ * use `slassert` in tests
+
 **2015-11-13**
 
  * version 1.3.2

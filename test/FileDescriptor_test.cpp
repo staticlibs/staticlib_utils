@@ -24,33 +24,26 @@
 #include <iostream>
 #include <string>
 #include <array>
-#include <cassert>
+
+#include "staticlib/utils/assert.hpp"
 
 #include "staticlib/utils/FileDescriptor.hpp"
 #include "staticlib/utils/UtilsException.hpp"
 
-namespace { // anonymous
-
 namespace su = staticlib::utils;
 
 void test_desc() {
-    //try {
     su::FileDescriptor desc{"CMakeCache.txt", 'r'};
-    //} catch (const std::exception& e) {
-    //    std::cout << e.what() << std::endl;
-    //}
 }
 
 void test_desc_fail() {
     bool catched = false;
     try {
         su::FileDescriptor desc{"aaa", 'r'}; 
-    } catch (const su::UtilsException& e) {
-        (void) e;
+    } catch (const su::UtilsException&) {
         catched = true;
     }
-    (void) catched;
-    assert(catched);
+    slassert(catched);
 }
 
 void test_read() {
@@ -59,8 +52,7 @@ void test_read() {
     std::array<char, 12> buf;
     desc.read(buf.data(), buf.size());
     std::string res{buf.data(), buf.size()};
-    (void) res;
-    assert(res == "akeCache fil");
+    slassert(res == "akeCache fil");
 }
 
 void test_write() {
@@ -70,35 +62,35 @@ void test_write() {
 
 void test_size() {
     su::FileDescriptor desc{"FileDescriptor_test_out.txt", 'r'};
-    (void) desc;
-    assert(3 == desc.size());
+    slassert(3 == desc.size());
 }
 
 void test_move() {
     su::FileDescriptor desc{"FileDescriptor_test_out.txt", 'r'};
     su::FileDescriptor moved{std::move(desc)};
-    (void) moved;
-    assert(3 == moved.size());
+    slassert(3 == moved.size());
 }
 
 void test_accessors() {
     su::FileDescriptor file{"FileDescriptor_test_accessors.txt", 'w'};
     (void) file;
-    assert("FileDescriptor_test_accessors.txt" == file.get_file_path());
-    assert('w' == file.get_mode());
-}
-
+    slassert("FileDescriptor_test_accessors.txt" == file.get_file_path());
+    slassert('w' == file.get_mode());
 }
 
 int main() {
-    test_desc();
-    test_desc_fail();
-    test_read();
-    test_write();
-    test_size();
-    test_move();
-    test_accessors();
-    
+    try {
+        test_desc();
+        test_desc_fail();
+        test_read();
+        test_write();
+        test_size();
+        test_move();
+        test_accessors();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
     return 0;
 }
 

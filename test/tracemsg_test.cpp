@@ -22,9 +22,10 @@
  */
 
 
-#include <cassert>
 #include <string>
 #include <iostream>
+
+#include "staticlib/utils/assert.hpp"
 
 #include "staticlib/utils/string_utils.hpp"
 #include "staticlib/utils/tracemsg.hpp"
@@ -40,13 +41,18 @@ void test() {
             .append("    at myfancynamespace::test(tracemsg_test.cpp:")
             .append(ss::to_string(line + 1))
             .append(")");
-    assert(expected == msg);
+    slassert(expected == msg);
 }
 
 } // namespace
 
 int main() {
-    myfancynamespace::test();
+    try {
+        myfancynamespace::test();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
     return 0;
 }
 

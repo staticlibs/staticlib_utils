@@ -9,10 +9,10 @@
 #include <string>
 #include <iostream>
 
+#include "staticlib/utils/assert.hpp"
+
 #include "staticlib/utils/config.hpp"
 #include "staticlib/utils/process_utils.hpp"
-
-namespace { // anonymous
 
 namespace su = staticlib::utils;
 
@@ -36,14 +36,15 @@ void test_exec_and_wait() {
 #endif // STATICLIB_WINDOWS
 }
 
-} // namespace
-
 int main() {
-    test_shell_exec();
-//    async logic is not clear in mass test run
-//    test_exec_async();
-    test_exec_and_wait();
-    
+    try {
+        test_shell_exec();
+        //    async logic is not clear in mass test run
+        //    test_exec_async();
+        test_exec_and_wait();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
     return 0;
 }
-

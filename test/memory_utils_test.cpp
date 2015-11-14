@@ -21,18 +21,18 @@
  * Created on January 2, 2015, 1:07 PM
  */
 
-#include <cassert>
+#include <iostream>
 #include <string>
 
-#include "staticlib/utils/memory_utils.hpp"
+#include "staticlib/utils/assert.hpp"
 
-namespace { // anonymous
+#include "staticlib/utils/memory_utils.hpp"
 
 namespace ss = staticlib::utils;
 
 void test_make_unique() {
     auto ptr = ss::make_unique<std::string>("42");
-    assert("42" == *ptr.get());
+    slassert("42" == *ptr.get());
 }
 
 void test_free_deleter() {
@@ -42,15 +42,13 @@ void test_free_deleter() {
     // memory will be freed on scope exit
 }
 
-} // namespace
-
-
-
 int main() {
-    test_make_unique();
-    test_free_deleter();
-
-    
+    try {
+        test_make_unique();
+        test_free_deleter();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
     return 0;
 }
-

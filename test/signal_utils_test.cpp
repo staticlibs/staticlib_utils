@@ -25,27 +25,35 @@
 #include <thread>
 #include <atomic>
 #include <iostream>
-#include <cassert>
+
+#include "staticlib/utils/assert.hpp"
 
 #include "staticlib/utils/signal_utils.hpp"
 
 namespace su = staticlib::utils;
 
-int main() {
+void test_signal() {
     std::atomic_flag flag = ATOMIC_FLAG_INIT;
     su::initialize_signals();
-    su::register_signal_listener([&flag]{
+    su::register_signal_listener([&flag] {
         flag.test_and_set();
     });
     auto th = std::thread{[] {
-        std::this_thread::sleep_for(std::chrono::seconds{1});
-        su::fire_signal();
-    }};
+            std::this_thread::sleep_for(std::chrono::seconds{1});
+            su::fire_signal();
+        }};
     th.detach();
     su::wait_for_signal();
     std::cout << "signal_utils_test: reached" << std::endl;
-    assert(flag.test_and_set());
-    
-    return 0;
+    slassert(flag.test_and_set());
 }
 
+int main() {
+    try {
+        test_signal();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
+    return 0;
+}

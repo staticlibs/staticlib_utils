@@ -21,16 +21,14 @@
  * Created on January 2, 2015, 12:04 PM
  */
 
-#include <cassert>
 #include <string>
 #include <iostream>
 
+#include "staticlib/utils/assert.hpp"
 #include "staticlib/utils/tracemsg.hpp"
 #include "staticlib/utils/BaseException.hpp"
 
 namespace ss = staticlib::utils;
-
-namespace { // anonymous
 
 class TestExc : public ss::BaseException {
 public:
@@ -47,13 +45,11 @@ void test_throw() {
     try {
         throw TestExc(msg);
     } catch (const std::exception& e) {
-        (void) e; catched = true;
-        assert(msgbytes == e.what());
+        catched = true;
+        slassert(msgbytes == e.what());
     }
-    (void) catched; assert(catched);
+    slassert(catched);
 }
-
-} // namespace
 
 namespace some_fancy {
 namespace some_fancy2 {
@@ -118,15 +114,24 @@ I've caught and rethrow it!
         (void) e; catched = true;
         //assert(expected == e.what());
     }
-    (void) catched; assert(catched);
+    slassert(catched);
 }
 
 } // namespace
 } 
 
-int main() {
+void run_tests() {
     test_throw();
     some_fancy::some_fancy2::test_stacktrace();
+}
+
+int main() {
+    try {
+        run_tests();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    } 
     return 0;
 }
 
