@@ -396,20 +396,19 @@ std::string current_executable_path_linux() {
 #endif // STATICLIB_LINUX
 
 #if defined(STATICLIB_WINDOWS)
-
-Path current_executable_path_windows() {
+std::string current_executable_path_windows() {
     DWORD size = 64;
     std::wstring out{};
     for (;;) {
-        auto path = su::get_buffer(out, size);
+        auto path = get_buffer(out, size);
         auto res_size = GetModuleFileNameW(NULL, path, size);
         if (0 == res_size) {
             auto code = GetLastError();
-            auto code_str = su::errcode_to_string(code);
-            throw FilesystemException(code_str);
+            auto code_str = errcode_to_string(code);
+            throw UtilsException(TRACEMSG(code_str));
         } else if (res_size < size) {
-            auto out_bytes = su::narrow(out.c_str(), res_size);
-            return Path{icu::UnicodeString::fromUTF8(out_bytes)};
+            std::string out_bytes = narrow(out.c_str(), res_size);
+            return out_bytes;
         }
         size = size * 2;
     }
