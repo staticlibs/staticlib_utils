@@ -23,6 +23,7 @@
 
 #include <string>
 #include <exception>
+#include <sstream>
 #include <cstdlib>
 #include <cstring>
 
@@ -70,6 +71,18 @@ char* alloc_copy(const std::string& str) STATICLIB_NOEXCEPT {
     msg[len] = '\0';
     memcpy(msg, str.c_str(), len);
     return msg;
+}
+
+std::vector<std::string> split(const std::string& str, char delim) {
+    std::stringstream ss{str};
+    std::vector<std::string> res{};
+    std::string item{};    
+    while (std::getline(ss, item, delim)) {
+        if (!item.empty()) {
+            res.push_back(item);
+        }
+    }
+    return res;
 }
 
 }

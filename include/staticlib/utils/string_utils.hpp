@@ -27,6 +27,7 @@
 #include <string>
 #include <sstream>
 #include <typeinfo>
+#include <vector>
 #include <cstdint>
 
 #include "staticlib/utils/config.hpp"
@@ -84,6 +85,16 @@ wchar_t* get_buffer(std::wstring& str, std::wstring::size_type required_size);
  * @return allocated buffer
  */
 char* alloc_copy(const std::string& str) STATICLIB_NOEXCEPT;
+
+/**
+ * Splits string into vector using specified character as a delimiter,
+ * empty result parts are ignored
+ * 
+ * @param str string to split
+ * @param delim delimiter character
+ * @return vector containing splitted parts
+ */
+std::vector<std::string> split(const std::string& str, char delim);
 
 } // namespace
 }

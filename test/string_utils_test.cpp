@@ -92,6 +92,15 @@ void test_alloc_copy() {
     free(buf);
 }
 
+void test_split() {
+    std::string src{"foo:bar::baz:"};
+    std::vector<std::string> vec = ss::split(src, ':');
+    slassert(3 == vec.size());
+    slassert("foo" == vec[0]);
+    slassert("bar" == vec[1]);
+    slassert("baz" == vec[2]);
+}
+
 int main() {
     try {
         test_to_string();
@@ -100,6 +109,7 @@ int main() {
         test_get_buffer_wchar();
         test_get_buffer_exception();
         test_alloc_copy();
+        test_split();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;
