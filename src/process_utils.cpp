@@ -449,8 +449,7 @@ std::string current_executable_path() {
 #elif defined(STATICLIB_MAC)
     return current_executable_path_mac();
 #else
-    throw UtilsException(TRACEMSG(std::string() +
-            "Cannot determine current executable path on this platform"
+    throw UtilsException(TRACEMSG("Cannot determine current executable path on this platform"));
 #endif 
 }
 
