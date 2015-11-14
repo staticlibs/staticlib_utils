@@ -36,12 +36,19 @@ void test_exec_and_wait() {
 #endif // STATICLIB_WINDOWS
 }
 
+void test_executable_path() {
+    auto st = su::current_executable_path();
+    slassert(st.length() > 0);
+    std::cout << "[" << st << "]" << std::endl;
+}
+
 int main() {
     try {
         test_shell_exec();
         //    async logic is not clear in mass test run
         //    test_exec_async();
         test_exec_and_wait();
+        test_executable_path();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;

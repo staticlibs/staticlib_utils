@@ -55,6 +55,13 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
  */
 int exec_async(const std::string& executable, const std::vector<std::string>& args, const std::string& out);
 
+/**
+ * Returns path to the current executable file
+ * 
+ * @return path to the current executable file
+ */
+std::string current_executable_path();
+
 } // namespace
 }
 

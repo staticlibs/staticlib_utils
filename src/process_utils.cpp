@@ -371,6 +371,86 @@ int exec_async(const std::string& executable, const std::vector<std::string>& ar
 #endif
 }
 
+
+namespace { // anonymous
+
+#if defined(STATICLIB_LINUX)
+std::string current_executable_path_linux() {
+    std::string res{};
+    ssize_t size = 64;
+    for (;;) {
+        char* link = get_buffer(res, size);
+        ssize_t res_size = readlink("/proc/self/exe", link, size);
+        if (res_size < 0) throw UtilsException(TRACEMSG(std::string() + strerror(errno)));
+        if (res_size < size) {
+            link[res_size] = '\0';
+            break;
+        }
+        size = size * 2;
+    }
+    return res;
+}
+#endif // STATICLIB_LINUX
+
+#if defined(STATICLIB_WINDOWS)
+
+Path current_executable_path_windows() {
+    DWORD size = 64;
+    std::wstring out{};
+    for (;;) {
+        auto path = su::get_buffer(out, size);
+        auto res_size = GetModuleFileNameW(NULL, path, size);
+        if (0 == res_size) {
+            auto code = GetLastError();
+            auto code_str = su::errcode_to_string(code);
+            throw FilesystemException(code_str);
+        } else if (res_size < size) {
+            auto out_bytes = su::narrow(out.c_str(), res_size);
+            return Path{icu::UnicodeString::fromUTF8(out_bytes)};
+        }
+        size = size * 2;
+    }
+}
+#endif // STATICLIB_WINDOWS
+
+#if defined(STATICLIB_MAC)
+
+Path current_executable_path_mac() {
+    std::string out{};
+    uint32_t size = 64;
+    char* path = su::get_buffer(out, size);
+    int res = _NSGetExecutablePath(path, &size);
+    if (0 == res) {
+        return Path{icu::UnicodeString::fromUTF8(out)};
+    } else if (-1 != res) {
+        throw FilesystemException("_NSGetExecutablePath error");
+    } else {
+        path = su::get_buffer(out, size);
+        res = _NSGetExecutablePath(path, &size);
+        if (0 != res) {
+            throw FilesystemException("_NSGetExecutablePath secondary error");
+        }
+        return Path{icu::UnicodeString::fromUTF8(out)};
+    }
+}
+#endif // STATICLIB_MAC
+
+}
+
+
+std::string current_executable_path() {
+#if defined(STATICLIB_LINUX)
+    return current_executable_path_linux();
+#elif defined(STATICLIB_WINDOWS)
+    return current_executable_path_windows();
+#elif defined(STATICLIB_MAC)
+    return current_executable_path_mac();
+#else
+    throw UtilsException(TRACEMSG(std::string() +
+            "Cannot determine current executable path on this platform"
+#endif 
+}
+
 } // namespace
 }
 
