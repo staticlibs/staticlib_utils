@@ -41,8 +41,11 @@ Changelog
 
 **2015-11-14**
 
+ * version 1.3.4
+ * fix bad cast in `FileDescriptor#read` on windows
  * version 1.3.3
  * use `slassert` in tests
+
 
 **2015-11-13**
 
