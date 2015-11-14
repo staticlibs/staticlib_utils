@@ -43,6 +43,9 @@
 #include <fcntl.h>
 #include <signal.h>
 #endif // STATICLIB_LINUX || STATICLIB_MAC
+#if defined(STATICLIB_MAC)
+#include <mach-o/dyld.h>
+#endif // STATCILIB_MAC
 #include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/tracemsg.hpp"
 #include "staticlib/utils/string_utils.hpp"
@@ -415,22 +418,22 @@ Path current_executable_path_windows() {
 
 #if defined(STATICLIB_MAC)
 
-Path current_executable_path_mac() {
+std::string current_executable_path_mac() {
     std::string out{};
     uint32_t size = 64;
-    char* path = su::get_buffer(out, size);
+    char* path = get_buffer(out, size);
     int res = _NSGetExecutablePath(path, &size);
     if (0 == res) {
-        return Path{icu::UnicodeString::fromUTF8(out)};
+        return out;
     } else if (-1 != res) {
-        throw FilesystemException("_NSGetExecutablePath error");
+        throw UtilsException(TRACEMSG("_NSGetExecutablePath error"));
     } else {
-        path = su::get_buffer(out, size);
+        path = get_buffer(out, size);
         res = _NSGetExecutablePath(path, &size);
         if (0 != res) {
-            throw FilesystemException("_NSGetExecutablePath secondary error");
+            throw UtilsException(TRACEMSG("_NSGetExecutablePath secondary error"));
         }
-        return Path{icu::UnicodeString::fromUTF8(out)};
+        return out;
     }
 }
 #endif // STATICLIB_MAC
