@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_utils
-   &#160;<span id="projectnumber">1.3.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow2" class="tabs2">
     <ul class="tablist">
       <li><a href="files.html"><span>File&#160;List</span></a></li>
-      <li><a href="globals.html"><span>File&#160;Members</span></a></li>
     </ul>
   </div>
 <!-- window showing the filter options -->
@@ -70,7 +69,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -95,9 +94,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &lt;string&gt;</code><br/>
 <code>#include &lt;sstream&gt;</code><br/>
 <code>#include &lt;typeinfo&gt;</code><br/>
+<code>#include &lt;vector&gt;</code><br/>
 <code>#include &lt;cstdint&gt;</code><br/>
-<code>#include &quot;<a class="el" href="config_8hpp_source.html">staticlib/utils/config.hpp</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="tracemsg_8hpp_source.html">staticlib/utils/tracemsg.hpp</a>&quot;</code><br/>
+<code>#include &quot;staticlib/config.hpp&quot;</code><br/>
 <code>#include &quot;<a class="el" href="UtilsException_8hpp_source.html">staticlib/utils/UtilsException.hpp</a>&quot;</code><br/>
 </div>
 <p><a href="string__utils_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -109,20 +108,19 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:aa5e27f58ba981cddcecd22d8ec6bbe23"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa5e27f58ba981cddcecd22d8ec6bbe23"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aa5e27f58ba981cddcecd22d8ec6bbe23">staticlib::utils::to_string</a> (T t)</td></tr>
-<tr class="memdesc:aa5e27f58ba981cddcecd22d8ec6bbe23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic <code>to_string</code> implementation, already exists as <code>std::to_string</code> in most C++11 compilers except GCC 4.8.  <a href="#aa5e27f58ba981cddcecd22d8ec6bbe23"></a><br/></td></tr>
 <tr class="memitem:a03059fb672f5e42a233965e945731709"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a03059fb672f5e42a233965e945731709">staticlib::utils::get_buffer</a> (std::string &amp;str, std::string::size_type required_size)</td></tr>
 <tr class="memdesc:a03059fb672f5e42a233965e945731709"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access underlying string buffer as writable char array safely (according to C++11) Will resize specified string (memory will be default-initialized).  <a href="#a03059fb672f5e42a233965e945731709"></a><br/></td></tr>
 <tr class="memitem:a0df389aa8382d668568b27e886ee7e2b"><td class="memItemLeft" align="right" valign="top">wchar_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a0df389aa8382d668568b27e886ee7e2b">staticlib::utils::get_buffer</a> (std::wstring &amp;str, std::wstring::size_type required_size)</td></tr>
 <tr class="memdesc:a0df389aa8382d668568b27e886ee7e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access underlying wide string buffer as writable char array safely (according to C++11) Will resize specified string (memory will be default-initialized).  <a href="#a0df389aa8382d668568b27e886ee7e2b"></a><br/></td></tr>
-<tr class="memitem:a7a642d7cdb13029c9ebb5ac3f7428083"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a7a642d7cdb13029c9ebb5ac3f7428083">staticlib::utils::alloc_copy</a> (const std::string &amp;str) <a class="el" href="config_8hpp.html#a29fa1dcffe3359ad6403a7e32fa070da">STATICLIB_NOEXCEPT</a></td></tr>
+<tr class="memitem:a7a642d7cdb13029c9ebb5ac3f7428083"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a7a642d7cdb13029c9ebb5ac3f7428083">staticlib::utils::alloc_copy</a> (const std::string &amp;str) STATICLIB_NOEXCEPT</td></tr>
 <tr class="memdesc:a7a642d7cdb13029c9ebb5ac3f7428083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a buffer and copies there contents of the string.  <a href="#a7a642d7cdb13029c9ebb5ac3f7428083"></a><br/></td></tr>
+<tr class="memitem:a52fb64e33664cb983c178e87a39b1f62"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a52fb64e33664cb983c178e87a39b1f62">staticlib::utils::split</a> (const std::string &amp;str, char delim)</td></tr>
+<tr class="memdesc:a52fb64e33664cb983c178e87a39b1f62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits string into vector using specified character as a delimiter, empty result parts are ignored.  <a href="#a52fb64e33664cb983c178e87a39b1f62"></a><br/></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 19 2015 12:56:09 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 4 2015 20:27:42 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

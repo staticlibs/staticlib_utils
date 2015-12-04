@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_utils
-   &#160;<span id="projectnumber">1.3.0</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -63,7 +63,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li class="current"><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -71,7 +70,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="functions.html"><span>All</span></a></li>
       <li class="current"><a href="functions_func.html"><span>Functions</span></a></li>
-      <li><a href="functions_vars.html"><span>Variables</span></a></li>
     </ul>
   </div>
 </div><!-- top -->
@@ -80,7 +78,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -91,9 +89,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <div class="contents">
 &#160;<ul>
-<li>BaseException()
-: <a class="el" href="classstaticlib_1_1utils_1_1BaseException.html#aa5e8a97b738427448d08e14f2ee2f7bd">staticlib::utils::BaseException</a>
-</li>
 <li>close()
 : <a class="el" href="classstaticlib_1_1utils_1_1FileDescriptor.html#a3827239fee802a156473a5f8cd8b90f6">staticlib::utils::FileDescriptor</a>
 </li>
@@ -106,11 +101,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>generate()
 : <a class="el" href="classstaticlib_1_1utils_1_1RandomStringGenerator.html#a3eb4e109f7525b9b9b9b1324b62f91c0">staticlib::utils::RandomStringGenerator</a>
 </li>
-<li>operator()()
-: <a class="el" href="classstaticlib_1_1utils_1_1free__deleter.html#ac573510559ba49b8139b9bf2f6403382">staticlib::utils::free_deleter&lt; T &gt;</a>
+<li>get_file_path()
+: <a class="el" href="classstaticlib_1_1utils_1_1FileDescriptor.html#ad8673432c95da0be925db8eb05b04f75">staticlib::utils::FileDescriptor</a>
+</li>
+<li>get_mode()
+: <a class="el" href="classstaticlib_1_1utils_1_1FileDescriptor.html#a17aebc953c5ca8d7228fb9feffe8e6de">staticlib::utils::FileDescriptor</a>
 </li>
 <li>operator=()
-: <a class="el" href="classstaticlib_1_1utils_1_1RandomStringGenerator.html#aaab871228a1355dfdf4bf6209de87748">staticlib::utils::RandomStringGenerator</a>
+: <a class="el" href="classstaticlib_1_1utils_1_1FileDescriptor.html#afed314a8db1a2e09bc9f18def6d17738">staticlib::utils::FileDescriptor</a>
+, <a class="el" href="classstaticlib_1_1utils_1_1RandomStringGenerator.html#aaab871228a1355dfdf4bf6209de87748">staticlib::utils::RandomStringGenerator</a>
 , <a class="el" href="classstaticlib_1_1utils_1_1FileDescriptor.html#a52b2e288c20d84b8a46b0078a1d7ccb1">staticlib::utils::FileDescriptor</a>
 </li>
 <li>RandomStringGenerator()
@@ -128,9 +127,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>UtilsException()
 : <a class="el" href="classstaticlib_1_1utils_1_1UtilsException.html#a3dacec7bd3be0080373fa4a2a208180c">staticlib::utils::UtilsException</a>
 </li>
-<li>what()
-: <a class="el" href="classstaticlib_1_1utils_1_1BaseException.html#a937e4903cbe33434076778e4323a0013">staticlib::utils::BaseException</a>
-</li>
 <li>write()
 : <a class="el" href="classstaticlib_1_1utils_1_1FileDescriptor.html#a332d680b92f568608b02af5f90af9394">staticlib::utils::FileDescriptor</a>
 </li>
@@ -141,7 +137,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 19 2015 12:56:09 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Dec 4 2015 20:27:42 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
