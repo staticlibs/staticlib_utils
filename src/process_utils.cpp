@@ -377,7 +377,7 @@ int exec_and_wait(const icu::UnicodeString& uexecutable, const std::vector<icu::
     auto ret = WaitForSingleObject(ha, INFINITE);
     if (WAIT_FAILED == ret) throw UtilsException(TRACEMSG(std::string{} +
             "Error waiting for child process: [" + errcode_to_string(::GetLastError()) + "]" +
-            " executable: [" + executable + "], args size: [" + to_string(args.size()) + "], " +
+            " executable: [" + executable + "], args size: [" + sc::to_string(args.size()) + "], " +
             " specified out path: [" + out + "]"));
     DWORD res;
     ::GetExitCodeProcess(ha, std::addressof(res));
