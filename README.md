@@ -5,12 +5,30 @@ This project is a part of [Staticlibs](http://staticlibs.net/).
 
 This project contains common utilities for exceptions, IO, strings etc.
 
-Link to [API documentation](http://staticlibs.github.io/staticlib_utils/docs/html/namespacestaticlib_1_1utils.html).
+Link to the [API documentation](http://staticlibs.github.io/staticlib_utils/docs/html/namespacestaticlib_1_1utils.html).
 
 How to build
 ------------
 
 [CMake](http://cmake.org/) is required for building.
+
+This project depends on a [staticlib_config](https://github.com/staticlibs/staticlib_config) project.
+See [StaticlibsDependencies](https://github.com/staticlibs/wiki/wiki/StaticlibsDependencies) for more 
+details about dependency management with Staticlibs.
+
+To build this project manually (without Staticlib toolchains):
+
+ * checkout all the dependent projects
+ * configure these projects using the same output directory:
+
+Run:
+
+    mkdir build
+    cd build
+    cmake .. -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=<my_lib_dir>
+
+ * build all the dependent projects (optional, required only if you want to create shared library or executable) 
+ * configure this projects using the same output directory and build it:
 
 To build the library on Windows using Visual Studio 2013 Express run the following commands using
 Visual Studio development command prompt 
@@ -20,7 +38,7 @@ Visual Studio development command prompt
     cd staticlib_utils
     mkdir build
     cd build
-    cmake ..
+    cmake .. -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=<my_lib_dir>
     msbuild staticlib_utils.sln
 
 To build on other platforms using GCC or Clang with GNU Make:
@@ -38,6 +56,12 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2015-12-03**
+
+ * version 1.4.0
+ * basic utils moved to `staticlib_config`
+ * ICU support for `FileDescriptor` and `process_utils`
 
 **2015-11-17**
 

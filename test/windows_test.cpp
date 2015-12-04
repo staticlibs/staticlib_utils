@@ -21,14 +21,14 @@
  * Created on March 16, 2015, 10:14 PM
  */
 
-#include "staticlib/utils/config.hpp"
+#include "staticlib/config.hpp"
 #ifdef STATICLIB_WINDOWS
+
+#include "staticlib/utils/windows.hpp"
 
 #include <iostream>
 
-#include "staticlib/utils/assert.hpp"
-
-#include "staticlib/utils/windows.hpp"
+#include "staticlib/config/assert.hpp"
 
 namespace sw = staticlib::utils;
 

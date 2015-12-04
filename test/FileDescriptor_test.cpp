@@ -21,14 +21,13 @@
  * Created on October 8, 2015, 5:17 PM
  */
 
+#include "staticlib/utils/FileDescriptor.hpp"
+
+#include <array>
 #include <iostream>
 #include <string>
-#include <array>
 
-#include "staticlib/utils/assert.hpp"
-
-#include "staticlib/utils/FileDescriptor.hpp"
-#include "staticlib/utils/UtilsException.hpp"
+#include "staticlib/config/assert.hpp"
 
 namespace su = staticlib::utils;
 

@@ -21,14 +21,20 @@
  * Created on October 8, 2015, 12:51 PM
  */
 
-#ifndef STATICLIB_FILEDESCRIPTOR_HPP
-#define	STATICLIB_FILEDESCRIPTOR_HPP
+#ifndef STATICLIB_UTILS_FILEDESCRIPTOR_HPP
+#define	STATICLIB_UTILS_FILEDESCRIPTOR_HPP
 
 #include <ios>
 #include <string>
 #include <memory>
 
-#include "staticlib/utils/config.hpp"
+#ifdef STATICLIB_WITH_ICU
+#include <unicode/unistr.h>
+#endif // STATICLIB_WITH_ICU
+
+#include "staticlib/config.hpp"
+
+#include "staticlib/utils/UtilsException.hpp"
 
 namespace staticlib {
 namespace utils {
@@ -39,21 +45,28 @@ namespace utils {
  */
 class FileDescriptor {
 #ifdef STATICLIB_WINDOWS
-    void* handle;
+    void* handle = nullptr;
 #else // STATICLIB_WINDOWS
     /**
      * Native file descriptor (handle on windows)
      */
-    int fd;
+    int fd = -1;
 #endif // STATICLIB_WINDOWS
     /**
      * Path to file
      */
     std::string file_path;
+#ifdef STATICLIB_WITH_ICU
+    /**
+     * Unicode path to file
+     */
+    icu::UnicodeString file_upath;
+#endif // STATICLIB_WITH_ICU
     /**
      * Mode in which this descriptor was opened
      */
     char mode;
+    
 public:
     /**
      * Constructor
@@ -61,7 +74,11 @@ public:
      * @param file_path path to file
      * @param mode how to open the file, supported modes are 'r' and 'w'
      */
+#ifdef STATICLIB_WITH_ICU    
+    FileDescriptor(icu::UnicodeString file_path, char mode);
+#else    
     FileDescriptor(std::string file_path, char mode);
+#endif // STATICLIB_WITH_ICU
     
     /**
      * Destructor, will close the descriptor
@@ -153,6 +170,15 @@ public:
      * @return path to this file
      */
     const std::string& get_file_path();
+
+#ifdef STATICLIB_WITH_ICU
+    /**
+     * File unicode path accessor
+     * 
+     * @return unicode path to this file
+     */
+    const icu::UnicodeString& get_file_upath();
+#endif // STATICLIB_WITH_ICU    
     
     /**
      * Mode accessor
@@ -165,5 +191,5 @@ public:
 } // namespace
 }
 
-#endif	/* STATICLIB_FILEDESCRIPTOR_HPP */
+#endif	/* STATICLIB_UTILS_FILEDESCRIPTOR_HPP */
 

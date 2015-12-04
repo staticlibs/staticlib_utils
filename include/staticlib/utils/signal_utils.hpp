@@ -21,10 +21,12 @@
  * Created on March 12, 2015, 8:21 PM
  */
 
-#ifndef STATICLIB_SIGNAL_UTILS_HPP
-#define	STATICLIB_SIGNAL_UTILS_HPP
+#ifndef STATICLIB_UTILS_SIGNAL_UTILS_HPP
+#define	STATICLIB_UTILS_SIGNAL_UTILS_HPP
 
 #include <functional>
+
+#include "staticlib/utils/UtilsException.hpp"
 
 namespace staticlib {
 namespace utils {
@@ -57,5 +59,5 @@ void fire_signal();
 } // namespace
 }
 
-#endif	/* STATICLIB_SIGNAL_UTILS_HPP */
+#endif	/* STATICLIB_UTILS_SIGNAL_UTILS_HPP */
 

@@ -1,3 +1,19 @@
+/*
+ * Copyright 2015, alex at staticlibs.net
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 /* 
  * File:   RandomStringGenerator.cpp
  * Author: alex
@@ -5,20 +21,17 @@
  * Created on July 3, 2015, 12:09 AM
  */
 
+#include "staticlib/utils/RandomStringGenerator.hpp"
+
 #include <string>
 #include <random>
 #include <utility>
 #include <cstdint>
 
-#include "staticlib/utils/UtilsException.hpp"
-#include "staticlib/utils/tracemsg.hpp"
-#include "staticlib/utils/RandomStringGenerator.hpp"
-
 namespace staticlib {
 namespace utils {
 
 // see: http://stackoverflow.com/a/9789249/314015
-
 RandomStringGenerator::RandomStringGenerator(RandomStringGenerator&& other) :
 charset(std::move(other.charset)),
 engine(std::move(other.engine)),

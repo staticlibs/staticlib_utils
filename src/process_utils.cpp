@@ -21,14 +21,17 @@
  * Created on September 21, 2015, 8:47 AM
  */
 
+#include "staticlib/utils/process_utils.hpp"
+
+#include <algorithm>
 #include <array>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 #include <cstdlib>
 #include <cstring>
 
-#include "staticlib/utils/config.hpp"
+#include "staticlib/config.hpp"
+
 #ifdef STATICLIB_WINDOWS
 #include <mutex>
 #define WIN32_LEAN_AND_MEAN
@@ -46,15 +49,33 @@
 #if defined(STATICLIB_MAC)
 #include <mach-o/dyld.h>
 #endif // STATCILIB_MAC
-#include "staticlib/utils/UtilsException.hpp"
-#include "staticlib/utils/tracemsg.hpp"
+
 #include "staticlib/utils/string_utils.hpp"
-#include "staticlib/utils/process_utils.hpp"
 
 namespace staticlib {
 namespace utils {
 
 namespace { // anonymous
+
+namespace sc = staticlib::config;
+
+#ifdef STATICLIB_WITH_ICU
+std::string to_utf8(const icu::UnicodeString& str) {
+    std::string bytes;
+    icu::StringByteSink<std::string> sbs(&bytes);
+    str.toUTF8(sbs);
+    return bytes;
+}
+
+std::vector<std::string> to_utf8_vector(const std::vector<icu::UnicodeString>& vec) {
+    std::vector<std::string> res;
+    res.resize(vec.size());
+    for (const icu::UnicodeString& st : vec) {
+        res.emplace_back(to_utf8(st));
+    }
+    return res;
+}
+#endif // STATICLIB_WITH_ICU
 
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
 int parse_int_nothrow(char* fd_name) {
@@ -177,8 +198,8 @@ void register_signal(int signum, int flags, void (*handler)(int)) {
     sa.sa_flags = flags;
     int res = ::sigaction(signum, std::addressof(sa), 0);
     if (-1 == res) throw UtilsException(TRACEMSG(std::string{} + 
-            "Error registering signal: [" + to_string(signum) + "],"
-            " with flags: [" + to_string(flags) + "], error: [" + ::strerror(errno) + "]"));
+            "Error registering signal: [" + sc::to_string(signum) + "],"
+            " with flags: [" + sc::to_string(flags) + "], error: [" + ::strerror(errno) + "]"));
 }
 
 sigset_t block_signals() {
@@ -246,7 +267,7 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
         errno = 0;
         int res = ::execv(exec_path_child, arg_ptrs_child.data());
         std::cout << TRACEMSG(std::string{} + " Process execv error: [" + ::strerror(errno) + "]," +
-                " executable: [" + executable + "], args size: [" + to_string(args.size()) + "]") << std::endl;
+                " executable: [" + executable + "], args size: [" + sc::to_string(args.size()) + "]") << std::endl;
         if (-1 == res) _exit(errno);        
         return 0;
     }
@@ -316,7 +337,12 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
 
 } // namespace
 
+#ifndef STATICLIB_WITH_ICU
 int shell_exec_and_wait(const std::string& cmd) {
+#else
+int shell_exec_and_wait(const icu::UnicodeString& ucmd) {    
+    std::string cmd = to_utf8(ucmd);
+#endif // STATICLIB_WITH_ICU
 #ifdef STATICLIB_WINDOWS
     std::string quoted = "\"" + cmd + "\"";
     std::wstring ws = widen(quoted);
@@ -326,7 +352,15 @@ int shell_exec_and_wait(const std::string& cmd) {
 #endif // STATICLIB_WINDOWS
 }
 
+#ifndef STATICLIB_WITH_ICU
 int exec_and_wait(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
+#else
+int exec_and_wait(const icu::UnicodeString& uexecutable, const std::vector<icu::UnicodeString>& uargs, 
+        const icu::UnicodeString& uout) {    
+    std::string executable = to_utf8(uexecutable);
+    std::vector<std::string> args = to_utf8_vector(uargs);
+    std::string out = to_utf8(uout);
+#endif // STATICLIB_WITH_ICU    
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
     pid_t pid = exec_async_unix(executable, args, out);
     int status;
@@ -356,7 +390,15 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
 #endif
 }
 
+#ifndef STATICLIB_WITH_ICU
 int exec_async(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
+#else
+int exec_async(const icu::UnicodeString& uexecutable, const std::vector<icu::UnicodeString>& uargs,
+        const icu::UnicodeString& uout) {
+    std::string executable = to_utf8(uexecutable);
+    std::vector<std::string> args = to_utf8_vector(uargs);
+    std::string out = to_utf8(uout);
+#endif // STATICLIB_WITH_ICU        
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
     pid_t pid =  exec_async_unix(executable, args, out);
     register_signal(SIGCHLD, SA_RESTART | SA_NOCLDSTOP, sigchild_handler);
@@ -416,7 +458,6 @@ std::string current_executable_path_windows() {
 #endif // STATICLIB_WINDOWS
 
 #if defined(STATICLIB_MAC)
-
 std::string current_executable_path_mac() {
     std::string out{};
     uint32_t size = 64;
@@ -439,8 +480,8 @@ std::string current_executable_path_mac() {
 
 }
 
-
-std::string current_executable_path() {
+namespace { // anonymous
+std::string current_executable_path_internal() {
 #if defined(STATICLIB_LINUX)
     return current_executable_path_linux();
 #elif defined(STATICLIB_WINDOWS)
@@ -451,6 +492,18 @@ std::string current_executable_path() {
     throw UtilsException(TRACEMSG("Cannot determine current executable path on this platform"));
 #endif 
 }
+} // namespace
+
+#ifdef STATICLIB_WITH_ICU
+icu::UnicodeString current_executable_path() {
+    return icu::UnicodeString::fromUTF8(current_executable_path_internal());
+}
+#else
+std::string current_executable_path() {
+    return current_executable_path_internal();
+}
+#endif // STATICLIB_WITH_ICU
+
 
 } // namespace
 }

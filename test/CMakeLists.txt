@@ -17,18 +17,32 @@ cmake_minimum_required ( VERSION 2.8.12 )
 # toolchain setup
 set ( STATICLIB_TOOLCHAIN linux_amd64_gcc CACHE STRING "toolchain triplet" )
 if ( NOT DEFINED STATICLIB_CMAKE )
-    set ( STATICLIB_CMAKE ${CMAKE_CURRENT_LIST_DIR}/cmake CACHE INTERNAL "" )
-    set ( CMAKE_TOOLCHAIN_FILE ${STATICLIB_CMAKE}/toolchains/${STATICLIB_TOOLCHAIN}.cmake CACHE INTERNAL "" )
+    set ( STATICLIB_CMAKE ${CMAKE_CURRENT_LIST_DIR}/../../cmake CACHE INTERNAL "" )    
 endif ( )
+set ( CMAKE_TOOLCHAIN_FILE ${STATICLIB_CMAKE}/toolchains/${STATICLIB_TOOLCHAIN}.cmake CACHE INTERNAL "" )
 
 # project
 project ( staticlib_utils_test CXX )
 include ( ${STATICLIB_CMAKE}/staticlibs_common.cmake )
 
 # dependencies
+set ( STATICLIB_WITH_ICU OFF CACHE BOOL "" )
+if ( NOT DEFINED STATICLIB_DEPS )
+    set ( STATICLIB_DEPS ${CMAKE_CURRENT_LIST_DIR}/../../ CACHE INTERNAL "" )    
+endif ( )
+if ( STATICLIB_WITH_ICU AND ( NOT STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_[^_]+" ) )    
+    staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_icu )
+endif ( )
+staticlib_add_subdirectory ( ${STATICLIB_DEPS}/staticlib_config )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_utils )
-set ( ${PROJECT_NAME}_DEPS staticlib_utils )
+set ( ${PROJECT_NAME}_DEPS staticlib_config staticlib_utils )
+if ( STATICLIB_WITH_ICU )
+    set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} icu-uc )
+endif ( )
 staticlib_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
+
+message ( STATUS ${${PROJECT_NAME}_DEPS_PC_CFLAGS_OTHER} )
+message ( STATUS ${${PROJECT_NAME}_DEPS_PC_CFLAGS} )
 
 # tests
 set ( ${PROJECT_NAME}_TEST_INCLUDES ${${PROJECT_NAME}_DEPS_PC_INCLUDE_DIRS} )

@@ -21,12 +21,14 @@
  * Created on July 2, 2015, 11:27 PM
  */
 
-#ifndef STATICLIB_RANDOMSTRINGGENERATOR_HPP
-#define	STATICLIB_RANDOMSTRINGGENERATOR_HPP
+#ifndef STATICLIB_UTILS_RANDOMSTRINGGENERATOR_HPP
+#define	STATICLIB_UTILS_RANDOMSTRINGGENERATOR_HPP
 
 #include <string>
 #include <random>
 #include <cstdint>
+
+#include "staticlib/utils/UtilsException.hpp"
 
 namespace staticlib {
 namespace utils {
@@ -93,7 +95,7 @@ public:
      * @return generated string
      */
     std::string generate(uint32_t length);
-    
+
     /**
      * Changes all characters in specified string with random ones,
      * initial characters are ignored
@@ -107,5 +109,5 @@ public:
 }
 } // namespace
 
-#endif	/* STATICLIB_RANDOMSTRINGGENERATOR_HPP */
+#endif	/* STATICLIB_UTILS_RANDOMSTRINGGENERATOR_HPP */
 

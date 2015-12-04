@@ -16,9 +16,10 @@ cmake_minimum_required ( VERSION 2.8.12 )
 
 # project
 project ( staticlib_utils CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.3.4 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.4.0 )
 set ( ${PROJECT_NAME}_DESCRIPTION "Staticlibs common utilities library" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_utils )
+include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
 
 # docs
 option ( ${PROJECT_NAME}_ENABLE_DOCS "Generate doxyfile and exit build" OFF )
@@ -38,19 +39,35 @@ if ( STATICLIB_USE_DEPLIBS_CACHE )
     endif ( )
 endif ( )
 
+# dependencies
+set ( ${PROJECT_NAME}_OPTIONS "" )
+set ( ${PROJECT_NAME}_DEPS staticlib_config )
+if ( STATICLIB_WITH_ICU )
+    set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} icu-uc )
+    set ( ${PROJECT_NAME}_OPTIONS -DSTATICLIB_WITH_ICU )
+endif ( )
+staticlib_utils_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
+
 # library
 file ( GLOB_RECURSE ${PROJECT_NAME}_SRC ${CMAKE_CURRENT_LIST_DIR}/src/*.cpp )
 file ( GLOB_RECURSE ${PROJECT_NAME}_HEADERS ${CMAKE_CURRENT_LIST_DIR}/include/*.hpp )
 add_library ( ${PROJECT_NAME} STATIC ${${PROJECT_NAME}_SRC} ${${PROJECT_NAME}_HEADERS} )
 source_group ( "src" FILES ${${PROJECT_NAME}_SRC} )
 source_group ( "include" FILES ${${PROJECT_NAME}_HEADERS} )
-target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE ${CMAKE_CURRENT_LIST_DIR}/include )
+target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE 
+        ${CMAKE_CURRENT_LIST_DIR}/include
+        ${${PROJECT_NAME}_DEPS_PC_INCLUDE_DIRS} )
+target_compile_options ( ${PROJECT_NAME} PRIVATE 
+        ${${PROJECT_NAME}_DEPS_PC_CFLAGS_OTHER}
+        ${${PROJECT_NAME}_OPTIONS} )
 
 # pkg-config
 if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
     set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
 endif ( )
-set ( ${PROJECT_NAME}_PC_CFLAGS "-I${CMAKE_CURRENT_LIST_DIR}/include" )
+staticlib_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_OPTS "" ${PROJECT_NAME}_OPTIONS )
+set ( ${PROJECT_NAME}_PC_CFLAGS "-I${CMAKE_CURRENT_LIST_DIR}/include ${${PROJECT_NAME}_PC_CFLAGS_OPTS}" )
 set ( ${PROJECT_NAME}_PC_LIBS "-L${CMAKE_LIBRARY_OUTPUT_DIRECTORY} -l${PROJECT_NAME}" )
+staticlib_utils_list_to_string ( ${PROJECT_NAME}_PC_REQUIRES "" ${PROJECT_NAME}_DEPS )
 configure_file ( ${CMAKE_CURRENT_LIST_DIR}/resources/pkg-config.in 
         ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pkgconfig/${PROJECT_NAME}.pc )

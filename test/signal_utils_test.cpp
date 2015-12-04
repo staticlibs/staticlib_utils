@@ -21,14 +21,13 @@
  * Created on March 12, 2015, 9:38 PM
  */
 
-#include <iostream>
-#include <thread>
+#include "staticlib/utils/signal_utils.hpp"
+
 #include <atomic>
 #include <iostream>
+#include <thread>
 
-#include "staticlib/utils/assert.hpp"
-
-#include "staticlib/utils/signal_utils.hpp"
+#include "staticlib/config/assert.hpp"
 
 namespace su = staticlib::utils;
 

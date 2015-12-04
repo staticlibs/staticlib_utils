@@ -21,8 +21,8 @@
  * Created on January 2, 2015, 12:59 PM
  */
 
-#ifndef STATICLIB_STRING_UTILS_HPP
-#define	STATICLIB_STRING_UTILS_HPP
+#ifndef STATICLIB_UTILS_STRING_UTILS_HPP
+#define	STATICLIB_UTILS_STRING_UTILS_HPP
 
 #include <string>
 #include <sstream>
@@ -30,32 +30,11 @@
 #include <vector>
 #include <cstdint>
 
-#include "staticlib/utils/config.hpp"
-#include "staticlib/utils/tracemsg.hpp"
+#include "staticlib/config.hpp"
 #include "staticlib/utils/UtilsException.hpp"
 
 namespace staticlib {
 namespace utils {
-
-/**
- * Generic `to_string` implementation, already exists as `std::to_string`
- * in most C++11 compilers except GCC 4.8
- * 
- * @param t value to stringify
- * @return string representation of specified value
- */
-template<typename T>
-std::string to_string(T t) {
-    try {
-        std::stringstream ss{};
-        ss << t;
-        return ss.str();
-    } catch (const std::exception& e) {
-        std::string tname{typeid (t).name()};
-        throw UtilsException(TRACEMSG(std::string(e.what()) + 
-                "\nError stringifying object, type: [" + tname + "]"));
-    }
-}
 
 /**
  * Access underlying string buffer as writable char array safely (according to C++11)
@@ -99,5 +78,5 @@ std::vector<std::string> split(const std::string& str, char delim);
 } // namespace
 }
 
-#endif	/* STATICLIB_STRING_UTILS_HPP */
+#endif	/* STATICLIB_UTILS_STRING_UTILS_HPP */
 

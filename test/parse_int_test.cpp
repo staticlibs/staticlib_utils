@@ -21,13 +21,13 @@
  * Created on January 31, 2015, 4:01 PM
  */
 
-#include <cstdlib>
-#include <string>
-#include <iostream>
-
-#include "staticlib/utils/assert.hpp"
-
 #include "staticlib/utils/parse_int.hpp"
+
+#include <iostream>
+#include <string>
+#include <cstdlib>
+
+#include "staticlib/config/assert.hpp"
 
 namespace ss = staticlib::utils;
 

@@ -5,14 +5,16 @@
  * Created on September 21, 2015, 8:53 AM
  */
 
-#include <vector>
-#include <string>
-#include <iostream>
-
-#include "staticlib/utils/assert.hpp"
-
-#include "staticlib/utils/config.hpp"
 #include "staticlib/utils/process_utils.hpp"
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+#include "staticlib/config/assert.hpp"
+
+#include "staticlib/config.hpp"
+
 
 namespace su = staticlib::utils;
 
@@ -39,7 +41,7 @@ void test_exec_and_wait() {
 void test_executable_path() {
     auto st = su::current_executable_path();
     slassert(st.length() > 0);
-    std::cout << "[" << st << "]" << std::endl;
+//    std::cout << "[" << st << "]" << std::endl;
 }
 
 int main() {

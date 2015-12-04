@@ -21,7 +21,9 @@
  * Created on March 16, 2015, 10:02 PM
  */
 
-#include "staticlib/utils/config.hpp"
+#include "staticlib/utils/windows.hpp"
+
+#include "staticlib/config.hpp"
 #ifdef STATICLIB_WINDOWS
 
 #include <memory>
@@ -33,8 +35,6 @@
 #include <windows.h>
 
 #include "staticlib/utils/string_utils.hpp"
-#include "staticlib/utils/UtilsException.hpp"
-#include "staticlib/utils/windows.hpp"
 
 namespace staticlib {
 namespace utils {

@@ -21,13 +21,12 @@
  * Created on January 31, 2015, 3:51 PM
  */
 
+#include "staticlib/utils/parse_int.hpp"
+
 #include <cstdlib>
 #include <cerrno>
 #include <climits>
 
-#include "staticlib/utils/UtilsException.hpp"
-#include "staticlib/utils/tracemsg.hpp"
-#include "staticlib/utils/parse_int.hpp"
 
 namespace staticlib {
 namespace utils {

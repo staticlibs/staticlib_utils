@@ -21,13 +21,15 @@
  * Created on March 16, 2015, 9:53 PM
  */
 
-#ifndef STATICLIB_WINDOWS_HPP
-#define	STATICLIB_WINDOWS_HPP
+#ifndef STATICLIB_UTILS_WINDOWS_HPP
+#define	STATICLIB_UTILS_WINDOWS_HPP
 
 #include <string>
 #include <cstdint>
 
-#include "staticlib/utils/config.hpp"
+#include "staticlib/config.hpp"
+
+#include "staticlib/utils/UtilsException.hpp"
 
 namespace staticlib {
 namespace utils {
@@ -76,5 +78,5 @@ std::string get_exec_dir();
 } //namespace
 }
 
-#endif	/* STATICLIB_WINDOWS_HPP */
+#endif	/* STATICLIB_UTILS_WINDOWS_HPP */
 

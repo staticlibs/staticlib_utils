@@ -21,37 +21,14 @@
  * Created on January 2, 2015, 1:06 PM
  */
 
-#include <cstring>
-#include <iostream>
-
-#include "staticlib/utils/assert.hpp"
-
-#include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/string_utils.hpp"
 
+#include <iostream>
+#include <cstring>
+
+#include "staticlib/config/assert.hpp"
+
 namespace ss = staticlib::utils;
-
-void test_to_string() {
-    slassert("42" == ss::to_string(42));
-    slassert("42" == ss::to_string(std::string("42")));
-}
-
-class BadExternalClass {
-    friend std::ostream &operator<<(std::ostream&, const BadExternalClass&) {
-        throw std::exception();
-    }
-};
-
-void test_to_string_exception() {
-    bool catched = false;
-    try {
-        BadExternalClass bc{};
-        ss::to_string(bc);        
-    } catch(const ss::UtilsException&) {
-        catched = true;
-    }
-    slassert(catched);
-}
 
 void test_get_buffer_char() {
     std::string st{"foo"};
@@ -103,8 +80,6 @@ void test_split() {
 
 int main() {
     try {
-        test_to_string();
-        test_to_string_exception();
         test_get_buffer_char();
         test_get_buffer_wchar();
         test_get_buffer_exception();

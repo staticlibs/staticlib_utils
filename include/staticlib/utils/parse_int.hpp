@@ -21,11 +21,13 @@
  * Created on January 31, 2015, 3:41 PM
  */
 
-#ifndef STATICLIB_PARSE_INT_HPP
-#define	STATICLIB_PARSE_INT_HPP
+#ifndef STATICLIB_UTILS_PARSE_INT_HPP
+#define	STATICLIB_UTILS_PARSE_INT_HPP
 
 #include <string>
 #include <cstdint>
+
+#include "staticlib/utils/UtilsException.hpp"
 
 // std::stoi is not available on Android in NDK 9
 
@@ -83,5 +85,5 @@ uint64_t parse_uint64(const std::string& str);
 } // namespace
 }
 
-#endif	/* STATICLIB_PARSE_INT_HPP */
+#endif	/* STATICLIB_UTILS_PARSE_INT_HPP */
 

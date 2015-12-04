@@ -21,21 +21,21 @@
  * Created on January 13, 2015, 9:03 PM
  */
 
+#include "staticlib/utils/string_utils.hpp"
+
 #include <string>
 #include <exception>
 #include <sstream>
 #include <cstdlib>
 #include <cstring>
 
-#include "staticlib/utils/config.hpp"
-#include "staticlib/utils/tracemsg.hpp"
-#include "staticlib/utils/UtilsException.hpp"
-#include "staticlib/utils/string_utils.hpp"
 
 namespace staticlib {
 namespace utils {
 
 namespace { // anonymous
+
+namespace sc = staticlib::config;
 
 template <typename T>
 T* get_buffer_internal(std::basic_string<T>& str, typename std::basic_string<T>::size_type required_size) {
@@ -44,8 +44,8 @@ T* get_buffer_internal(std::basic_string<T>& str, typename std::basic_string<T>:
         return &str.front();
     } catch (const std::exception& e) {
         throw UtilsException(TRACEMSG(std::string(e.what()) + 
-                "\nError getting buffer with required size: [" + to_string(required_size) + "]" + 
-                " from string, length: [" + to_string(str.length()) + "]"));
+                "\nError getting buffer with required size: [" + sc::to_string(required_size) + "]" + 
+                " from string, length: [" + sc::to_string(str.length()) + "]"));
     }
 }
 

@@ -21,6 +21,8 @@
  * Created on March 12, 2015, 8:49 PM
  */
 
+#include "staticlib/utils/signal_utils.hpp"
+
 #include <functional>
 #include <vector>
 #include <mutex>
@@ -28,14 +30,11 @@
 
 #include <signal.h>
 
-#include "staticlib/utils/config.hpp"
+#include "staticlib/config.hpp"
 #ifdef STATICLIB_WINDOWS
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #endif // STATICLIB_WINDOWS
-
-#include "staticlib/utils/UtilsException.hpp"
-#include "staticlib/utils/signal_utils.hpp"
 
 namespace staticlib {
 namespace utils {

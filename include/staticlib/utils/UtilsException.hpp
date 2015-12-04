@@ -21,10 +21,10 @@
  * Created on January 13, 2015, 9:36 PM
  */
 
-#ifndef STATICLIB_UTILSEXCEPTION_HPP
-#define	STATICLIB_UTILSEXCEPTION_HPP
+#ifndef STATICLIB_UTILS_UTILSEXCEPTION_HPP
+#define	STATICLIB_UTILS_UTILSEXCEPTION_HPP
 
-#include "staticlib/utils/BaseException.hpp"
+#include "staticlib/config.hpp"
 
 namespace staticlib {
 namespace utils {
@@ -32,7 +32,7 @@ namespace utils {
 /**
  * Module specific exception
  */
-class UtilsException : public BaseException {
+class UtilsException : public staticlib::config::BaseException {
 public:
     /**
      * Default constructor
@@ -45,12 +45,12 @@ public:
      * @param msg error message
      */
     UtilsException(const std::string& msg) :
-    BaseException(msg) { }
+    staticlib::config::BaseException(msg) { }
 
 };
 
 }
 } //namespace
 
-#endif	/* STATICLIB_UTILSEXCEPTION_HPP */
+#endif	/* STATICLIB_UTILS_UTILSEXCEPTION_HPP */
 

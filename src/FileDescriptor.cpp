@@ -21,9 +21,12 @@
  * Created on October 8, 2015, 12:54 PM
  */
 
+#include "staticlib/utils/FileDescriptor.hpp"
+
 #include <string>
 
-#include "staticlib/utils/config.hpp"
+#include "staticlib/config.hpp"
+
 #ifdef STATICLIB_WINDOWS
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
@@ -37,18 +40,30 @@
 #include <cerrno>
 #endif // STATICLIB_WINDOWS
 
-#include "staticlib/utils/UtilsException.hpp"
-#include "staticlib/utils/tracemsg.hpp"
-#include "staticlib/utils/FileDescriptor.hpp"
-
 namespace staticlib {
 namespace utils {
 
+#ifdef STATICLIB_WITH_ICU
+namespace { // anonymous
+std::string to_utf8(const icu::UnicodeString& str) {
+    std::string bytes;
+    icu::StringByteSink<std::string> sbs(&bytes);
+    str.toUTF8(sbs);
+    return bytes;
+}
+}
+#endif // STATICLIB_WITH_ICU
+
 #ifdef STATICLIB_WINDOWS
 
+#ifndef STATICLIB_WITH_ICU
 FileDescriptor::FileDescriptor(std::string file_path, char mode) :
-handle(nullptr),
 file_path(std::move(file_path)),
+#else
+FileDescriptor::FileDescriptor(icu::UnicodeString file_upath, char mode) :
+file_path(to_utf8(file_upath)),
+file_upath(std::move(file_upath)),        
+#endif // STATICLIB_WITH_ICU        
 mode(mode) {        
     std::wstring wpath = widen(this->file_path);
     DWORD dwDesiredAccess;
@@ -82,6 +97,9 @@ mode(mode) {
 FileDescriptor::FileDescriptor(FileDescriptor&& other) :
 handle(other.handle),
 file_path(std::move(other.file_path)),
+#ifdef STATICLIB_WITH_ICU
+file_upath(std::move(other.file_upath)),
+#endif // STATICLIB_WITH_ICU        
 mode(other.mode) {
     other.handle = nullptr;
 }
@@ -90,6 +108,9 @@ FileDescriptor& FileDescriptor::operator=(FileDescriptor&& other) {
     handle = other.handle;
     other.handle = nullptr;
     file_path = std::move(other.file_path);
+#ifdef STATICLIB_WITH_ICU
+    file_upath = std::move(other.file_upath);
+#endif // STATICLIB_WITH_ICU
     mode = other.mode;
     return *this;
 }
@@ -178,9 +199,14 @@ off_t FileDescriptor::size() {
 
 #else // STATICLIB_WINDOWS
 
+#ifndef STATICLIB_WITH_ICU
 FileDescriptor::FileDescriptor(std::string file_path, char mode) :
-fd(-1), 
 file_path(std::move(file_path)),
+#else
+FileDescriptor::FileDescriptor(icu::UnicodeString file_upath, char mode) :
+file_path(to_utf8(file_upath)),        
+file_upath(std::move(file_upath)),
+#endif // STATICLIB_WITH_ICU        
 mode(mode) { 
     switch (mode) {
     case 'r': 
@@ -205,6 +231,9 @@ FileDescriptor::~FileDescriptor() STATICLIB_NOEXCEPT {
 FileDescriptor::FileDescriptor(FileDescriptor&& other) :
 fd(other.fd),
 file_path(std::move(other.file_path)),
+#ifdef STATICLIB_WITH_ICU
+file_upath(std::move(other.file_upath)),
+#endif // STATICLIB_WITH_ICU
 mode(other.mode) {
     other.fd = -1;
 }
@@ -213,6 +242,9 @@ FileDescriptor& FileDescriptor::operator=(FileDescriptor&& other) {
     fd = other.fd;
     other.fd = -1;
     file_path = std::move(other.file_path);
+#ifdef STATICLIB_WITH_ICU
+    file_upath = std::move(other.file_upath);
+#endif // STATICLIB_WITH_ICU
     mode = other.mode;
     return *this;
 }
