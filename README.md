@@ -57,6 +57,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2015-12-07**
+
+ * version 1.4.1
+ * `current_executable_path` fix for linux and mac
+
 **2015-12-03**
 
  * version 1.4.0
