@@ -474,8 +474,7 @@ std::string current_executable_path_mac() {
             throw UtilsException(TRACEMSG("_NSGetExecutablePath secondary error"));
         }
         // trim null terminated buffer
-        std::string(out.c_str());
-        return out;
+        return std::string(out.c_str());
     }
 }
 #endif // STATICLIB_MAC
