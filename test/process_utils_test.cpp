@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <cstring>
 
 #include "staticlib/config/assert.hpp"
 
@@ -41,6 +42,7 @@ void test_exec_and_wait() {
 void test_executable_path() {
     auto st = su::current_executable_path();
     slassert(st.length() > 0);
+    slassert(st.length() == strlen(st.c_str()));
 //    std::cout << "[" << st << "]" << std::endl;
 }
 

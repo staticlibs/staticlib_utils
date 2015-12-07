@@ -428,7 +428,7 @@ std::string current_executable_path_linux() {
         ssize_t res_size = readlink("/proc/self/exe", link, size);
         if (res_size < 0) throw UtilsException(TRACEMSG(std::string() + strerror(errno)));
         if (res_size < size) {
-            link[res_size] = '\0';
+            res.resize(res_size);
             break;
         }
         size = size * 2;
@@ -473,6 +473,8 @@ std::string current_executable_path_mac() {
         if (0 != res) {
             throw UtilsException(TRACEMSG("_NSGetExecutablePath secondary error"));
         }
+        // trim null terminated buffer
+        std::string(out.c_str());
         return out;
     }
 }
