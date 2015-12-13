@@ -464,7 +464,8 @@ std::string current_executable_path_mac() {
     char* path = get_buffer(out, size);
     int res = _NSGetExecutablePath(path, &size);
     if (0 == res) {
-        return out;
+        // trim null terminated buffer
+        return std::string(out.c_str());
     } else if (-1 != res) {
         throw UtilsException(TRACEMSG("_NSGetExecutablePath error"));
     } else {
