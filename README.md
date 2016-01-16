@@ -3,7 +3,7 @@ Staticlibs common utilities library
 
 This project is a part of [Staticlibs](http://staticlibs.net/).
 
-This project contains common utilities for exceptions, IO, strings etc.
+This project contains common utilities for IO, strings etc.
 
 Link to the [API documentation](http://staticlibs.github.io/staticlib_utils/docs/html/namespacestaticlib_1_1utils.html).
 
@@ -12,33 +12,20 @@ How to build
 
 [CMake](http://cmake.org/) is required for building.
 
-This project depends on a [staticlib_config](https://github.com/staticlibs/staticlib_config) project.
-See [StaticlibsDependencies](https://github.com/staticlibs/wiki/wiki/StaticlibsDependencies) for more 
-details about dependency management with Staticlibs.
-
-To build this project manually (without Staticlib toolchains):
-
- * checkout all the dependent projects
- * configure these projects using the same output directory:
-
-Run:
-
-    mkdir build
-    cd build
-    cmake .. -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=<my_lib_dir>
-
- * build all the dependent projects (optional, required only if you want to create shared library or executable) 
- * configure this projects using the same output directory and build it:
+[pkg-config](http://www.freedesktop.org/wiki/Software/pkg-config/) utility is used for dependency management.
+For Windows users ready-to-use binary version of `pkg-config` can be obtained from [tools_windows_pkgconfig](https://github.com/staticlibs/tools_windows_pkgconfig) repository.
+See [PkgConfig](https://github.com/staticlibs/wiki/wiki/PkgConfig) for Staticlibs-specific details about `pkg-config` usage.
 
 To build the library on Windows using Visual Studio 2013 Express run the following commands using
 Visual Studio development command prompt 
 (`C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\Shortcuts\VS2013 x86 Native Tools Command Prompt`):
 
+    git clone https://github.com/staticlibs/staticlib_config.git
     git clone https://github.com/staticlibs/staticlib_utils.git
     cd staticlib_utils
     mkdir build
     cd build
-    cmake .. -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=<my_lib_dir>
+    cmake ..
     msbuild staticlib_utils.sln
 
 To build on other platforms using GCC or Clang with GNU Make:
@@ -47,7 +34,7 @@ To build on other platforms using GCC or Clang with GNU Make:
     make
 
 See [StaticlibsToolchains](https://github.com/staticlibs/wiki/wiki/StaticlibsToolchains) for 
-more information about the toolchain setup and cross-compilation.
+more information about the CMake toolchains setup and cross-compilation.
 
 License information
 -------------------
@@ -56,6 +43,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2016-01-16**
+
+ * version 1.4.2
+ * minor CMake changes
 
 **2015-12-07**
 
