@@ -78,6 +78,14 @@ void test_split() {
     slassert("baz" == vec[2]);
 }
 
+void test_ends_with() {
+    slassert(ss::ends_with("foo", "oo"));
+    slassert(ss::ends_with("foo", "foo"));
+    slassert(!ss::ends_with("foo", "1foo"));
+    slassert(ss::ends_with("foo", ""));
+    slassert(!ss::ends_with("foo", "ar"));
+}
+
 int main() {
     try {
         test_get_buffer_char();
@@ -85,6 +93,7 @@ int main() {
         test_get_buffer_exception();
         test_alloc_copy();
         test_split();
+        test_ends_with();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;

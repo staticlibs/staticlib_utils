@@ -85,6 +85,15 @@ std::vector<std::string> split(const std::string& str, char delim) {
     return res;
 }
 
+// http://stackoverflow.com/a/874160/314015
+bool ends_with(std::string const& value, std::string const& ending) {
+    if (value.length() >= ending.length()) {
+        return (0 == value.compare(value.length() - ending.length(), ending.length(), ending));
+    } else {
+        return false;
+    }
+}
+
 }
 } // namespace
 

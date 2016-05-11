@@ -75,6 +75,15 @@ char* alloc_copy(const std::string& str) STATICLIB_NOEXCEPT;
  */
 std::vector<std::string> split(const std::string& str, char delim);
 
+/**
+ * Checks whether one string ends with another one
+ * 
+ * @param value string to check
+ * @param ending string ending
+ * @return true if string ends with specified ending, false otherwise
+ */
+bool ends_with(std::string const& value, std::string const& ending);
+
 } // namespace
 }
 
