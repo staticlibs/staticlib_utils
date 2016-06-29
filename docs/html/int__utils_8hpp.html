@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_utils: staticlib/utils/parse_int.hpp File Reference</title>
+<title>staticlib_utils: staticlib/utils/int_utils.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,14 +88,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">parse_int.hpp File Reference</div>  </div>
+<div class="title">int_utils.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br/>
+<div class="textblock"><code>#include &lt;limits&gt;</code><br/>
+<code>#include &lt;type_traits&gt;</code><br/>
 <code>#include &lt;cstdint&gt;</code><br/>
-<code>#include &quot;<a class="el" href="UtilsException_8hpp_source.html">staticlib/utils/UtilsException.hpp</a>&quot;</code><br/>
 </div>
-<p><a href="parse__int_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="int__utils_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -104,18 +104,32 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6f722b137fdbbea5ffa1cc39a4dd5d49"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a6f722b137fdbbea5ffa1cc39a4dd5d49">staticlib::utils::parse_int16</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:a6f722b137fdbbea5ffa1cc39a4dd5d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses <code>int16_t</code> with base 10 from specified string using <code>strto*l</code>  <a href="#a6f722b137fdbbea5ffa1cc39a4dd5d49"></a><br/></td></tr>
-<tr class="memitem:a2a6d34fe5de4fe0b34bda2fd7cd83063"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a2a6d34fe5de4fe0b34bda2fd7cd83063">staticlib::utils::parse_uint16</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:a2a6d34fe5de4fe0b34bda2fd7cd83063"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses <code>uint16_t</code> with base 10 from specified string using <code>strto*l</code>  <a href="#a2a6d34fe5de4fe0b34bda2fd7cd83063"></a><br/></td></tr>
-<tr class="memitem:a40bbc36b18e06f6f8868ba598ff97366"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a40bbc36b18e06f6f8868ba598ff97366">staticlib::utils::parse_int32</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:a40bbc36b18e06f6f8868ba598ff97366"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses <code>int32_t</code> with base 10 from specified string using <code>strto*l</code>  <a href="#a40bbc36b18e06f6f8868ba598ff97366"></a><br/></td></tr>
-<tr class="memitem:aef5b48e88eb6088d8f219b01adc9ff5f"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aef5b48e88eb6088d8f219b01adc9ff5f">staticlib::utils::parse_uint32</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:aef5b48e88eb6088d8f219b01adc9ff5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses <code>uint32_t</code> with base 10 from specified string using <code>strto*l</code>  <a href="#aef5b48e88eb6088d8f219b01adc9ff5f"></a><br/></td></tr>
-<tr class="memitem:a7271954bfde175ff8f30d34ed391fd84"><td class="memItemLeft" align="right" valign="top">int64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a7271954bfde175ff8f30d34ed391fd84">staticlib::utils::parse_int64</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:a7271954bfde175ff8f30d34ed391fd84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses <code>int64_t</code> with base 10 from specified string using <code>strto*l</code>  <a href="#a7271954bfde175ff8f30d34ed391fd84"></a><br/></td></tr>
-<tr class="memitem:a488e13cac127e99a1299835cb3c59c7e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a488e13cac127e99a1299835cb3c59c7e">staticlib::utils::parse_uint64</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:a488e13cac127e99a1299835cb3c59c7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses <code>uint64_t</code> with base 10 from specified string using <code>strto*l</code>  <a href="#a488e13cac127e99a1299835cb3c59c7e"></a><br/></td></tr>
+<tr class="memitem:a9d19138ab8fe88856253fc3d1ee61d1d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a9d19138ab8fe88856253fc3d1ee61d1d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if<br class="typebreak"/>
+&lt; std::is_unsigned&lt; T &gt;::value, <br class="typebreak"/>
+bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a9d19138ab8fe88856253fc3d1ee61d1d">staticlib::utils::is_int32</a> (T val)</td></tr>
+<tr class="memdesc:a9d19138ab8fe88856253fc3d1ee61d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified unsigned integer lies between <code>&lt;int32_t&gt;::min()</code> and <code>&lt;int32_t&gt;::max()</code>  <a href="#a9d19138ab8fe88856253fc3d1ee61d1d"></a><br/></td></tr>
+<tr class="memitem:a6f68fc02064e7d548578e19dee035113"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a6f68fc02064e7d548578e19dee035113"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if<br class="typebreak"/>
+&lt; std::is_unsigned&lt; T &gt;::value, <br class="typebreak"/>
+bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a6f68fc02064e7d548578e19dee035113">staticlib::utils::is_uint32</a> (T val)</td></tr>
+<tr class="memdesc:a6f68fc02064e7d548578e19dee035113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified unsigned integer lies between <code>0</code> (inclusive) and <code>&lt;uint32_t&gt;::max()</code>  <a href="#a6f68fc02064e7d548578e19dee035113"></a><br/></td></tr>
+<tr class="memitem:aa331d9791b00611f1cea8fa37148dd16"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:aa331d9791b00611f1cea8fa37148dd16"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aa331d9791b00611f1cea8fa37148dd16">staticlib::utils::is_positive_uint32</a> (T val)</td></tr>
+<tr class="memdesc:aa331d9791b00611f1cea8fa37148dd16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified integer lies between <code>0</code> (exclusive) and <code>&lt;uint32_t&gt;::max()</code>  <a href="#aa331d9791b00611f1cea8fa37148dd16"></a><br/></td></tr>
+<tr class="memitem:a903873729fa66b7fb9142222824c7b7d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a903873729fa66b7fb9142222824c7b7d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if<br class="typebreak"/>
+&lt; std::is_unsigned&lt; T &gt;::value, <br class="typebreak"/>
+bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a903873729fa66b7fb9142222824c7b7d">staticlib::utils::is_int16</a> (T val)</td></tr>
+<tr class="memdesc:a903873729fa66b7fb9142222824c7b7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified unsigned integer lies between <code>&lt;int16_t&gt;::min()</code> and <code>&lt;int16_t&gt;::max()</code>  <a href="#a903873729fa66b7fb9142222824c7b7d"></a><br/></td></tr>
+<tr class="memitem:a4e84182ead2fa4a8b773be0d13ab4b4f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a4e84182ead2fa4a8b773be0d13ab4b4f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if<br class="typebreak"/>
+&lt; std::is_unsigned&lt; T &gt;::value, <br class="typebreak"/>
+bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a4e84182ead2fa4a8b773be0d13ab4b4f">staticlib::utils::is_uint16</a> (T val)</td></tr>
+<tr class="memdesc:a4e84182ead2fa4a8b773be0d13ab4b4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified unsigned integer lies between <code>0</code> (inclusive) and <code>&lt;uint16_t&gt;::max()</code>  <a href="#a4e84182ead2fa4a8b773be0d13ab4b4f"></a><br/></td></tr>
+<tr class="memitem:af06fc164c64860200739f1f3397e2ed0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:af06fc164c64860200739f1f3397e2ed0"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#af06fc164c64860200739f1f3397e2ed0">staticlib::utils::is_positive_uint16</a> (T val)</td></tr>
+<tr class="memdesc:af06fc164c64860200739f1f3397e2ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified integer lies between <code>0</code> (exclusive) and <code>&lt;uint16_t&gt;::max()</code>  <a href="#af06fc164c64860200739f1f3397e2ed0"></a><br/></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
