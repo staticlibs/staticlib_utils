@@ -56,13 +56,14 @@ std::string to_utf8(const icu::UnicodeString& str) {
 
 #ifdef STATICLIB_WINDOWS
 
-#ifndef STATICLIB_WITH_ICU
+//FileDescriptor::FileDescriptor(icu::UnicodeString file_upath, char mode) :
+//file_path(to_utf8(file_upath)),
+//file_upath(std::move(file_upath)),
+
 FileDescriptor::FileDescriptor(std::string file_path, char mode) :
 file_path(std::move(file_path)),
-#else
-FileDescriptor::FileDescriptor(icu::UnicodeString file_upath, char mode) :
-file_path(to_utf8(file_upath)),
-file_upath(std::move(file_upath)),        
+#ifdef STATICLIB_WITH_ICU
+file_upath(icu::UnicodeString::fromUTF8(file_path)),
 #endif // STATICLIB_WITH_ICU        
 mode(mode) {        
     std::wstring wpath = widen(this->file_path);
@@ -199,13 +200,13 @@ off_t FileDescriptor::size() {
 
 #else // STATICLIB_WINDOWS
 
-#ifndef STATICLIB_WITH_ICU
+//FileDescriptor::FileDescriptor(icu::UnicodeString file_upath, char mode) :
+//file_path(to_utf8(file_upath)),        
+
 FileDescriptor::FileDescriptor(std::string file_path, char mode) :
 file_path(std::move(file_path)),
-#else
-FileDescriptor::FileDescriptor(icu::UnicodeString file_upath, char mode) :
-file_path(to_utf8(file_upath)),        
-file_upath(std::move(file_upath)),
+#ifdef STATICLIB_WITH_ICU
+file_upath(icu::UnicodeString::fromUTF8(file_path)),
 #endif // STATICLIB_WITH_ICU        
 mode(mode) { 
     switch (mode) {
@@ -330,9 +331,15 @@ std::streamsize FileDescriptor::flush() {
     return 0;
 }
 
-const std::string& FileDescriptor::get_file_path() {
+const std::string& FileDescriptor::get_file_path() const {
     return file_path;
 }
+
+#ifdef STATICLIB_WITH_ICU
+const icu::UnicodeString& get_file_upath() const {
+    return file_upath;
+}
+#endif // STATICLIB_WITH_ICU    
 
 char FileDescriptor::get_mode() {
     return mode;

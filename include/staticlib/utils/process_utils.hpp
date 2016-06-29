@@ -43,10 +43,16 @@ namespace utils {
  * @param cmd command to execute in shell
  * @return command return code
  */
-#ifdef STATICLIB_WITH_ICU
-int shell_exec_and_wait(const icu::UnicodeString& cmd);
-#else
 int shell_exec_and_wait(const std::string& cmd);
+
+#ifdef STATICLIB_WITH_ICU
+/**
+ * Starts shell process with the specified command and waits for it to exit
+ * 
+ * @param cmd command to execute in shell
+ * @return command return code
+ */
+int shell_exec_and_wait(const icu::UnicodeString& cmd);
 #endif // STATICLIB_WITH_ICU
 
 /**
@@ -56,10 +62,17 @@ int shell_exec_and_wait(const std::string& cmd);
  * @param args list of arguments
  * @return command return code
  */
-#ifdef STATICLIB_WITH_ICU
-int exec_and_wait(const icu::UnicodeString& executable, const std::vector<icu::UnicodeString>& args, const icu::UnicodeString& out);
-#else
 int exec_and_wait(const std::string& executable, const std::vector<std::string>& args, const std::string& out);
+
+#ifdef STATICLIB_WITH_ICU
+/**
+ * Starts the process with the specified command and waits for it to exit
+ * 
+ * @param executable path to executable binary or script
+ * @param args list of arguments
+ * @return command return code
+ */
+int exec_and_wait(const icu::UnicodeString& executable, const std::vector<icu::UnicodeString>& args, const icu::UnicodeString& out);
 #endif // STATICLIB_WITH_ICU
 
 /**
@@ -69,10 +82,17 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
  * @param args list of arguments
  * @return child process pid
  */
-#ifdef STATICLIB_WITH_ICU
-int exec_async(const icu::UnicodeString& executable, const std::vector<icu::UnicodeString>& args, const icu::UnicodeString& out);
-#else
 int exec_async(const std::string& executable, const std::vector<std::string>& args, const std::string& out);
+
+#ifdef STATICLIB_WITH_ICU
+/**
+ * Starts the process with the specified command and waits for it to exit
+ * 
+ * @param executable path to executable binary or script
+ * @param args list of arguments
+ * @return child process pid
+ */
+int exec_async(const icu::UnicodeString& executable, const std::vector<icu::UnicodeString>& args, const icu::UnicodeString& out);
 #endif // STATICLIB_WITH_ICU
 
 /**
@@ -80,10 +100,10 @@ int exec_async(const std::string& executable, const std::vector<std::string>& ar
  * 
  * @return path to the current executable file
  */
-#ifdef STATICLIB_WITH_ICU
-icu::UnicodeString current_executable_path();
-#else
 std::string current_executable_path();
+
+#ifdef STATICLIB_WITH_ICU
+icu::UnicodeString current_executable_upath();
 #endif // STATICLIB_WITH_ICU
 
 } // namespace

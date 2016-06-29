@@ -74,10 +74,16 @@ public:
      * @param file_path path to file
      * @param mode how to open the file, supported modes are 'r' and 'w'
      */
-#ifdef STATICLIB_WITH_ICU    
-    FileDescriptor(icu::UnicodeString file_path, char mode);
-#else    
     FileDescriptor(std::string file_path, char mode);
+    
+#ifdef STATICLIB_WITH_ICU
+    /**
+     * Constructor
+     * 
+     * @param file_path path to file
+     * @param mode how to open the file, supported modes are 'r' and 'w'
+     */
+    FileDescriptor(icu::UnicodeString file_path, char mode);
 #endif // STATICLIB_WITH_ICU
     
     /**
@@ -169,7 +175,7 @@ public:
      * 
      * @return path to this file
      */
-    const std::string& get_file_path();
+    const std::string& get_file_path() const;
 
 #ifdef STATICLIB_WITH_ICU
     /**
@@ -177,7 +183,7 @@ public:
      * 
      * @return unicode path to this file
      */
-    const icu::UnicodeString& get_file_upath();
+    const icu::UnicodeString& get_file_upath() const;
 #endif // STATICLIB_WITH_ICU    
     
     /**

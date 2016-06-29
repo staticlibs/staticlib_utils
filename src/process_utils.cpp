@@ -337,12 +337,10 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
 
 } // namespace
 
-#ifndef STATICLIB_WITH_ICU
+//int shell_exec_and_wait(const icu::UnicodeString& ucmd) {
+//    std::string cmd = to_utf8(ucmd);
+
 int shell_exec_and_wait(const std::string& cmd) {
-#else
-int shell_exec_and_wait(const icu::UnicodeString& ucmd) {    
-    std::string cmd = to_utf8(ucmd);
-#endif // STATICLIB_WITH_ICU
 #ifdef STATICLIB_WINDOWS
     std::string quoted = "\"" + cmd + "\"";
     std::wstring ws = widen(quoted);
@@ -352,15 +350,13 @@ int shell_exec_and_wait(const icu::UnicodeString& ucmd) {
 #endif // STATICLIB_WINDOWS
 }
 
-#ifndef STATICLIB_WITH_ICU
+//int exec_and_wait(const icu::UnicodeString& uexecutable, const std::vector<icu::UnicodeString>& uargs,
+//        const icu::UnicodeString& uout) {
+//    std::string executable = to_utf8(uexecutable);
+//    std::vector<std::string> args = to_utf8_vector(uargs);
+//    std::string out = to_utf8(uout);
+
 int exec_and_wait(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
-#else
-int exec_and_wait(const icu::UnicodeString& uexecutable, const std::vector<icu::UnicodeString>& uargs, 
-        const icu::UnicodeString& uout) {    
-    std::string executable = to_utf8(uexecutable);
-    std::vector<std::string> args = to_utf8_vector(uargs);
-    std::string out = to_utf8(uout);
-#endif // STATICLIB_WITH_ICU    
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
     pid_t pid = exec_async_unix(executable, args, out);
     int status;
@@ -390,15 +386,13 @@ int exec_and_wait(const icu::UnicodeString& uexecutable, const std::vector<icu::
 #endif
 }
 
-#ifndef STATICLIB_WITH_ICU
+//int exec_async(const icu::UnicodeString& uexecutable, const std::vector<icu::UnicodeString>& uargs,
+//        const icu::UnicodeString& uout) {
+//    std::string executable = to_utf8(uexecutable);
+//    std::vector<std::string> args = to_utf8_vector(uargs);
+//    std::string out = to_utf8(uout);
+
 int exec_async(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
-#else
-int exec_async(const icu::UnicodeString& uexecutable, const std::vector<icu::UnicodeString>& uargs,
-        const icu::UnicodeString& uout) {
-    std::string executable = to_utf8(uexecutable);
-    std::vector<std::string> args = to_utf8_vector(uargs);
-    std::string out = to_utf8(uout);
-#endif // STATICLIB_WITH_ICU        
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
     pid_t pid =  exec_async_unix(executable, args, out);
     register_signal(SIGCHLD, SA_RESTART | SA_NOCLDSTOP, sigchild_handler);
@@ -416,6 +410,7 @@ int exec_async(const icu::UnicodeString& uexecutable, const std::vector<icu::Uni
 #endif
 }
 
+// current_executable_path
 
 namespace { // anonymous
 
@@ -482,8 +477,7 @@ std::string current_executable_path_mac() {
 
 }
 
-namespace { // anonymous
-std::string current_executable_path_internal() {
+std::string current_executable_path() {
 #if defined(STATICLIB_LINUX)
     return current_executable_path_linux();
 #elif defined(STATICLIB_WINDOWS)
@@ -494,15 +488,10 @@ std::string current_executable_path_internal() {
     throw UtilsException(TRACEMSG("Cannot determine current executable path on this platform"));
 #endif 
 }
-} // namespace
 
 #ifdef STATICLIB_WITH_ICU
-icu::UnicodeString current_executable_path() {
-    return icu::UnicodeString::fromUTF8(current_executable_path_internal());
-}
-#else
-std::string current_executable_path() {
-    return current_executable_path_internal();
+icu::UnicodeString current_executable_upath() {
+    return icu::UnicodeString::fromUTF8(current_executable_path());
 }
 #endif // STATICLIB_WITH_ICU
 
