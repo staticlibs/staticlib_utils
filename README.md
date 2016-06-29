@@ -44,6 +44,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2016-06-29**
+
+ * version 1.5.0
+ * ICU API removed
+
 **2016-01-16**
 
  * version 1.4.2
