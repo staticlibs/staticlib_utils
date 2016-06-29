@@ -50,10 +50,6 @@ endif ( )
 # dependencies
 set ( ${PROJECT_NAME}_OPTIONS "" )
 set ( ${PROJECT_NAME}_DEPS staticlib_config )
-if ( STATICLIB_WITH_ICU )
-    set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} icu-uc )
-    set ( ${PROJECT_NAME}_OPTIONS -DSTATICLIB_WITH_ICU )
-endif ( )
 staticlib_utils_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 
 # library

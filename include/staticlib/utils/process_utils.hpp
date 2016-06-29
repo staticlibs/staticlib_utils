@@ -24,13 +24,8 @@
 #ifndef STATICLIB_UTILS_PROCESS_UTILS_HPP
 #define	STATICLIB_UTILS_PROCESS_UTILS_HPP
 
-#include <vector>
-
-#ifdef STATICLIB_WITH_ICU
-#include <unicode/unistr.h>
-#else
 #include <string>
-#endif // STATICLIB_WITH_ICU
+#include <vector>
 
 #include "staticlib/utils/UtilsException.hpp"
 
@@ -45,16 +40,6 @@ namespace utils {
  */
 int shell_exec_and_wait(const std::string& cmd);
 
-#ifdef STATICLIB_WITH_ICU
-/**
- * Starts shell process with the specified command and waits for it to exit
- * 
- * @param cmd command to execute in shell
- * @return command return code
- */
-int shell_exec_and_wait(const icu::UnicodeString& cmd);
-#endif // STATICLIB_WITH_ICU
-
 /**
  * Starts the process with the specified command and waits for it to exit
  * 
@@ -63,17 +48,6 @@ int shell_exec_and_wait(const icu::UnicodeString& cmd);
  * @return command return code
  */
 int exec_and_wait(const std::string& executable, const std::vector<std::string>& args, const std::string& out);
-
-#ifdef STATICLIB_WITH_ICU
-/**
- * Starts the process with the specified command and waits for it to exit
- * 
- * @param executable path to executable binary or script
- * @param args list of arguments
- * @return command return code
- */
-int exec_and_wait(const icu::UnicodeString& executable, const std::vector<icu::UnicodeString>& args, const icu::UnicodeString& out);
-#endif // STATICLIB_WITH_ICU
 
 /**
  * Starts the process with the specified command and waits for it to exit
@@ -84,27 +58,12 @@ int exec_and_wait(const icu::UnicodeString& executable, const std::vector<icu::U
  */
 int exec_async(const std::string& executable, const std::vector<std::string>& args, const std::string& out);
 
-#ifdef STATICLIB_WITH_ICU
-/**
- * Starts the process with the specified command and waits for it to exit
- * 
- * @param executable path to executable binary or script
- * @param args list of arguments
- * @return child process pid
- */
-int exec_async(const icu::UnicodeString& executable, const std::vector<icu::UnicodeString>& args, const icu::UnicodeString& out);
-#endif // STATICLIB_WITH_ICU
-
 /**
  * Returns path to the current executable file
  * 
  * @return path to the current executable file
  */
 std::string current_executable_path();
-
-#ifdef STATICLIB_WITH_ICU
-icu::UnicodeString current_executable_upath();
-#endif // STATICLIB_WITH_ICU
 
 } // namespace
 }

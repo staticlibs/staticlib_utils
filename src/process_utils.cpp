@@ -59,24 +59,6 @@ namespace { // anonymous
 
 namespace sc = staticlib::config;
 
-#ifdef STATICLIB_WITH_ICU
-std::string to_utf8(const icu::UnicodeString& str) {
-    std::string bytes;
-    icu::StringByteSink<std::string> sbs(&bytes);
-    str.toUTF8(sbs);
-    return bytes;
-}
-
-std::vector<std::string> to_utf8_vector(const std::vector<icu::UnicodeString>& vec) {
-    std::vector<std::string> res;
-    res.resize(vec.size());
-    for (const icu::UnicodeString& st : vec) {
-        res.emplace_back(to_utf8(st));
-    }
-    return res;
-}
-#endif // STATICLIB_WITH_ICU
-
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
 int parse_int_nothrow(char* fd_name) {
     size_t i = 0;
@@ -336,9 +318,6 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
 
 } // namespace
 
-//int shell_exec_and_wait(const icu::UnicodeString& ucmd) {
-//    std::string cmd = to_utf8(ucmd);
-
 int shell_exec_and_wait(const std::string& cmd) {
 #ifdef STATICLIB_WINDOWS
     std::string quoted = "\"" + cmd + "\"";
@@ -348,12 +327,6 @@ int shell_exec_and_wait(const std::string& cmd) {
     return std::system(cmd.c_str());
 #endif // STATICLIB_WINDOWS
 }
-
-//int exec_and_wait(const icu::UnicodeString& uexecutable, const std::vector<icu::UnicodeString>& uargs,
-//        const icu::UnicodeString& uout) {
-//    std::string executable = to_utf8(uexecutable);
-//    std::vector<std::string> args = to_utf8_vector(uargs);
-//    std::string out = to_utf8(uout);
 
 int exec_and_wait(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
@@ -384,12 +357,6 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
     return -1;
 #endif
 }
-
-//int exec_async(const icu::UnicodeString& uexecutable, const std::vector<icu::UnicodeString>& uargs,
-//        const icu::UnicodeString& uout) {
-//    std::string executable = to_utf8(uexecutable);
-//    std::vector<std::string> args = to_utf8_vector(uargs);
-//    std::string out = to_utf8(uout);
 
 int exec_async(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
@@ -487,13 +454,6 @@ std::string current_executable_path() {
     throw UtilsException(TRACEMSG("Cannot determine current executable path on this platform"));
 #endif 
 }
-
-#ifdef STATICLIB_WITH_ICU
-icu::UnicodeString current_executable_upath() {
-    return icu::UnicodeString::fromUTF8(current_executable_path());
-}
-#endif // STATICLIB_WITH_ICU
-
 
 } // namespace
 }

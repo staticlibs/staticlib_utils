@@ -25,12 +25,8 @@
 #define	STATICLIB_UTILS_FILEDESCRIPTOR_HPP
 
 #include <ios>
-#include <string>
 #include <memory>
-
-#ifdef STATICLIB_WITH_ICU
-#include <unicode/unistr.h>
-#endif // STATICLIB_WITH_ICU
+#include <string>
 
 #include "staticlib/config.hpp"
 
@@ -56,12 +52,6 @@ class FileDescriptor {
      * Path to file
      */
     std::string file_path;
-#ifdef STATICLIB_WITH_ICU
-    /**
-     * Unicode path to file
-     */
-    icu::UnicodeString file_upath;
-#endif // STATICLIB_WITH_ICU
     /**
      * Mode in which this descriptor was opened
      */
@@ -75,16 +65,6 @@ public:
      * @param mode how to open the file, supported modes are 'r' and 'w'
      */
     FileDescriptor(std::string file_path, char mode);
-    
-#ifdef STATICLIB_WITH_ICU
-    /**
-     * Constructor
-     * 
-     * @param file_path path to file
-     * @param mode how to open the file, supported modes are 'r' and 'w'
-     */
-    FileDescriptor(icu::UnicodeString file_path, char mode);
-#endif // STATICLIB_WITH_ICU
     
     /**
      * Destructor, will close the descriptor
@@ -177,15 +157,6 @@ public:
      */
     const std::string& get_file_path() const;
 
-#ifdef STATICLIB_WITH_ICU
-    /**
-     * File unicode path accessor
-     * 
-     * @return unicode path to this file
-     */
-    const icu::UnicodeString& get_file_upath() const;
-#endif // STATICLIB_WITH_ICU    
-    
     /**
      * Mode accessor
      * 

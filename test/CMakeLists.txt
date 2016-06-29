@@ -27,21 +27,12 @@ include ( ${STATICLIB_CMAKE}/staticlibs_common.cmake )
 staticlib_enable_deplibs_cache ( )
 
 # dependencies
-if ( NOT DEFINED STATICLIB_WITH_ICU )
-    set ( STATICLIB_WITH_ICU OFF CACHE BOOL "" )
-endif ( )
 if ( NOT DEFINED STATICLIB_DEPS )
     set ( STATICLIB_DEPS ${CMAKE_CURRENT_LIST_DIR}/../../ CACHE INTERNAL "" )    
-endif ( )
-if ( STATICLIB_WITH_ICU AND ( NOT STATICLIB_TOOLCHAIN MATCHES "linux_[^_]+_[^_]+" ) )    
-    staticlib_add_subdirectory ( ${STATICLIB_DEPS}/external_icu )
 endif ( )
 staticlib_add_subdirectory ( ${STATICLIB_DEPS}/staticlib_config )
 staticlib_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../../staticlib_utils )
 set ( ${PROJECT_NAME}_DEPS staticlib_config staticlib_utils )
-if ( STATICLIB_WITH_ICU )
-    set ( ${PROJECT_NAME}_DEPS ${${PROJECT_NAME}_DEPS} icu-uc )
-endif ( )
 staticlib_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 
 # tests
