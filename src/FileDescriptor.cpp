@@ -78,8 +78,8 @@ mode(mode) {
         dwDesiredAccess = GENERIC_WRITE; 
         dwCreationDisposition = CREATE_ALWAYS;
         break;
-    default: throw UtilsException(TRACEMSG(std::string{} +
-        "Invalid open mode: [" + mode + "] for file: [" + this->file_path + "]"));
+    default: throw UtilsException(TRACEMSG("Invalid open mode: [" + mode + "]" + 
+            " for file: [" + this->file_path + "]"));
     }
     handle = ::CreateFileW(
             wpath.c_str(),
@@ -89,7 +89,7 @@ mode(mode) {
             dwCreationDisposition,
             FILE_ATTRIBUTE_NORMAL,
             NULL);
-    if (INVALID_HANDLE_VALUE == handle) throw UtilsException(TRACEMSG(std::string{} +
+    if (INVALID_HANDLE_VALUE == handle) throw UtilsException(TRACEMSG(
             "Error opening file descriptor: [" + errcode_to_string(::GetLastError()) + "]" +
             ", specified path: [" + this->file_path + "]"));
 }
@@ -128,13 +128,10 @@ std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
             if (0 != err) {
                 return res > 0 ? static_cast<std::streamsize>(res) : std::char_traits<char>::eof();
             }
-            throw UtilsException(TRACEMSG(std::string{} +
-                    "Read error from file: [" + file_path + "]," +
+            throw UtilsException(TRACEMSG("Read error from file: [" + file_path + "]," +
                     " error: [" + errcode_to_string(::GetLastError()) + "]"));
-        } else throw UtilsException(TRACEMSG(std::string{} +
-                "Attempt to read closed file: [" + file_path + "]"));
-    } else throw UtilsException(TRACEMSG(std::string{} +
-            "Attempt to read from file opened in 'w' mode: [" + file_path + "]"));
+        } else throw UtilsException(TRACEMSG("Attempt to read closed file: [" + file_path + "]"));
+    } else throw UtilsException(TRACEMSG("Attempt to read from file opened in 'w' mode: [" + file_path + "]"));
 }
 
 std::streamsize FileDescriptor::write(const char* buf, std::streamsize count) {
@@ -143,13 +140,10 @@ std::streamsize FileDescriptor::write(const char* buf, std::streamsize count) {
             DWORD res;
             auto err = ::WriteFile(handle, buf, static_cast<DWORD>(count), std::addressof(res), nullptr);
             if (0 != err) return static_cast<std::streamsize>(res);
-            throw UtilsException(TRACEMSG(std::string{} +
-                    "Write error to file: [" + file_path + "]," +
+            throw UtilsException(TRACEMSG("Write error to file: [" + file_path + "]," +
                     " error: [" + errcode_to_string(::GetLastError()) + "]"));
-        } else throw UtilsException(TRACEMSG(std::string{} +
-                "Attempt to write into closed file: [" + file_path + "]"));
-    } else throw UtilsException(TRACEMSG(std::string{} +
-    "Attempt to write into file opened in 'r' mode: [" + file_path + "]"));
+        } else throw UtilsException(TRACEMSG("Attempt to write into closed file: [" + file_path + "]"));
+    } else throw UtilsException(TRACEMSG("Attempt to write into file opened in 'r' mode: [" + file_path + "]"));
 }
 
 std::streampos FileDescriptor::seek(std::streamsize offset, char whence) {
@@ -159,8 +153,8 @@ std::streampos FileDescriptor::seek(std::streamsize offset, char whence) {
         case 'b': dwMoveMethod = FILE_BEGIN; break;
         case 'c': dwMoveMethod = FILE_CURRENT; break;
         case 'e': dwMoveMethod = FILE_END; break;
-        default: throw UtilsException(TRACEMSG(std::string{} +
-                    "Invalid whence value: [" + whence + "] for seeking file: [" + file_path + "]"));
+        default: throw UtilsException(TRACEMSG("Invalid whence value: [" + whence + "]" + 
+                " for seeking file: [" + file_path + "]"));
         }
         LONG lDistanceToMove = static_cast<LONG> (offset & 0xffffffff);
         LONG lDistanceToMoveHigh = static_cast<LONG> (offset >> 32);
@@ -172,11 +166,9 @@ std::streampos FileDescriptor::seek(std::streamsize offset, char whence) {
         if (INVALID_SET_FILE_POINTER != dwResultLow || ::GetLastError() == NO_ERROR) {
             return (static_cast<long long int>(lDistanceToMoveHigh) << 32) + dwResultLow;
         }
-        throw UtilsException(TRACEMSG(std::string{} +
-                "Seek error over file: [" + file_path + "]," +
+        throw UtilsException(TRACEMSG("Seek error over file: [" + file_path + "]," +
                 " error: [" + errcode_to_string(::GetLastError()) + "]"));
-    } else throw UtilsException(TRACEMSG(std::string{} +
-            "Attempt to seek over closed file: [" + file_path + "]"));
+    } else throw UtilsException(TRACEMSG("Attempt to seek over closed file: [" + file_path + "]"));
 }
 
 void FileDescriptor::close() STATICLIB_NOEXCEPT {
@@ -191,11 +183,9 @@ off_t FileDescriptor::size() {
         DWORD res = ::GetFileSize(handle, nullptr);
         if (INVALID_FILE_SIZE != res || ::GetLastError() == NO_ERROR) {
             return static_cast<off_t>(res);
-        } throw UtilsException(TRACEMSG(std::string{} +
-                "Error getting size of file: [" + file_path + "]," +
+        } throw UtilsException(TRACEMSG("Error getting size of file: [" + file_path + "]," +
                 " error: [" + errcode_to_string(::GetLastError()) + "]"));
-    } else throw UtilsException(TRACEMSG(std::string{} +
-            "Attempt to get size of closed file: [" + file_path + "]"));
+    } else throw UtilsException(TRACEMSG("Attempt to get size of closed file: [" + file_path + "]"));
 }
 
 #else // STATICLIB_WINDOWS
@@ -216,13 +206,12 @@ mode(mode) {
     case 'w': 
         fd = ::open(this->file_path.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
         break;
-    default: throw UtilsException(TRACEMSG(std::string{} +
-            "Invalid open mode: [" + mode + "] for file: [" + this->file_path + "]"));
+    default: throw UtilsException(TRACEMSG("Invalid open mode: [" + mode + "]" + 
+            " for file: [" + this->file_path + "]"));
     }
     
-    if (-1 == fd) throw UtilsException(TRACEMSG(std::string{} +
-            "Error opening file: [" + this->file_path + "], with mode: [" + mode + "]," +
-            " error: [" + ::strerror(errno) + "]"));
+    if (-1 == fd) throw UtilsException(TRACEMSG("Error opening file: [" + this->file_path + "]," + 
+            " with mode: [" + mode + "], error: [" + ::strerror(errno) + "]"));
 }
 
 FileDescriptor::~FileDescriptor() STATICLIB_NOEXCEPT {
@@ -257,13 +246,10 @@ std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
             if (-1 != res) {
                 return res > 0 ? res : std::char_traits<char>::eof();
             }
-            throw UtilsException(TRACEMSG(std::string{} +
-                    "Read error from file: [" + file_path +"]," +
+            throw UtilsException(TRACEMSG("Read error from file: [" + file_path +"]," +
                     " error: [" + ::strerror(errno) + "]"));
-        } else throw UtilsException(TRACEMSG(std::string{} +
-                "Attempt to read closed file: [" + file_path + "]"));
-    } else throw UtilsException(TRACEMSG(std::string{} +
-                "Attempt to read from file opened in 'w' mode: [" + file_path + "]"));
+        } else throw UtilsException(TRACEMSG("Attempt to read closed file: [" + file_path + "]"));
+    } else throw UtilsException(TRACEMSG("Attempt to read from file opened in 'w' mode: [" + file_path + "]"));
 }
 
 std::streamsize FileDescriptor::write(const char* buf, std::streamsize count) {
@@ -271,13 +257,10 @@ std::streamsize FileDescriptor::write(const char* buf, std::streamsize count) {
         if (-1 != fd) {
             auto res = ::write(fd, buf, count);
             if (-1 != res) return res;
-            throw UtilsException(TRACEMSG(std::string{} +
-                    "Write error to file: [" + file_path + "]," +
+            throw UtilsException(TRACEMSG("Write error to file: [" + file_path + "]," +
                     " error: [" + ::strerror(errno) + "]"));            
-        } else throw UtilsException(TRACEMSG(std::string{} +
-                "Attempt to write into closed file: [" + file_path + "]"));
-    } else throw UtilsException(TRACEMSG(std::string{} +
-            "Attempt to write into file opened in 'r' mode: [" + file_path + "]"));
+        } else throw UtilsException(TRACEMSG("Attempt to write into closed file: [" + file_path + "]"));
+    } else throw UtilsException(TRACEMSG("Attempt to write into file opened in 'r' mode: [" + file_path + "]"));
 }
 
 std::streampos FileDescriptor::seek(std::streamsize offset, char whence) {
@@ -287,16 +270,14 @@ std::streampos FileDescriptor::seek(std::streamsize offset, char whence) {
         case 'b': whence_int = SEEK_SET; break;        
         case 'c': whence_int = SEEK_CUR; break;
         case 'e': whence_int = SEEK_END; break;
-        default: throw UtilsException(TRACEMSG(std::string{} +
-            "Invalid whence value: [" + whence + "] for seeking file: [" + file_path + "]"));
+        default: throw UtilsException(TRACEMSG("Invalid whence value: [" + whence + "]" + 
+                " for seeking file: [" + file_path + "]"));
         }
         auto res = lseek(fd, offset, whence_int);
         if (static_cast<off_t> (-1) != res) return res;
-        throw UtilsException(TRACEMSG(std::string{} +
-                "Seek error over file: [" + file_path + "]," +
+        throw UtilsException(TRACEMSG("Seek error over file: [" + file_path + "]," +
                 " error: [" + ::strerror(errno) + "]"));        
-    } else throw UtilsException(TRACEMSG(std::string{} +
-            "Attempt to seek over closed file: [" + file_path + "]"));
+    } else throw UtilsException(TRACEMSG("Attempt to seek over closed file: [" + file_path + "]"));
 }
 
 void FileDescriptor::close() STATICLIB_NOEXCEPT {
@@ -318,11 +299,9 @@ off_t FileDescriptor::size() {
         if (0 == rc) {
             return stat_buf.st_size;
         }
-        throw UtilsException(TRACEMSG(std::string{} +
-                "Error getting size of file: [" + file_path + "]," +
+        throw UtilsException(TRACEMSG("Error getting size of file: [" + file_path + "]," +
                 " error: [" + ::strerror(errno) + "]"));
-    } else throw UtilsException(TRACEMSG(std::string{} +
-            "Attempt to get size of closed file: [" + file_path + "]"));
+    } else throw UtilsException(TRACEMSG("Attempt to get size of closed file: [" + file_path + "]"));
 }
 
 #endif // STATICLIB_WINDOWS

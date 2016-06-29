@@ -99,8 +99,8 @@ void close_descriptors_nothrow() {
         // open descriptors dir
         DIR* dp = ::opendir("/proc/self/fd");
         if (NULL == dp) {
-            std::cout << TRACEMSG(std::string{} + 
-                    "Process opendir(\"/proc/self/fd\") failed: [" + ::strerror(errno) + "]") 
+            std::cout << 
+                    TRACEMSG("Process opendir(\"/proc/self/fd\") failed: [" + ::strerror(errno) + "]") 
                     << std::endl;
             _exit(errno);
         }
@@ -119,8 +119,9 @@ void close_descriptors_nothrow() {
         }                
         // readdir failed
         if (errno > 0) {
-            std::cout << TRACEMSG(std::string{} + 
-                    "Process readdir failed: [" + ::strerror(errno) + "]") << std::endl;
+            std::cout << 
+                    TRACEMSG("Process readdir failed: [" + ::strerror(errno) + "]") 
+                    << std::endl;
             _exit(errno);
         }
         for (size_t i = 0; i < idx; i++) {
@@ -157,8 +158,9 @@ void setsid_nothrow() {
 #ifdef STATICLIB_LINUX
     pid_t sid = setsid();
     if (sid < 0) {
-        std::cout << TRACEMSG(std::string{} + 
-                "Process setsid error: [" + ::strerror(errno) + "]") << std::endl;
+        std::cout << 
+                TRACEMSG("Process setsid error: [" + ::strerror(errno) + "]") 
+                << std::endl;
         _exit(sid);
     }
 #endif // STATICLIB_LINUX
@@ -178,8 +180,9 @@ void reset_signals_nothrow() {
     sigfillset(std::addressof(allmask));
     int err = ::pthread_sigmask(SIG_SETMASK, std::addressof(allmask), nullptr);
     if (0 != err) {
-        std::cout << TRACEMSG(std::string{} +
-                "Error resuming signals in child: [" + ::strerror(err) + "]") << std::endl;
+        std::cout << 
+                TRACEMSG("Error resuming signals in child: [" + ::strerror(err) + "]") 
+                << std::endl;
         _exit(err);
     }
 }
@@ -197,8 +200,7 @@ void register_signal(int signum, int flags, void (*handler)(int)) {
     sigemptyset(std::addressof(sa.sa_mask));
     sa.sa_flags = flags;
     int res = ::sigaction(signum, std::addressof(sa), 0);
-    if (-1 == res) throw UtilsException(TRACEMSG(std::string{} + 
-            "Error registering signal: [" + sc::to_string(signum) + "],"
+    if (-1 == res) throw UtilsException(TRACEMSG("Error registering signal: [" + sc::to_string(signum) + "],"
             " with flags: [" + sc::to_string(flags) + "], error: [" + ::strerror(errno) + "]"));
 }
 
@@ -206,15 +208,13 @@ sigset_t block_signals() {
     sigset_t oldmask, newmask;
     sigfillset(std::addressof(newmask));
     int err = ::pthread_sigmask(SIG_SETMASK, std::addressof(newmask), std::addressof(oldmask));
-    if (0 != err) throw UtilsException(TRACEMSG(std::string{} +
-            "Error blocking signals in parent: [" + ::strerror(err) + "]"));
+    if (0 != err) throw UtilsException(TRACEMSG("Error blocking signals in parent: [" + ::strerror(err) + "]"));
     return oldmask;
 }
 
 void resume_signals(sigset_t& oldmask) {
     int err = ::pthread_sigmask(SIG_SETMASK, std::addressof(oldmask), nullptr);
-    if (0 != err) throw UtilsException(TRACEMSG(std::string{} +
-            "Error resuming signals in parent: [" + ::strerror(err) + "]"));
+    if (0 != err) throw UtilsException(TRACEMSG("Error resuming signals in parent: [" + ::strerror(err) + "]"));
 }
 
 int open_fd(const std::string& path) {
@@ -223,8 +223,7 @@ int open_fd(const std::string& path) {
     do {
         fd = ::open(path.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
     } while ((-1 == fd) && (EINTR == errno));
-    if (-1 == fd) throw UtilsException(TRACEMSG(std::string{} + 
-            "Error opening out file descriptor: [" + ::strerror(errno) + "]" +
+    if (-1 == fd) throw UtilsException(TRACEMSG("Error opening out file descriptor: [" + ::strerror(errno) + "]" +
             ", specified out path: [" + path + "]"));
     return fd;
 }
@@ -250,7 +249,7 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
     // do fork
     volatile pid_t pid = ::vfork();
     if (-1 == pid) { // no child created
-        throw UtilsException{TRACEMSG(std::string{} + "Process vfork error: [" + ::strerror(errno) + "]")};
+        throw UtilsException{TRACEMSG("Process vfork error: [" + ::strerror(errno) + "]")};
     } else if (pid > 0) { // return pid to parent
         sigset_t& oldmask_ref = const_cast<sigset_t&>(oldmask);
         resume_signals(oldmask_ref);
@@ -266,7 +265,7 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
         std::vector<char*>& arg_ptrs_child = const_cast<std::vector<char*>&>(args_ptrs);
         errno = 0;
         int res = ::execv(exec_path_child, arg_ptrs_child.data());
-        std::cout << TRACEMSG(std::string{} + " Process execv error: [" + ::strerror(errno) + "]," +
+        std::cout << TRACEMSG(" Process execv error: [" + ::strerror(errno) + "]," +
                 " executable: [" + executable + "], args size: [" + sc::to_string(args.size()) + "]") << std::endl;
         if (-1 == res) _exit(errno);        
         return 0;
@@ -296,7 +295,7 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
             CREATE_ALWAYS,
             FILE_ATTRIBUTE_NORMAL,
             nullptr);
-    if (INVALID_HANDLE_VALUE == out_handle) throw UtilsException(TRACEMSG(std::string{} +
+    if (INVALID_HANDLE_VALUE == out_handle) throw UtilsException(TRACEMSG(
             "Error opening out file descriptor: [" + errcode_to_string(::GetLastError()) + "]" +
             ", specified out path: [" + out + "]"));
     // prepare process
@@ -327,7 +326,7 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
             std::addressof(si), 
             std::addressof(pi));
     ::CloseHandle(out_handle);
-    if (0 == ret) throw UtilsException(TRACEMSG(std::string{} +
+    if (0 == ret) throw UtilsException(TRACEMSG(
             " Process create error: [" + errcode_to_string(::GetLastError()) + "]," +
             " command line: [" + cmd_string + "], output: [" + out + "]"));
     ::CloseHandle(pi.hThread);
@@ -371,7 +370,7 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
 #elif defined(STATICLIB_WINDOWS)
     HANDLE ha = exec_async_windows(executable, args, out);
     auto ret = WaitForSingleObject(ha, INFINITE);
-    if (WAIT_FAILED == ret) throw UtilsException(TRACEMSG(std::string{} +
+    if (WAIT_FAILED == ret) throw UtilsException(TRACEMSG(
             "Error waiting for child process: [" + errcode_to_string(::GetLastError()) + "]" +
             " executable: [" + executable + "], args size: [" + sc::to_string(args.size()) + "], " +
             " specified out path: [" + out + "]"));
@@ -421,7 +420,7 @@ std::string current_executable_path_linux() {
     for (;;) {
         char* link = get_buffer(res, size);
         ssize_t res_size = readlink("/proc/self/exe", link, size);
-        if (res_size < 0) throw UtilsException(TRACEMSG(std::string() + strerror(errno)));
+        if (res_size < 0) throw UtilsException(TRACEMSG(strerror(errno)));
         if (res_size < size) {
             res.resize(res_size);
             break;

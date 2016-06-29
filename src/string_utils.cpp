@@ -43,7 +43,7 @@ T* get_buffer_internal(std::basic_string<T>& str, typename std::basic_string<T>:
         str.resize(required_size);
         return &str.front();
     } catch (const std::exception& e) {
-        throw UtilsException(TRACEMSG(std::string(e.what()) + 
+        throw UtilsException(TRACEMSG(e.what() + 
                 "\nError getting buffer with required size: [" + sc::to_string(required_size) + "]" + 
                 " from string, length: [" + sc::to_string(str.length()) + "]"));
     }
