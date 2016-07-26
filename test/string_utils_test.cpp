@@ -86,6 +86,16 @@ void test_ends_with() {
     slassert(!ss::ends_with("foo", "ar"));
 }
 
+void test_strip_filename() {
+    slassert("/foo/bar/" == ss::strip_filename("/foo/bar/baz"));
+    slassert("c:\\foo\\bar\\" == ss::strip_filename("c:\\foo\\bar\\baz"));
+    slassert("/foo/bar/" == ss::strip_filename("/foo/bar/baz.foo"));
+    slassert("/foo/bar/" == ss::strip_filename("/foo/bar/"));
+    slassert("/" == ss::strip_filename("/foo"));
+    slassert("foo" == ss::strip_filename("foo"));
+    slassert("" == ss::strip_filename(""));
+}
+
 int main() {
     try {
         test_get_buffer_char();
@@ -94,6 +104,7 @@ int main() {
         test_alloc_copy();
         test_split();
         test_ends_with();
+        test_strip_filename();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;

@@ -94,6 +94,14 @@ bool ends_with(std::string const& value, std::string const& ending) {
     }
 }
 
+std::string strip_filename(const std::string& file_path) {
+    std::string::size_type pos = file_path.find_last_of("/\\");
+    if (std::string::npos != pos && pos < file_path.length() - 1) {
+        return std::string(file_path.data(), pos + 1);
+    }
+    return file_path;
 }
+
 } // namespace
+} 
 

@@ -82,7 +82,16 @@ std::vector<std::string> split(const std::string& str, char delim);
  * @param ending string ending
  * @return true if string ends with specified ending, false otherwise
  */
-bool ends_with(std::string const& value, std::string const& ending);
+bool ends_with(const std::string& value, const std::string& ending);
+
+/**
+ * Returns new string containing specified path but without
+ * the filename (last non-ending-with-slash element of the path)
+ * 
+ * @param file_path file path
+ * @return parent directory path
+ */
+std::string strip_filename(const std::string& file_path);
 
 } // namespace
 }
