@@ -64,6 +64,7 @@ public:
 } // namespace
 
 std::wstring widen(const std::string& st) {
+    if (st.empty()) return std::wstring();
     auto size_needed = MultiByteToWideChar(CP_UTF8, 0, st.c_str(), static_cast<int> (st.length()), nullptr, 0);
     if (0 == size_needed) throw UtilsException(TRACEMSG("Error on string widen calculation," +
             " string: [" + st + "], error: [" + errcode_to_string(GetLastError()) + "]"));
@@ -80,6 +81,7 @@ std::string narrow(std::wstring wstr) {
 }
 
 std::string narrow(const wchar_t* wbuf, size_t length) {
+    if (0 == length) return std::string();
     int size_needed = WideCharToMultiByte(CP_UTF8, 0, wbuf, static_cast<int> (length), nullptr, 0, nullptr, nullptr);
     if (0 == size_needed) throw UtilsException(TRACEMSG("Error on string narrow calculation," +
             " string length: [" + sc::to_string(length) + "], error code: [" + sc::to_string(GetLastError()) + "]"));
@@ -92,8 +94,7 @@ std::string narrow(const wchar_t* wbuf, size_t length) {
 }
 
 std::string errcode_to_string(uint32_t code) STATICLIB_NOEXCEPT {
-    if (0 == code) return std::string {
-    };
+    if (0 == code) return std::string {};
     wchar_t* buf_p = nullptr;
     size_t size = FormatMessageW(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM |
             FORMAT_MESSAGE_IGNORE_INSERTS, nullptr, code, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
