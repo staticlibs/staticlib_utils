@@ -93,6 +93,16 @@ bool ends_with(const std::string& value, const std::string& ending);
  */
 std::string strip_filename(const std::string& file_path);
 
+/**
+ * Returns new string containing specified path but without
+ * the parent directory (without everything before the 
+ * last non-ending-with-slash element of the path)
+ * 
+ * @param file_path file path
+ * @return filename
+ */
+std::string strip_parent_dir(const std::string& file_path);
+
 } // namespace
 }
 

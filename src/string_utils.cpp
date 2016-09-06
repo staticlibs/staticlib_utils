@@ -99,7 +99,18 @@ std::string strip_filename(const std::string& file_path) {
     if (std::string::npos != pos && pos < file_path.length() - 1) {
         return std::string(file_path.data(), pos + 1);
     }
-    return file_path;
+    return std::string(file_path.data(), file_path.length());
+}
+
+std::string strip_parent_dir(const std::string& file_path) {
+    std::string::size_type pos = file_path.find_last_of("/\\");
+    if (std::string::npos == pos) {
+        return std::string(file_path.data(), file_path.length());
+    } 
+    if (file_path.length() == pos) {
+        return std::string();
+    }
+    return std::string(file_path, pos + 1);
 }
 
 } // namespace

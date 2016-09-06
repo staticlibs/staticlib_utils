@@ -96,6 +96,23 @@ void test_strip_filename() {
     slassert("" == ss::strip_filename(""));
 }
 
+void test_strip_parent_dir() {    
+    slassert("baz" == ss::strip_parent_dir("/foo/bar/baz"));
+    slassert("baz" == ss::strip_parent_dir("c:\\foo\\bar\\baz"));
+    slassert("baz.foo" == ss::strip_parent_dir("/foo/bar/baz.foo"));
+    slassert("" == ss::strip_parent_dir("/foo/bar/"));
+    slassert("" == ss::strip_parent_dir("/foo///bar/"));
+    slassert("" == ss::strip_parent_dir("/foo/bar//"));
+    slassert("foo" == ss::strip_parent_dir("/foo"));
+    slassert("foo" == ss::strip_parent_dir("c:\\bar\\foo"));    
+    slassert("foo" == ss::strip_parent_dir("foo"));    
+    slassert("a" == ss::strip_parent_dir("/a"));
+    slassert("" == ss::strip_parent_dir("/"));
+    slassert("" == ss::strip_parent_dir("///"));
+    slassert("" == ss::strip_parent_dir("\\"));
+    slassert("" == ss::strip_parent_dir(""));
+}
+
 int main() {
     try {
         test_get_buffer_char();
@@ -105,6 +122,7 @@ int main() {
         test_split();
         test_ends_with();
         test_strip_filename();
+        test_strip_parent_dir();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;
