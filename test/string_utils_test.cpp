@@ -30,37 +30,6 @@
 
 namespace ss = staticlib::utils;
 
-void test_get_buffer_char() {
-    std::string st{"foo"};
-    auto buf = ss::get_buffer(st, 42);
-    slassert(3 == strlen(buf));
-    slassert(42 == st.size());
-}
-
-void test_get_buffer_wchar() {
-    std::wstring st{};
-    auto buf = ss::get_buffer(st, 42);
-    slassert(0 == wcslen(buf));
-    slassert(42 == st.size());
-}
-
-void test_get_buffer_exception() {
-    std::string expected{
-R"(basic_string::resize
-Error getting buffer with required size: [18446744073709551615] from string, length: [3]
-    at namespace>::get_buffer_internal(string_utils.cpp:30))"};
-    bool catched = false;
-
-    std::string st{"foo"};
-    try {
-        ss::get_buffer(st, static_cast<std::string::size_type>(-1));
-    } catch(const ss::UtilsException&) {
-        catched = true;
-        //slassert(expected == e.what());
-    }
-    slassert(catched);
-}
-
 void test_alloc_copy() {
     std::string st{"foo"};
     auto buf = ss::alloc_copy(st);
@@ -115,9 +84,6 @@ void test_strip_parent_dir() {
 
 int main() {
     try {
-        test_get_buffer_char();
-        test_get_buffer_wchar();
-        test_get_buffer_exception();
         test_alloc_copy();
         test_split();
         test_ends_with();

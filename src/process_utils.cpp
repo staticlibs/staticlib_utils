@@ -385,8 +385,8 @@ std::string current_executable_path_linux() {
     std::string res{};
     ssize_t size = 64;
     for (;;) {
-        char* link = get_buffer(res, size);
-        ssize_t res_size = readlink("/proc/self/exe", link, size);
+        res.resize(size);
+        ssize_t res_size = readlink("/proc/self/exe", std::addressof(res.front()), size);
         if (res_size < 0) throw UtilsException(TRACEMSG(strerror(errno)));
         if (res_size < size) {
             res.resize(res_size);

@@ -37,27 +37,7 @@ namespace { // anonymous
 
 namespace sc = staticlib::config;
 
-template <typename T>
-T* get_buffer_internal(std::basic_string<T>& str, typename std::basic_string<T>::size_type required_size) {
-    try {
-        str.resize(required_size);
-        return &str.front();
-    } catch (const std::exception& e) {
-        throw UtilsException(TRACEMSG(e.what() + 
-                "\nError getting buffer with required size: [" + sc::to_string(required_size) + "]" + 
-                " from string, length: [" + sc::to_string(str.length()) + "]"));
-    }
-}
-
 } // namespace
-
-char* get_buffer(std::string& str, std::string::size_type required_size) {
-    return get_buffer_internal<char>(str, required_size);
-}
-
-wchar_t* get_buffer(std::wstring& str, std::wstring::size_type required_size) {
-    return get_buffer_internal<wchar_t>(str, required_size);
-}
 
 char* alloc_copy(const std::string& str) STATICLIB_NOEXCEPT {
     auto len = str.length();
