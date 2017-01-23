@@ -69,7 +69,8 @@ std::wstring widen(const std::string& st) {
     if (0 == size_needed) throw UtilsException(TRACEMSG("Error on string widen calculation," +
             " string: [" + st + "], error: [" + errcode_to_string(GetLastError()) + "]"));
     std::wstring res{};
-    auto buf = get_buffer(res, size_needed);
+    res.resize(size_needed);
+    auto buf = std::addressof(res.front());
     int chars_copied = MultiByteToWideChar(CP_UTF8, 0, st.c_str(), static_cast<int> (st.size()), buf, size_needed);
     if (chars_copied != size_needed) throw UtilsException(TRACEMSG("Error on string widen execution," +
             " string: [" + st + "], error: [" + errcode_to_string(GetLastError()) + "]"));
@@ -86,7 +87,8 @@ std::string narrow(const wchar_t* wbuf, size_t length) {
     if (0 == size_needed) throw UtilsException(TRACEMSG("Error on string narrow calculation," +
             " string length: [" + sc::to_string(length) + "], error code: [" + sc::to_string(GetLastError()) + "]"));
     std::string res{};
-    auto buf = get_buffer(res, size_needed);
+    res.resize(size_needed);
+    auto buf = std::addressof(res.front());
     int bytes_copied = WideCharToMultiByte(CP_UTF8, 0, wbuf, static_cast<int> (length), buf, size_needed, nullptr, nullptr);
     if (bytes_copied != size_needed) throw UtilsException(TRACEMSG("Error on string narrow execution," +
             " string length: [" + sc::to_string(length) + "], error code: [" + sc::to_string(GetLastError()) + "]"));
@@ -118,7 +120,8 @@ std::string errcode_to_string(uint32_t code) STATICLIB_NOEXCEPT {
 
 std::string get_exec_dir() {
     std::wstring wst{};
-    auto buf = get_buffer(wst, MAX_PATH);
+    wst.resize(MAX_PATH);
+    auto buf = std::addressof(wst.front());
     auto success = GetModuleFileNameW(nullptr, buf, static_cast<DWORD>(wst.length()));
     if (0 == success) throw UtilsException(TRACEMSG("Error getting current executable dir," +
             " error: [" + errcode_to_string(GetLastError()) + "]"));

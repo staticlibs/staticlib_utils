@@ -403,7 +403,8 @@ std::string current_executable_path_windows() {
     DWORD size = 64;
     std::wstring out{};
     for (;;) {
-        auto path = get_buffer(out, size);
+        out.resize(size);
+        auto path = std::addressof(out.front());
         auto res_size = GetModuleFileNameW(NULL, path, size);
         if (0 == res_size) {
             auto code = GetLastError();
