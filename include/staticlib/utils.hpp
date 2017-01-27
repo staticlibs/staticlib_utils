@@ -27,7 +27,6 @@
 #include "staticlib/utils/FileDescriptor.hpp"
 #include "staticlib/utils/RandomStringGenerator.hpp"
 #include "staticlib/utils/UtilsException.hpp"
-#include "staticlib/utils/int_utils.hpp"
 #include "staticlib/utils/parse_int.hpp"
 #include "staticlib/utils/process_utils.hpp"
 #include "staticlib/utils/signal_utils.hpp"
