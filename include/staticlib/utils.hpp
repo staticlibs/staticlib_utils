@@ -24,7 +24,6 @@
 #ifndef STATICLIB_UTILS_HPP
 #define	STATICLIB_UTILS_HPP
 
-#include "staticlib/utils/FileDescriptor.hpp"
 #include "staticlib/utils/RandomStringGenerator.hpp"
 #include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/parse_int.hpp"
