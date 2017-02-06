@@ -96,11 +96,12 @@ FileDescriptor::~FileDescriptor() STATICLIB_NOEXCEPT {
     close();
 }
 
-std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
+//todo: overflow
+std::streamsize FileDescriptor::read(staticlib::config::span<char> span) {
     if ('r' == mode) {
         if (nullptr != handle) {
             DWORD res;
-            auto err = ::ReadFile(handle, buf, static_cast<DWORD>(count), std::addressof(res), nullptr);
+            auto err = ::ReadFile(handle, span.data(), static_cast<DWORD>(span.size()), std::addressof(res), nullptr);
             if (0 != err) {
                 return res > 0 ? static_cast<std::streamsize>(res) : std::char_traits<char>::eof();
             }
@@ -110,11 +111,12 @@ std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
     } else throw UtilsException(TRACEMSG("Attempt to read from file opened in 'w' mode: [" + file_path + "]"));
 }
 
+//todo: overflow
 std::streamsize FileDescriptor::write(const char* buf, std::streamsize count) {
     if ('w' == mode) {
         if (nullptr != handle) {
             DWORD res;
-            auto err = ::WriteFile(handle, buf, static_cast<DWORD>(count), std::addressof(res), nullptr);
+            auto err = ::WriteFile(handle, span.data(), static_cast<DWORD>(span.size()), std::addressof(res), nullptr);
             if (0 != err) return static_cast<std::streamsize>(res);
             throw UtilsException(TRACEMSG("Write error to file: [" + file_path + "]," +
                     " error: [" + errcode_to_string(::GetLastError()) + "]"));
@@ -203,10 +205,10 @@ FileDescriptor& FileDescriptor::operator=(FileDescriptor&& other) {
     return *this;
 }
 
-std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
+std::streamsize FileDescriptor::read(staticlib::config::span<char> span) {
     if ('r' == mode) {
         if (-1 != fd) {
-            auto res = ::read(fd, buf, count);
+            auto res = ::read(fd, span.data(), span.size());
             if (-1 != res) {
                 return res > 0 ? res : std::char_traits<char>::eof();
             }
@@ -216,10 +218,10 @@ std::streamsize FileDescriptor::read(char* buf, std::streamsize count) {
     } else throw UtilsException(TRACEMSG("Attempt to read from file opened in 'w' mode: [" + file_path + "]"));
 }
 
-std::streamsize FileDescriptor::write(const char* buf, std::streamsize count) {
+std::streamsize FileDescriptor::write(staticlib::config::span<const char> span) {
     if ('w' == mode) {
         if (-1 != fd) {
-            auto res = ::write(fd, buf, count);
+            auto res = ::write(fd, span.data(), span.size());
             if (-1 != res) return res;
             throw UtilsException(TRACEMSG("Write error to file: [" + file_path + "]," +
                     " error: [" + ::strerror(errno) + "]"));            

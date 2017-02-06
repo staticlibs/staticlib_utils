@@ -49,14 +49,14 @@ void test_read() {
     su::FileDescriptor desc{"CMakeCache.txt", 'r'};
     desc.seek(16);
     std::array<char, 12> buf;
-    desc.read(buf.data(), buf.size());
+    desc.read(buf);
     std::string res{buf.data(), buf.size()};
     slassert(res == "akeCache fil");
 }
 
 void test_write() {
     su::FileDescriptor desc{"FileDescriptor_test_out.txt", 'w'};
-    desc.write("aaa", 3);
+    desc.write({"aaa", 3});
 }
 
 void test_size() {

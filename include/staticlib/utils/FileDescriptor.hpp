@@ -109,7 +109,7 @@ public:
      * @param count number of bytes to read
      * @return number of bytes read, "std::char_traits<char>::eof()" on EOF
      */
-    std::streamsize read(char* buf, std::streamsize count);
+    std::streamsize read(staticlib::config::span<char> span);
     
     /**
      * Writes specified number of bytes to this file descriptor
@@ -118,7 +118,7 @@ public:
      * @param count number of bytes to write
      * @return number of bytes successfully written
      */
-    std::streamsize write(const char* buf, std::streamsize count);
+    std::streamsize write(staticlib::config::span<const char> span);
     
     /**
      * Seeks over this file descriptor
