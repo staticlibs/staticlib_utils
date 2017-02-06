@@ -29,6 +29,7 @@
 
 #ifdef STATICLIB_WINDOWS
 #define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 #include <windows.h>
 #include "staticlib/utils/windows.hpp"
 #else // STATICLIB_WINDOWS
@@ -101,7 +102,11 @@ std::streamsize FileDescriptor::read(staticlib::config::span<char> span) {
     if ('r' == mode) {
         if (nullptr != handle) {
             DWORD res;
-            auto err = ::ReadFile(handle, span.data(), static_cast<DWORD>(span.size()), std::addressof(res), nullptr);
+            DWORD ulen = span.size() <= std::numeric_limits<uint32_t>::max() ? 
+                    static_cast<uint32_t>(span.size()) :
+                    std::numeric_limits<uint32_t>::max();
+            auto err = ::ReadFile(handle, static_cast<void*>(span.data()), ulen,
+                    std::addressof(res), nullptr);
             if (0 != err) {
                 return res > 0 ? static_cast<std::streamsize>(res) : std::char_traits<char>::eof();
             }
@@ -112,11 +117,15 @@ std::streamsize FileDescriptor::read(staticlib::config::span<char> span) {
 }
 
 //todo: overflow
-std::streamsize FileDescriptor::write(const char* buf, std::streamsize count) {
+std::streamsize FileDescriptor::write(staticlib::config::span<const char> span) {
     if ('w' == mode) {
         if (nullptr != handle) {
             DWORD res;
-            auto err = ::WriteFile(handle, span.data(), static_cast<DWORD>(span.size()), std::addressof(res), nullptr);
+            DWORD ulen = span.size() <= std::numeric_limits<uint32_t>::max() ?
+                    static_cast<uint32_t>(span.size()) :
+                    std::numeric_limits<uint32_t>::max();
+            auto err = ::WriteFile(handle, static_cast<const void*>(span.data()), ulen,
+                    std::addressof(res), nullptr);
             if (0 != err) return static_cast<std::streamsize>(res);
             throw UtilsException(TRACEMSG("Write error to file: [" + file_path + "]," +
                     " error: [" + errcode_to_string(::GetLastError()) + "]"));
