@@ -28,6 +28,8 @@
 #include <random>
 #include <cstdint>
 
+#include "staticlib/config/noexcept.hpp"
+
 #include "staticlib/utils/utils_exception.hpp"
 
 namespace staticlib {
@@ -64,7 +66,7 @@ public:
      * 
      * @param other other instance
      */
-    random_string_generator(random_string_generator&& other);
+    random_string_generator(random_string_generator&& other) STATICLIB_NOEXCEPT;
 
     /**
      * Move-assignment operator
@@ -72,7 +74,7 @@ public:
      * @param other other instance
      * @return self instance
      */
-    random_string_generator& operator=(random_string_generator&& other);
+    random_string_generator& operator=(random_string_generator&& other) STATICLIB_NOEXCEPT;
     
     /**
      * Constructor, uses default alpha-numeric ASCII character set

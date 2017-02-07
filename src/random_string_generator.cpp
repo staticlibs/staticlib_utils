@@ -32,13 +32,13 @@ namespace staticlib {
 namespace utils {
 
 // see: http://stackoverflow.com/a/9789249/314015
-random_string_generator::random_string_generator(random_string_generator&& other) :
+random_string_generator::random_string_generator(random_string_generator&& other) STATICLIB_NOEXCEPT :
 charset(std::move(other.charset)),
 engine(std::move(other.engine)),
 dist(std::move(other.dist)) { }
 
 
-random_string_generator& random_string_generator::operator=(random_string_generator&& other) {
+random_string_generator& random_string_generator::operator=(random_string_generator&& other) STATICLIB_NOEXCEPT {
     this->charset = std::move(other.charset);
     this->engine = std::move(other.engine);
     this->dist = std::move(other.dist);
