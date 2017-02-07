@@ -61,16 +61,11 @@ void test_errcode_to_string() {
     slassert(']' == err87[err87.length() - 1]);
 }
 
-void test_get_exec_dir() {
-    std::cout << sw::get_exec_dir() << std::endl;
-}
-
 int main() {
     try {
         test_widen();
         test_narrow();
         test_errcode_to_string();
-        test_get_exec_dir();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;
