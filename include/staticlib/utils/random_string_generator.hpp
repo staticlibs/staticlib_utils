@@ -15,20 +15,20 @@
  */
 
 /* 
- * File:   RandomStringGenerator.hpp
+ * File:   random_string_generator.hpp
  * Author: alex
  *
  * Created on July 2, 2015, 11:27 PM
  */
 
-#ifndef STATICLIB_UTILS_RANDOMSTRINGGENERATOR_HPP
-#define	STATICLIB_UTILS_RANDOMSTRINGGENERATOR_HPP
+#ifndef STATICLIB_UTILS_RANDOM_STRING_GENERATOR_HPP
+#define	STATICLIB_UTILS_RANDOM_STRING_GENERATOR_HPP
 
 #include <string>
 #include <random>
 #include <cstdint>
 
-#include "staticlib/utils/UtilsException.hpp"
+#include "staticlib/utils/utils_exception.hpp"
 
 namespace staticlib {
 namespace utils {
@@ -37,8 +37,7 @@ namespace utils {
  * String generator, uses Mersenne Twister algorithm and alpha-numeric
  * ASCII character set by default. Not thread-safe.
  */
-class RandomStringGenerator {
-    
+class random_string_generator {
     std::string charset;
     std::mt19937 engine;
     std::uniform_int_distribution<size_t> dist;
@@ -50,7 +49,7 @@ public:
      * 
      * @param other instance
      */
-    RandomStringGenerator(const RandomStringGenerator&) = delete;
+    random_string_generator(const random_string_generator&) = delete;
 
     /**
      * Deleted copy-assignment operator
@@ -58,14 +57,14 @@ public:
      * @param other instance
      * @return self instance
      */
-    RandomStringGenerator& operator=(const RandomStringGenerator&) = delete;
+    random_string_generator& operator=(const random_string_generator&) = delete;
     
     /**
      * Move-constructor
      * 
      * @param other other instance
      */
-    RandomStringGenerator(RandomStringGenerator&& other);
+    random_string_generator(random_string_generator&& other);
 
     /**
      * Move-assignment operator
@@ -73,12 +72,12 @@ public:
      * @param other other instance
      * @return self instance
      */
-    RandomStringGenerator& operator=(RandomStringGenerator&& other);
+    random_string_generator& operator=(random_string_generator&& other);
     
     /**
      * Constructor, uses default alpha-numeric ASCII character set
      */
-    RandomStringGenerator();
+    random_string_generator();
     
     /**
      * Constructor, allows to specify character set,
@@ -86,7 +85,7 @@ public:
      * 
      * @param charset character set to use for generated strings
      */
-    RandomStringGenerator(std::string charset);
+    random_string_generator(std::string charset);
     
     /**
      * Generates random string of specified size
@@ -109,5 +108,5 @@ public:
 }
 } // namespace
 
-#endif	/* STATICLIB_UTILS_RANDOMSTRINGGENERATOR_HPP */
+#endif	/* STATICLIB_UTILS_RANDOM_STRING_GENERATOR_HPP */
 

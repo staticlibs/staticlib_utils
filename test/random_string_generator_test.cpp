@@ -15,13 +15,13 @@
  */
 
 /* 
- * File:   RandomStringGenerator_test.cpp
+ * File:   random_string_generator_test.cpp
  * Author: alex
  *
  * Created on July 3, 2015, 12:10 AM
  */
 
-#include "staticlib/utils/RandomStringGenerator.hpp"
+#include "staticlib/utils/random_string_generator.hpp"
 
 #include <iostream>
 
@@ -30,7 +30,7 @@
 namespace su = staticlib::utils;
 
 void test_gen() {
-    su::RandomStringGenerator gen{};
+    su::random_string_generator gen{};
     std::string str = gen.generate(42);
     slassert(42 == str.size());
     for (char ch : str) {
@@ -41,7 +41,7 @@ void test_gen() {
 }
 
 void test_gen_fill() {
-    su::RandomStringGenerator gen{};
+    su::random_string_generator gen{};
     std::string str{' ', 42};
     gen.generate(str);
     for (char ch : str) {
@@ -50,7 +50,7 @@ void test_gen_fill() {
 }
 
 void test_charset() {
-    su::RandomStringGenerator gen{"a"};
+    su::random_string_generator gen{"a"};
     std::string str = gen.generate(42);
     slassert(42 == str.size());
     for (char ch : str) {
@@ -61,9 +61,9 @@ void test_charset() {
 void test_empty() {
     bool catched = false;
     try {
-        su::RandomStringGenerator gen{""};
+        su::random_string_generator gen{""};
         (void) gen;
-    } catch (const su::UtilsException&) {
+    } catch (const su::utils_exception&) {
         catched = true;
     }
     slassert(catched);

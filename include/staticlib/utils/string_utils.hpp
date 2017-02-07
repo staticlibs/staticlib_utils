@@ -31,7 +31,7 @@
 #include <cstdint>
 
 #include "staticlib/config.hpp"
-#include "staticlib/utils/UtilsException.hpp"
+#include "staticlib/utils/utils_exception.hpp"
 
 namespace staticlib {
 namespace utils {

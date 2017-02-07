@@ -67,13 +67,13 @@ public:
 std::wstring widen(const std::string& st) {
     if (st.empty()) return std::wstring();
     auto size_needed = MultiByteToWideChar(CP_UTF8, 0, st.c_str(), static_cast<int> (st.length()), nullptr, 0);
-    if (0 == size_needed) throw UtilsException(TRACEMSG("Error on string widen calculation," +
+    if (0 == size_needed) throw utils_exception(TRACEMSG("Error on string widen calculation," +
             " string: [" + st + "], error: [" + errcode_to_string(GetLastError()) + "]"));
     std::wstring res{};
     res.resize(size_needed);
     auto buf = std::addressof(res.front());
     int chars_copied = MultiByteToWideChar(CP_UTF8, 0, st.c_str(), static_cast<int> (st.size()), buf, size_needed);
-    if (chars_copied != size_needed) throw UtilsException(TRACEMSG("Error on string widen execution," +
+    if (chars_copied != size_needed) throw utils_exception(TRACEMSG("Error on string widen execution," +
             " string: [" + st + "], error: [" + errcode_to_string(GetLastError()) + "]"));
     return res;
 }
@@ -85,13 +85,13 @@ std::string narrow(std::wstring wstr) {
 std::string narrow(const wchar_t* wbuf, size_t length) {
     if (0 == length) return std::string();
     int size_needed = WideCharToMultiByte(CP_UTF8, 0, wbuf, static_cast<int> (length), nullptr, 0, nullptr, nullptr);
-    if (0 == size_needed) throw UtilsException(TRACEMSG("Error on string narrow calculation," +
+    if (0 == size_needed) throw utils_exception(TRACEMSG("Error on string narrow calculation," +
             " string length: [" + sc::to_string(length) + "], error code: [" + sc::to_string(GetLastError()) + "]"));
     std::string res{};
     res.resize(size_needed);
     auto buf = std::addressof(res.front());
     int bytes_copied = WideCharToMultiByte(CP_UTF8, 0, wbuf, static_cast<int> (length), buf, size_needed, nullptr, nullptr);
-    if (bytes_copied != size_needed) throw UtilsException(TRACEMSG("Error on string narrow execution," +
+    if (bytes_copied != size_needed) throw utils_exception(TRACEMSG("Error on string narrow execution," +
             " string length: [" + sc::to_string(length) + "], error code: [" + sc::to_string(GetLastError()) + "]"));
     return res;
 }
@@ -117,19 +117,6 @@ std::string errcode_to_string(uint32_t code) STATICLIB_NOEXCEPT {
         return "Cannot format code: [" + sc::to_string(code) + "]" +
                 " into message, narrow error: [" + e.what() + "]";
     }
-}
-
-std::string get_exec_dir() {
-    std::wstring wst{};
-    wst.resize(MAX_PATH);
-    auto buf = std::addressof(wst.front());
-    auto success = GetModuleFileNameW(nullptr, buf, static_cast<DWORD>(wst.length()));
-    if (0 == success) throw UtilsException(TRACEMSG("Error getting current executable dir," +
-            " error: [" + errcode_to_string(GetLastError()) + "]"));
-    auto path = narrow(wst);
-    std::replace(path.begin(), path.end(), '\\', '/');
-    auto sid = path.rfind('/');
-    return std::string::npos != sid ? path.substr(0, sid + 1) : path;
 }
 
 } // namespace

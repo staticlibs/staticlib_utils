@@ -114,7 +114,7 @@ void initialize_signals_platform() {
 void initialize_signals() {
     std::lock_guard<std::mutex> guard{get_static_mutex()};
     bool& si = get_static_initialized();
-    if (si) throw UtilsException("Signal listeners double initialization error");
+    if (si) throw utils_exception("Signal listeners double initialization error");
     initialize_signals_platform();
     si = true;
 }

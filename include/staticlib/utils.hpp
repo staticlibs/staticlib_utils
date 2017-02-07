@@ -24,12 +24,12 @@
 #ifndef STATICLIB_UTILS_HPP
 #define	STATICLIB_UTILS_HPP
 
-#include "staticlib/utils/RandomStringGenerator.hpp"
-#include "staticlib/utils/UtilsException.hpp"
 #include "staticlib/utils/parse_int.hpp"
 #include "staticlib/utils/process_utils.hpp"
+#include "staticlib/utils/random_string_generator.hpp"
 #include "staticlib/utils/signal_utils.hpp"
 #include "staticlib/utils/string_utils.hpp"
+#include "staticlib/utils/utils_exception.hpp"
 #ifdef STATICLIB_WINDOWS
 #include "staticlib/utils/windows.hpp"
 #endif // STATICLIB_WINDOWS

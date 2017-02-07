@@ -15,14 +15,14 @@
  */
 
 /* 
- * File:   UtilsException.hpp
+ * File:   utils_exception.hpp
  * Author: alex
  *
  * Created on January 13, 2015, 9:36 PM
  */
 
-#ifndef STATICLIB_UTILS_UTILSEXCEPTION_HPP
-#define	STATICLIB_UTILS_UTILSEXCEPTION_HPP
+#ifndef STATICLIB_UTILS_UTILS_EXCEPTION_HPP
+#define	STATICLIB_UTILS_UTILS_EXCEPTION_HPP
 
 #include "staticlib/config.hpp"
 
@@ -32,25 +32,25 @@ namespace utils {
 /**
  * Module specific exception
  */
-class UtilsException : public staticlib::config::BaseException {
+class utils_exception : public staticlib::config::staticlib_exception {
 public:
     /**
      * Default constructor
      */
-    UtilsException() = default;
+    utils_exception() = default;
 
     /**
      * Constructor with message
      * 
      * @param msg error message
      */
-    UtilsException(const std::string& msg) :
-    staticlib::config::BaseException(msg) { }
+    utils_exception(const std::string& msg) :
+    staticlib::config::staticlib_exception(msg) { }
 
 };
 
 }
 } //namespace
 
-#endif	/* STATICLIB_UTILS_UTILSEXCEPTION_HPP */
+#endif	/* STATICLIB_UTILS_UTILS_EXCEPTION_HPP */
 

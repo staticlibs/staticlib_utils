@@ -27,7 +27,7 @@
 #include <string>
 #include <cstdint>
 
-#include "staticlib/utils/UtilsException.hpp"
+#include "staticlib/utils/utils_exception.hpp"
 
 // std::stoi is not available on Android in NDK 9
 

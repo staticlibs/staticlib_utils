@@ -183,7 +183,7 @@ void register_signal(int signum, int flags, void (*handler)(int)) {
     sigemptyset(std::addressof(sa.sa_mask));
     sa.sa_flags = flags;
     int res = ::sigaction(signum, std::addressof(sa), 0);
-    if (-1 == res) throw UtilsException(TRACEMSG("Error registering signal: [" + sc::to_string(signum) + "],"
+    if (-1 == res) throw utils_exception(TRACEMSG("Error registering signal: [" + sc::to_string(signum) + "],"
             " with flags: [" + sc::to_string(flags) + "], error: [" + ::strerror(errno) + "]"));
 }
 
@@ -191,13 +191,13 @@ sigset_t block_signals() {
     sigset_t oldmask, newmask;
     sigfillset(std::addressof(newmask));
     int err = ::pthread_sigmask(SIG_SETMASK, std::addressof(newmask), std::addressof(oldmask));
-    if (0 != err) throw UtilsException(TRACEMSG("Error blocking signals in parent: [" + ::strerror(err) + "]"));
+    if (0 != err) throw utils_exception(TRACEMSG("Error blocking signals in parent: [" + ::strerror(err) + "]"));
     return oldmask;
 }
 
 void resume_signals(sigset_t& oldmask) {
     int err = ::pthread_sigmask(SIG_SETMASK, std::addressof(oldmask), nullptr);
-    if (0 != err) throw UtilsException(TRACEMSG("Error resuming signals in parent: [" + ::strerror(err) + "]"));
+    if (0 != err) throw utils_exception(TRACEMSG("Error resuming signals in parent: [" + ::strerror(err) + "]"));
 }
 
 int open_fd(const std::string& path) {
@@ -206,7 +206,7 @@ int open_fd(const std::string& path) {
     do {
         fd = ::open(path.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
     } while ((-1 == fd) && (EINTR == errno));
-    if (-1 == fd) throw UtilsException(TRACEMSG("Error opening out file descriptor: [" + ::strerror(errno) + "]" +
+    if (-1 == fd) throw utils_exception(TRACEMSG("Error opening out file descriptor: [" + ::strerror(errno) + "]" +
             ", specified out path: [" + path + "]"));
     return fd;
 }
@@ -232,7 +232,7 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
     // do fork
     volatile pid_t pid = ::vfork();
     if (-1 == pid) { // no child created
-        throw UtilsException{TRACEMSG("Process vfork error: [" + ::strerror(errno) + "]")};
+        throw utils_exception{TRACEMSG("Process vfork error: [" + ::strerror(errno) + "]")};
     } else if (pid > 0) { // return pid to parent
         sigset_t& oldmask_ref = const_cast<sigset_t&>(oldmask);
         resume_signals(oldmask_ref);
@@ -278,7 +278,7 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
             CREATE_ALWAYS,
             FILE_ATTRIBUTE_NORMAL,
             nullptr);
-    if (INVALID_HANDLE_VALUE == out_handle) throw UtilsException(TRACEMSG(
+    if (INVALID_HANDLE_VALUE == out_handle) throw utils_exception(TRACEMSG(
             "Error opening out file descriptor: [" + errcode_to_string(::GetLastError()) + "]" +
             ", specified out path: [" + out + "]"));
     // prepare process
@@ -309,7 +309,7 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
             std::addressof(si), 
             std::addressof(pi));
     ::CloseHandle(out_handle);
-    if (0 == ret) throw UtilsException(TRACEMSG(
+    if (0 == ret) throw utils_exception(TRACEMSG(
             " Process create error: [" + errcode_to_string(::GetLastError()) + "]," +
             " command line: [" + cmd_string + "], output: [" + out + "]"));
     ::CloseHandle(pi.hThread);
@@ -344,7 +344,7 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
 #elif defined(STATICLIB_WINDOWS)
     HANDLE ha = exec_async_windows(executable, args, out);
     auto ret = WaitForSingleObject(ha, INFINITE);
-    if (WAIT_FAILED == ret) throw UtilsException(TRACEMSG(
+    if (WAIT_FAILED == ret) throw utils_exception(TRACEMSG(
             "Error waiting for child process: [" + errcode_to_string(::GetLastError()) + "]" +
             " executable: [" + executable + "], args size: [" + sc::to_string(args.size()) + "], " +
             " specified out path: [" + out + "]"));
@@ -388,7 +388,7 @@ std::string current_executable_path_linux() {
     for (;;) {
         res.resize(size);
         ssize_t res_size = readlink("/proc/self/exe", std::addressof(res.front()), size);
-        if (res_size < 0) throw UtilsException(TRACEMSG(strerror(errno)));
+        if (res_size < 0) throw utils_exception(TRACEMSG(strerror(errno)));
         if (res_size < size) {
             res.resize(res_size);
             break;
@@ -410,7 +410,7 @@ std::string current_executable_path_windows() {
         if (0 == res_size) {
             auto code = GetLastError();
             auto code_str = errcode_to_string(code);
-            throw UtilsException(TRACEMSG(code_str));
+            throw utils_exception(TRACEMSG(code_str));
         } else if (res_size < size) {
             std::string out_bytes = narrow(out.c_str(), res_size);
             return out_bytes;
@@ -430,12 +430,12 @@ std::string current_executable_path_mac() {
         // trim null terminated buffer
         return std::string(out.c_str());
     } else if (-1 != res) {
-        throw UtilsException(TRACEMSG("_NSGetExecutablePath error"));
+        throw utils_exception(TRACEMSG("_NSGetExecutablePath error"));
     } else {
         path = get_buffer(out, size);
         res = _NSGetExecutablePath(path, &size);
         if (0 != res) {
-            throw UtilsException(TRACEMSG("_NSGetExecutablePath secondary error"));
+            throw utils_exception(TRACEMSG("_NSGetExecutablePath secondary error"));
         }
         // trim null terminated buffer
         return std::string(out.c_str());
@@ -453,7 +453,7 @@ std::string current_executable_path() {
 #elif defined(STATICLIB_MAC)
     return current_executable_path_mac();
 #else
-    throw UtilsException(TRACEMSG("Cannot determine current executable path on this platform"));
+    throw utils_exception(TRACEMSG("Cannot determine current executable path on this platform"));
 #endif 
 }
 

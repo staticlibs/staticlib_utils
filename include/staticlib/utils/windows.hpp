@@ -29,7 +29,7 @@
 
 #include "staticlib/config.hpp"
 
-#include "staticlib/utils/UtilsException.hpp"
+#include "staticlib/utils/utils_exception.hpp"
 
 namespace staticlib {
 namespace utils {
@@ -67,13 +67,6 @@ std::string narrow(const wchar_t* wbuf, size_t length);
  * @return message in english
  */
 std::string errcode_to_string(uint32_t code) STATICLIB_NOEXCEPT;
-
-/**
- * Returns the directory where current executable resides
- * 
- * @return directory path in UTF-8
- */
-std::string get_exec_dir();
 
 } //namespace
 }
