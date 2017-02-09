@@ -93,6 +93,11 @@ std::string strip_parent_dir(const std::string& file_path) {
     return std::string(file_path, pos + 1);
 }
 
+const std::string& empty_string() {
+    static std::string empty{""};
+    return empty;
+}
+
 } // namespace
 } 
 

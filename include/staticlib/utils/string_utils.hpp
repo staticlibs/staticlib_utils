@@ -83,6 +83,13 @@ std::string strip_filename(const std::string& file_path);
  */
 std::string strip_parent_dir(const std::string& file_path);
 
+/**
+ * Reference to empty string
+ * 
+ * @return empty string reference
+ */
+const std::string& empty_string();
+
 } // namespace
 }
 
