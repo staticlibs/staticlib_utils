@@ -422,7 +422,8 @@ std::string current_executable_path_windows() {
 std::string current_executable_path_mac() {
     std::string out{};
     uint32_t size = 64;
-    char* path = get_buffer(out, size);
+    out.resize(size);
+    char* path = std::addressof(out.front());
     int res = _NSGetExecutablePath(path, &size);
     if (0 == res) {
         // trim null terminated buffer
@@ -430,7 +431,8 @@ std::string current_executable_path_mac() {
     } else if (-1 != res) {
         throw utils_exception(TRACEMSG("_NSGetExecutablePath error"));
     } else {
-        path = get_buffer(out, size);
+        out.resize(size);
+        path = std::addressof(out.front());
         res = _NSGetExecutablePath(path, &size);
         if (0 != res) {
             throw utils_exception(TRACEMSG("_NSGetExecutablePath secondary error"));
