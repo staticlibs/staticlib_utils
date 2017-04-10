@@ -29,20 +29,18 @@
 
 #include "staticlib/config/assert.hpp"
 
-namespace su = staticlib::utils;
-
 void test_signal() {
     std::atomic_flag flag = ATOMIC_FLAG_INIT;
-    su::initialize_signals();
-    su::register_signal_listener([&flag] {
+    sl::utils::initialize_signals();
+    sl::utils::register_signal_listener([&flag] {
         flag.test_and_set();
     });
     auto th = std::thread{[] {
             std::this_thread::sleep_for(std::chrono::seconds{1});
-            su::fire_signal();
+            sl::utils::fire_signal();
         }};
     th.detach();
-    su::wait_for_signal();
+    sl::utils::wait_for_signal();
     std::cout << "signal_utils_test: reached" << std::endl;
     slassert(flag.test_and_set());
 }

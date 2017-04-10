@@ -24,8 +24,8 @@
 #ifndef STATICLIB_UTILS_WINDOWS_HPP
 #define	STATICLIB_UTILS_WINDOWS_HPP
 
-#include <string>
 #include <cstdint>
+#include <string>
 
 #include "staticlib/config.hpp"
 

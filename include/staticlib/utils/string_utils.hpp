@@ -24,11 +24,11 @@
 #ifndef STATICLIB_UTILS_STRING_UTILS_HPP
 #define	STATICLIB_UTILS_STRING_UTILS_HPP
 
+#include <cstdint>
 #include <string>
 #include <sstream>
 #include <typeinfo>
 #include <vector>
-#include <cstdint>
 
 #include "staticlib/config.hpp"
 #include "staticlib/utils/utils_exception.hpp"

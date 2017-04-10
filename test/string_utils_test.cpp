@@ -23,16 +23,14 @@
 
 #include "staticlib/utils/string_utils.hpp"
 
-#include <iostream>
 #include <cstring>
+#include <iostream>
 
 #include "staticlib/config/assert.hpp"
 
-namespace ss = staticlib::utils;
-
 void test_alloc_copy() {
     std::string st{"foo"};
-    auto buf = ss::alloc_copy(st);
+    auto buf = sl::utils::alloc_copy(st);
     slassert(3 == strlen(buf));
     slassert('\0' == buf[3]);
     free(buf);
@@ -40,7 +38,7 @@ void test_alloc_copy() {
 
 void test_split() {
     std::string src{"foo:bar::baz:"};
-    std::vector<std::string> vec = ss::split(src, ':');
+    std::vector<std::string> vec = sl::utils::split(src, ':');
     slassert(3 == vec.size());
     slassert("foo" == vec[0]);
     slassert("bar" == vec[1]);
@@ -48,38 +46,38 @@ void test_split() {
 }
 
 void test_ends_with() {
-    slassert(ss::ends_with("foo", "oo"));
-    slassert(ss::ends_with("foo", "foo"));
-    slassert(!ss::ends_with("foo", "1foo"));
-    slassert(ss::ends_with("foo", ""));
-    slassert(!ss::ends_with("foo", "ar"));
+    slassert(sl::utils::ends_with("foo", "oo"));
+    slassert(sl::utils::ends_with("foo", "foo"));
+    slassert(!sl::utils::ends_with("foo", "1foo"));
+    slassert(sl::utils::ends_with("foo", ""));
+    slassert(!sl::utils::ends_with("foo", "ar"));
 }
 
 void test_strip_filename() {
-    slassert("/foo/bar/" == ss::strip_filename("/foo/bar/baz"));
-    slassert("c:\\foo\\bar\\" == ss::strip_filename("c:\\foo\\bar\\baz"));
-    slassert("/foo/bar/" == ss::strip_filename("/foo/bar/baz.foo"));
-    slassert("/foo/bar/" == ss::strip_filename("/foo/bar/"));
-    slassert("/" == ss::strip_filename("/foo"));
-    slassert("foo" == ss::strip_filename("foo"));
-    slassert("" == ss::strip_filename(""));
+    slassert("/foo/bar/" == sl::utils::strip_filename("/foo/bar/baz"));
+    slassert("c:\\foo\\bar\\" == sl::utils::strip_filename("c:\\foo\\bar\\baz"));
+    slassert("/foo/bar/" == sl::utils::strip_filename("/foo/bar/baz.foo"));
+    slassert("/foo/bar/" == sl::utils::strip_filename("/foo/bar/"));
+    slassert("/" == sl::utils::strip_filename("/foo"));
+    slassert("foo" == sl::utils::strip_filename("foo"));
+    slassert("" == sl::utils::strip_filename(""));
 }
 
 void test_strip_parent_dir() {    
-    slassert("baz" == ss::strip_parent_dir("/foo/bar/baz"));
-    slassert("baz" == ss::strip_parent_dir("c:\\foo\\bar\\baz"));
-    slassert("baz.foo" == ss::strip_parent_dir("/foo/bar/baz.foo"));
-    slassert("" == ss::strip_parent_dir("/foo/bar/"));
-    slassert("" == ss::strip_parent_dir("/foo///bar/"));
-    slassert("" == ss::strip_parent_dir("/foo/bar//"));
-    slassert("foo" == ss::strip_parent_dir("/foo"));
-    slassert("foo" == ss::strip_parent_dir("c:\\bar\\foo"));    
-    slassert("foo" == ss::strip_parent_dir("foo"));    
-    slassert("a" == ss::strip_parent_dir("/a"));
-    slassert("" == ss::strip_parent_dir("/"));
-    slassert("" == ss::strip_parent_dir("///"));
-    slassert("" == ss::strip_parent_dir("\\"));
-    slassert("" == ss::strip_parent_dir(""));
+    slassert("baz" == sl::utils::strip_parent_dir("/foo/bar/baz"));
+    slassert("baz" == sl::utils::strip_parent_dir("c:\\foo\\bar\\baz"));
+    slassert("baz.foo" == sl::utils::strip_parent_dir("/foo/bar/baz.foo"));
+    slassert("" == sl::utils::strip_parent_dir("/foo/bar/"));
+    slassert("" == sl::utils::strip_parent_dir("/foo///bar/"));
+    slassert("" == sl::utils::strip_parent_dir("/foo/bar//"));
+    slassert("foo" == sl::utils::strip_parent_dir("/foo"));
+    slassert("foo" == sl::utils::strip_parent_dir("c:\\bar\\foo"));    
+    slassert("foo" == sl::utils::strip_parent_dir("foo"));    
+    slassert("a" == sl::utils::strip_parent_dir("/a"));
+    slassert("" == sl::utils::strip_parent_dir("/"));
+    slassert("" == sl::utils::strip_parent_dir("///"));
+    slassert("" == sl::utils::strip_parent_dir("\\"));
+    slassert("" == sl::utils::strip_parent_dir(""));
 }
 
 int main() {

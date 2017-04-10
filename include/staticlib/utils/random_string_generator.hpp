@@ -24,9 +24,9 @@
 #ifndef STATICLIB_UTILS_RANDOM_STRING_GENERATOR_HPP
 #define	STATICLIB_UTILS_RANDOM_STRING_GENERATOR_HPP
 
+#include <cstdint>
 #include <string>
 #include <random>
-#include <cstdint>
 
 #include "staticlib/config/noexcept.hpp"
 

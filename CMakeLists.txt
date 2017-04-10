@@ -16,7 +16,7 @@ cmake_minimum_required ( VERSION 2.8.12 )
 
 # project
 project ( staticlib_utils CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.5.0 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.6.0 )
 set ( ${PROJECT_NAME}_DESCRIPTION "Staticlibs common utilities library" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_utils )
 include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
@@ -45,11 +45,11 @@ if ( NOT DEFINED CMAKE_LIBRARY_OUTPUT_DIRECTORY )
 endif ( )
 if ( NOT DEFINED STATICLIB_TOOLCHAIN )
     staticlib_utils_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_config )
+    staticlib_utils_add_subdirectory ( ${CMAKE_CURRENT_LIST_DIR}/../staticlib_support )
 endif ( )
 
 # dependencies
-set ( ${PROJECT_NAME}_OPTIONS "" )
-set ( ${PROJECT_NAME}_DEPS staticlib_config )
+set ( ${PROJECT_NAME}_DEPS staticlib_config staticlib_support )
 staticlib_utils_pkg_check_modules ( ${PROJECT_NAME}_DEPS_PC REQUIRED ${PROJECT_NAME}_DEPS )
 
 # library
@@ -62,13 +62,14 @@ target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}/include
         ${${PROJECT_NAME}_DEPS_PC_INCLUDE_DIRS} )
 target_compile_options ( ${PROJECT_NAME} PRIVATE 
-        ${${PROJECT_NAME}_DEPS_PC_CFLAGS_OTHER}
-        ${${PROJECT_NAME}_OPTIONS} )
+        ${${PROJECT_NAME}_DEPS_PC_CFLAGS_OTHER} )
 
 # pkg-config
-staticlib_utils_list_to_string ( ${PROJECT_NAME}_PC_CFLAGS_OPTS "" ${PROJECT_NAME}_OPTIONS )
-set ( ${PROJECT_NAME}_PC_CFLAGS "-I${CMAKE_CURRENT_LIST_DIR}/include ${${PROJECT_NAME}_PC_CFLAGS_OPTS}" )
+set ( ${PROJECT_NAME}_PC_CFLAGS "-I${CMAKE_CURRENT_LIST_DIR}/include" )
 set ( ${PROJECT_NAME}_PC_LIBS "-L${CMAKE_LIBRARY_OUTPUT_DIRECTORY} -l${PROJECT_NAME}" )
+if ( CMAKE_SYSTEM_NAME MATCHES "Linux" )
+    set ( ${PROJECT_NAME}_PC_LIBS_PRIVATE "-lpthread" )
+endif ( )
 staticlib_utils_list_to_string ( ${PROJECT_NAME}_PC_REQUIRES "" ${PROJECT_NAME}_DEPS )
 configure_file ( ${CMAKE_CURRENT_LIST_DIR}/resources/pkg-config.in 
         ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/pkgconfig/${PROJECT_NAME}.pc )

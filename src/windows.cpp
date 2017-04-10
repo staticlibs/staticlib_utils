@@ -23,7 +23,6 @@
 
 #include "staticlib/utils/windows.hpp"
 
-#include "staticlib/config.hpp"
 #ifdef STATICLIB_WINDOWS
 
 #include <memory>
@@ -35,12 +34,12 @@
 #define NOMINMAX
 #include <windows.h>
 
+#include "staticlib/support.hpp"
+
 #include "staticlib/utils/string_utils.hpp"
 
 namespace staticlib {
 namespace utils {
-
-namespace sc = staticlib::config;
 
 namespace { // anonymous
 
@@ -86,13 +85,13 @@ std::string narrow(const wchar_t* wbuf, size_t length) {
     if (0 == length) return std::string();
     int size_needed = WideCharToMultiByte(CP_UTF8, 0, wbuf, static_cast<int> (length), nullptr, 0, nullptr, nullptr);
     if (0 == size_needed) throw utils_exception(TRACEMSG("Error on string narrow calculation," +
-            " string length: [" + sc::to_string(length) + "], error code: [" + sc::to_string(GetLastError()) + "]"));
+            " string length: [" + sl::support::to_string(length) + "], error code: [" + sl::support::to_string(GetLastError()) + "]"));
     std::string res{};
     res.resize(size_needed);
     auto buf = std::addressof(res.front());
     int bytes_copied = WideCharToMultiByte(CP_UTF8, 0, wbuf, static_cast<int> (length), buf, size_needed, nullptr, nullptr);
     if (bytes_copied != size_needed) throw utils_exception(TRACEMSG("Error on string narrow execution," +
-            " string length: [" + sc::to_string(length) + "], error code: [" + sc::to_string(GetLastError()) + "]"));
+            " string length: [" + sl::support::to_string(length) + "], error code: [" + sl::support::to_string(GetLastError()) + "]"));
     return res;
 }
 
@@ -103,18 +102,18 @@ std::string errcode_to_string(uint32_t code) STATICLIB_NOEXCEPT {
             FORMAT_MESSAGE_IGNORE_INSERTS, nullptr, code, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
             reinterpret_cast<wchar_t*> (&buf_p), 0, nullptr);
     if (0 == size) {
-        return "Cannot format code: [" + sc::to_string(code) + "]" +
-                " into message, error code: [" + sc::to_string(GetLastError()) + "]";
+        return "Cannot format code: [" + sl::support::to_string(code) + "]" +
+                " into message, error code: [" + sl::support::to_string(GetLastError()) + "]";
     }
     auto buf = std::unique_ptr<wchar_t, local_free_deleter<wchar_t>> (buf_p, local_free_deleter<wchar_t>{});
     if (size <= 2) {
-        return "code: [" + sc::to_string(code) + "], message: []";
+        return "code: [" + sl::support::to_string(code) + "], message: []";
     }
     try {
         std::string msg = narrow(buf.get(), size - 2);
-        return "code: [" + sc::to_string(code) + "], message: [" + msg + "]";
+        return "code: [" + sl::support::to_string(code) + "], message: [" + msg + "]";
     } catch (const std::exception& e) {
-        return "Cannot format code: [" + sc::to_string(code) + "]" +
+        return "Cannot format code: [" + sl::support::to_string(code) + "]" +
                 " into message, narrow error: [" + e.what() + "]";
     }
 }

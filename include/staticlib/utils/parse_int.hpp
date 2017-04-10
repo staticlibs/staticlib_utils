@@ -24,8 +24,8 @@
 #ifndef STATICLIB_UTILS_PARSE_INT_HPP
 #define	STATICLIB_UTILS_PARSE_INT_HPP
 
-#include <string>
 #include <cstdint>
+#include <string>
 
 #include "staticlib/utils/utils_exception.hpp"
 

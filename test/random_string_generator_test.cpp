@@ -27,10 +27,8 @@
 
 #include "staticlib/config/assert.hpp"
 
-namespace su = staticlib::utils;
-
 void test_gen() {
-    su::random_string_generator gen{};
+    sl::utils::random_string_generator gen{};
     std::string str = gen.generate(42);
     slassert(42 == str.size());
     for (char ch : str) {
@@ -41,7 +39,7 @@ void test_gen() {
 }
 
 void test_gen_fill() {
-    su::random_string_generator gen{};
+    sl::utils::random_string_generator gen{};
     std::string str{' ', 42};
     gen.generate(str);
     for (char ch : str) {
@@ -50,7 +48,7 @@ void test_gen_fill() {
 }
 
 void test_charset() {
-    su::random_string_generator gen{"a"};
+    sl::utils::random_string_generator gen{"a"};
     std::string str = gen.generate(42);
     slassert(42 == str.size());
     for (char ch : str) {
@@ -61,9 +59,9 @@ void test_charset() {
 void test_empty() {
     bool catched = false;
     try {
-        su::random_string_generator gen{""};
+        sl::utils::random_string_generator gen{""};
         (void) gen;
-    } catch (const su::utils_exception&) {
+    } catch (const sl::utils::utils_exception&) {
         catched = true;
     }
     slassert(catched);

@@ -33,12 +33,6 @@
 namespace staticlib {
 namespace utils {
 
-namespace { // anonymous
-
-namespace sc = staticlib::config;
-
-} // namespace
-
 char* alloc_copy(const std::string& str) STATICLIB_NOEXCEPT {
     auto len = str.length();
     char* msg = static_cast<char*> (malloc(len + 1));

@@ -30,33 +30,31 @@
 
 #include "staticlib/config/assert.hpp"
 
-namespace sw = staticlib::utils;
-
 void test_widen() {
     // hello in russian in utf-8
     std::string src{"\xd0\xbf\xd1\x80\xd0\xb8\xd0\xb2\xd0\xb5\xd1\x82"};
-    auto wst = sw::widen(src);
+    auto wst = sl::utils::widen(src);
     slassert(6 == wst.length());
-    auto converted = sw::narrow(wst);
+    auto converted = sl::utils::narrow(wst);
     slassert(src == converted);
 }
 
 void test_narrow() {
     // hello in russian in utf-16
     std::wstring ws = L"\U0000043f\U00000440\U00000438\U00000432\U00000435\U00000442";
-    auto st = sw::narrow(ws);
+    auto st = sl::utils::narrow(ws);
     slassert(12 == st.length());
-    auto converted = sw::widen(st);
+    auto converted = sl::utils::widen(st);
     slassert(ws == converted);
 }
 
 void test_errcode_to_string() {
-    std::string err0 = sw::errcode_to_string(0);
+    std::string err0 = sl::utils::errcode_to_string(0);
     slassert(0 == err0.length());
-    std::string err1 = sw::errcode_to_string(1);
+    std::string err1 = sl::utils::errcode_to_string(1);
     slassert(err1.length() > 0);
     slassert(']' == err1[err1.length() - 1]);
-    std::string err87 = sw::errcode_to_string(87);
+    std::string err87 = sl::utils::errcode_to_string(87);
     slassert(err87.length() > 0);
     slassert(']' == err87[err87.length() - 1]);
 }

@@ -24,7 +24,7 @@
 #ifndef STATICLIB_UTILS_UTILS_EXCEPTION_HPP
 #define	STATICLIB_UTILS_UTILS_EXCEPTION_HPP
 
-#include "staticlib/config.hpp"
+#include "staticlib/support.hpp"
 
 namespace staticlib {
 namespace utils {
@@ -32,7 +32,7 @@ namespace utils {
 /**
  * Module specific exception
  */
-class utils_exception : public staticlib::config::staticlib_exception {
+class utils_exception : public sl::support::exception {
 public:
     /**
      * Default constructor
@@ -45,7 +45,7 @@ public:
      * @param msg error message
      */
     utils_exception(const std::string& msg) :
-    staticlib::config::staticlib_exception(msg) { }
+    sl::support::exception(msg) { }
 
 };
 

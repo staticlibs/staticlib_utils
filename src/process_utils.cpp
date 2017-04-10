@@ -58,8 +58,6 @@ namespace utils {
 
 namespace { // anonymous
 
-namespace sc = staticlib::config;
-
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
 int parse_int_nothrow(char* fd_name) {
     size_t i = 0;
@@ -183,8 +181,8 @@ void register_signal(int signum, int flags, void (*handler)(int)) {
     sigemptyset(std::addressof(sa.sa_mask));
     sa.sa_flags = flags;
     int res = ::sigaction(signum, std::addressof(sa), 0);
-    if (-1 == res) throw utils_exception(TRACEMSG("Error registering signal: [" + sc::to_string(signum) + "],"
-            " with flags: [" + sc::to_string(flags) + "], error: [" + ::strerror(errno) + "]"));
+    if (-1 == res) throw utils_exception(TRACEMSG("Error registering signal: [" + sl::support::to_string(signum) + "],"
+            " with flags: [" + sl::support::to_string(flags) + "], error: [" + ::strerror(errno) + "]"));
 }
 
 sigset_t block_signals() {
@@ -249,7 +247,7 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
         errno = 0;
         int res = ::execv(exec_path_child, arg_ptrs_child.data());
         std::cout << TRACEMSG(" Process execv error: [" + ::strerror(errno) + "]," +
-                " executable: [" + executable + "], args size: [" + sc::to_string(args.size()) + "]") << std::endl;
+                " executable: [" + executable + "], args size: [" + sl::support::to_string(args.size()) + "]") << std::endl;
         if (-1 == res) _exit(errno);        
         return 0;
     }
@@ -346,7 +344,7 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
     auto ret = WaitForSingleObject(ha, INFINITE);
     if (WAIT_FAILED == ret) throw utils_exception(TRACEMSG(
             "Error waiting for child process: [" + errcode_to_string(::GetLastError()) + "]" +
-            " executable: [" + executable + "], args size: [" + sc::to_string(args.size()) + "], " +
+            " executable: [" + executable + "], args size: [" + sl::support::to_string(args.size()) + "], " +
             " specified out path: [" + out + "]"));
     DWORD res;
     ::GetExitCodeProcess(ha, std::addressof(res));

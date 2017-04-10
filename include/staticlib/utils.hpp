@@ -24,6 +24,8 @@
 #ifndef STATICLIB_UTILS_HPP
 #define	STATICLIB_UTILS_HPP
 
+#include "staticlib/config.hpp"
+
 #include "staticlib/utils/parse_int.hpp"
 #include "staticlib/utils/process_utils.hpp"
 #include "staticlib/utils/random_string_generator.hpp"
