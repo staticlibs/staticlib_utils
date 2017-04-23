@@ -45,6 +45,14 @@ void test_split() {
     slassert("baz" == vec[2]);
 }
 
+void test_starts_with() {
+    slassert(sl::utils::starts_with("foo", "fo"));
+    slassert(sl::utils::starts_with("foo", "foo"));
+    slassert(!sl::utils::starts_with("foo", "1foo"));
+    slassert(sl::utils::starts_with("foo", ""));
+    slassert(!sl::utils::starts_with("foo", "ba"));
+}
+
 void test_ends_with() {
     slassert(sl::utils::ends_with("foo", "oo"));
     slassert(sl::utils::ends_with("foo", "foo"));
@@ -84,6 +92,7 @@ int main() {
     try {
         test_alloc_copy();
         test_split();
+        test_starts_with();
         test_ends_with();
         test_strip_filename();
         test_strip_parent_dir();

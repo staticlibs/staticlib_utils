@@ -56,6 +56,15 @@ char* alloc_copy(const std::string& str) STATICLIB_NOEXCEPT;
 std::vector<std::string> split(const std::string& str, char delim);
 
 /**
+ * Checks whether one string starts with another one
+ * 
+ * @param value string to check
+ * @param start string start
+ * @return true if string starts with specified ending, false otherwise
+ */
+bool starts_with(const std::string& value, const std::string& start);
+
+/**
  * Checks whether one string ends with another one
  * 
  * @param value string to check

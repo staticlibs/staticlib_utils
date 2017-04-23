@@ -59,6 +59,11 @@ std::vector<std::string> split(const std::string& str, char delim) {
     return res;
 }
 
+// http://stackoverflow.com/a/8095276/314015
+bool starts_with(const std::string& value, const std::string& start) {
+    return 0 == value.compare(0, start.length(), start);
+}
+
 // http://stackoverflow.com/a/874160/314015
 bool ends_with(std::string const& value, std::string const& ending) {
     if (value.length() >= ending.length()) {
