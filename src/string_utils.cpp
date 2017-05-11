@@ -23,12 +23,12 @@
 
 #include "staticlib/utils/string_utils.hpp"
 
+#include <cstdlib>
+#include <cstring>
+#include <algorithm>
 #include <string>
 #include <exception>
 #include <sstream>
-#include <cstdlib>
-#include <cstring>
-
 
 namespace staticlib {
 namespace utils {
@@ -90,6 +90,29 @@ std::string strip_parent_dir(const std::string& file_path) {
         return std::string();
     }
     return std::string(file_path, pos + 1);
+}
+
+// http://stackoverflow.com/a/17976541
+std::string trim(const std::string& s) {
+    auto wsfront = std::find_if_not(s.begin(), s.end(), [](int c) {
+        return std::isspace(c);
+    });
+    return std::string(wsfront, std::find_if_not(s.rbegin(), std::string::const_reverse_iterator(wsfront), [](int c) {
+        return std::isspace(c);
+    }).base());
+}
+
+// http://stackoverflow.com/a/27813
+bool iequals(const std::string& str1, const std::string& str2) {
+    if (str1.size() != str2.size()) {
+        return false;
+    }
+    for (std::string::const_iterator c1 = str1.begin(), c2 = str2.begin(); c1 != str1.end(); ++c1, ++c2) {
+        if (std::tolower(*c1) != std::tolower(*c2)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 const std::string& empty_string() {

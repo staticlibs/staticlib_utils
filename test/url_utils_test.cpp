@@ -15,27 +15,32 @@
  */
 
 /* 
- * File:   utils.hpp
+ * File:   url_utils_test.cpp
  * Author: alex
  *
- * Created on January 29, 2015, 12:28 PM
+ * Created on May 11, 2017, 10:56 PM
  */
 
-#ifndef STATICLIB_UTILS_HPP
-#define	STATICLIB_UTILS_HPP
-
-#include "staticlib/config.hpp"
-
-#include "staticlib/utils/parse_int.hpp"
-#include "staticlib/utils/process_utils.hpp"
-#include "staticlib/utils/random_string_generator.hpp"
-#include "staticlib/utils/signal_utils.hpp"
-#include "staticlib/utils/string_utils.hpp"
 #include "staticlib/utils/url_utils.hpp"
-#include "staticlib/utils/utils_exception.hpp"
-#ifdef STATICLIB_WINDOWS
-#include "staticlib/utils/windows.hpp"
-#endif // STATICLIB_WINDOWS
 
-#endif	/* STATICLIB_UTILS_HPP */
+#include <cstring>
+#include <iostream>
 
+#include "staticlib/config/assert.hpp"
+
+void test_encode_decode() {
+    std::string decoded = R"({"foo": 41, "bar": 42, "baz": 43})";
+    std::string encoded = "%7B%22foo%22%3A%2041%2C%20%22bar%22%3A%2042%2C%20%22baz%22%3A%2043%7D";
+    slassert(encoded == sl::utils::url_encode(decoded));
+    slassert(decoded == sl::utils::url_decode(encoded));
+}
+
+int main() {
+    try {
+        test_encode_decode();
+    } catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        return 1;
+    }
+    return 0;
+}

@@ -88,6 +88,20 @@ void test_strip_parent_dir() {
     slassert("" == sl::utils::strip_parent_dir(""));
 }
 
+void test_trim() {
+    slassert("foo" == sl::utils::trim(" foo  "));
+    slassert("foo" == sl::utils::trim("  foo"));
+    slassert("foo" == sl::utils::trim("foo "));
+    slassert("foo  bar" == sl::utils::trim(" foo  bar  "));
+    slassert("" == sl::utils::trim(""));
+}
+
+void test_iequals() {
+    slassert(sl::utils::iequals("foo", "FoO"));
+    slassert(sl::utils::iequals("foo", "foo"));
+    slassert(!sl::utils::iequals("foo", "boo"));
+}
+
 int main() {
     try {
         test_alloc_copy();
@@ -96,6 +110,8 @@ int main() {
         test_ends_with();
         test_strip_filename();
         test_strip_parent_dir();
+        test_trim();
+        test_iequals();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;

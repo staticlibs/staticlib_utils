@@ -93,6 +93,25 @@ std::string strip_filename(const std::string& file_path);
 std::string strip_parent_dir(const std::string& file_path);
 
 /**
+ * Trims specified string from left and from right using "std::isspace"
+ * to check empty bytes, does not support Unicode
+ * 
+ * @param s string to trim
+ * @return trimmed string
+ */
+std::string trim(const std::string& s);
+
+/**
+ * Case insensitive byte-to-byte string comparison, does not support Unicode
+ * 
+ * @param str1 first string
+ * @param str2 seconds string
+ * @return true if strings equal ignoring case, false otherwise
+ */
+// http://stackoverflow.com/a/27813
+bool iequals(const std::string& str1, const std::string& str2);  
+
+/**
  * Reference to empty string
  * 
  * @return empty string reference
