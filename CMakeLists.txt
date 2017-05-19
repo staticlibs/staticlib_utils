@@ -63,6 +63,9 @@ target_include_directories ( ${PROJECT_NAME} BEFORE PRIVATE
         ${${PROJECT_NAME}_DEPS_PC_INCLUDE_DIRS} )
 target_compile_options ( ${PROJECT_NAME} PRIVATE 
         ${${PROJECT_NAME}_DEPS_PC_CFLAGS_OTHER} )
+if ( ${CMAKE_CXX_COMPILER_ID}x MATCHES "MSVCx" )    
+    target_compile_definitions ( ${PROJECT_NAME} PRIVATE -D_CRT_SECURE_NO_WARNINGS )
+endif ( )
 
 # pkg-config
 set ( ${PROJECT_NAME}_PC_CFLAGS "-I${CMAKE_CURRENT_LIST_DIR}/include" )

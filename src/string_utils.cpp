@@ -23,6 +23,7 @@
 
 #include "staticlib/utils/string_utils.hpp"
 
+#include <cctype>
 #include <cstdlib>
 #include <cstring>
 #include <algorithm>
