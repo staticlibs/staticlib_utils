@@ -45,9 +45,13 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2017-05-22**
+ * version 1.7.0
+ * windows utilities added
+
 **2017-04-10**
 
- * version 1.0.1
+ * version 1.6.0
  * minor cmake fixes
 
 **2016-06-29**

@@ -77,12 +77,28 @@ void test_named_mutex() {
     slassert(mx5.already_taken());
 }
 
+void test_elevated() {
+    std::cout << sl::utils::current_process_elevated() << std::endl;
+}
+
+void test_process_username() {
+    std::cout << sl::utils::current_process_username() << std::endl;
+}
+
+void test_ensure_service_logon() {
+    sl::utils::ensure_has_logon_as_service(sl::utils::current_process_username());
+}
+
 int main() {
     try {
         test_widen();
         test_narrow();
         test_errcode_to_string();
         test_named_mutex();
+        test_elevated();
+        test_process_username();
+        // caution: changes current user windows privileges
+        test_ensure_service_logon();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;

@@ -69,6 +69,26 @@ std::string narrow(const wchar_t* wbuf, size_t length);
 std::string errcode_to_string(uint32_t code) STATICLIB_NOEXCEPT;
 
 /**
+ *  Checks whether current process runs with elevated (admin) privileges
+ *
+ * @return true if elevated, false otherwise
+ */ 
+bool current_process_elevated();
+
+/**
+ * Obtains the username under which this process is run
+ *
+ * @return username of the current process
+ */ 
+std::string current_process_username();
+
+/**
+ * Checks whether user with given username has a "SeServiceLogonRight"
+ * privilege. Adds this privilege if it is not there.
+ */ 
+void ensure_has_logon_as_service(const std::string& username);
+
+/**
  * OS-global named mutex
  */ 
 class named_mutex {

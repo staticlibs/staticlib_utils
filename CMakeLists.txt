@@ -16,7 +16,7 @@ cmake_minimum_required ( VERSION 2.8.12 )
 
 # project
 project ( staticlib_utils CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.6.0 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.7.0 )
 set ( ${PROJECT_NAME}_DESCRIPTION "Staticlibs common utilities library" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_utils )
 include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
@@ -72,6 +72,9 @@ set ( ${PROJECT_NAME}_PC_CFLAGS "-I${CMAKE_CURRENT_LIST_DIR}/include" )
 set ( ${PROJECT_NAME}_PC_LIBS "-L${CMAKE_LIBRARY_OUTPUT_DIRECTORY} -l${PROJECT_NAME}" )
 if ( CMAKE_SYSTEM_NAME MATCHES "Linux" )
     set ( ${PROJECT_NAME}_PC_LIBS_PRIVATE "-lpthread" )
+endif ( )
+if ( ${CMAKE_CXX_COMPILER_ID}x MATCHES "MSVCx" )    
+    set ( ${PROJECT_NAME}_PC_LIBS_PRIVATE "-lwtsapi32" )
 endif ( )
 staticlib_utils_list_to_string ( ${PROJECT_NAME}_PC_REQUIRES "" ${PROJECT_NAME}_DEPS )
 configure_file ( ${CMAKE_CURRENT_LIST_DIR}/resources/pkg-config.in 
