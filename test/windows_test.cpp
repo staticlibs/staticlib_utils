@@ -59,11 +59,30 @@ void test_errcode_to_string() {
     slassert(']' == err87[err87.length() - 1]);
 }
 
+void test_named_mutex() {
+    {
+        auto mx1 = sl::utils::named_mutex("foo");
+        slassert(!mx1.already_taken());
+        auto mx2 = sl::utils::named_mutex("bar");
+        slassert(!mx2.already_taken());
+        auto mx3 = sl::utils::named_mutex("foo");
+        slassert(mx3.already_taken());
+    }
+    auto mx4 = sl::utils::named_mutex("foo");
+    slassert(!mx4.already_taken());
+    auto mx5 = sl::utils::named_mutex("foo");
+    slassert(mx5.already_taken());
+    auto mx6 = std::move(mx5);
+    slassert(mx6.already_taken());
+    slassert(mx5.already_taken());
+}
+
 int main() {
     try {
         test_widen();
         test_narrow();
         test_errcode_to_string();
+        test_named_mutex();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;

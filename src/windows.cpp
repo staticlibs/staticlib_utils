@@ -118,6 +118,34 @@ std::string errcode_to_string(uint32_t code) STATICLIB_NOEXCEPT {
     }
 }
 
+named_mutex::named_mutex(const std::string& name) :
+mutex(::CreateMutexW(nullptr, FALSE, widen(name).c_str())),
+error(::GetLastError()) { }
+
+named_mutex::named_mutex(named_mutex&& other) :
+mutex(other.mutex),
+error(other.error) {
+    other.mutex = nullptr;
+}
+
+named_mutex& named_mutex::operator=(named_mutex&& other) {
+    mutex = other.mutex;
+    other.mutex = nullptr;
+    error = other.error;
+    return *this;
+}
+
+named_mutex::~named_mutex() STATICLIB_NOEXCEPT {
+    if (nullptr != mutex) {
+        ::CloseHandle(mutex);
+    }
+}
+
+bool named_mutex::already_taken() const {
+    return (ERROR_ALREADY_EXISTS == error);
+}
+
+
 } // namespace
 }
 

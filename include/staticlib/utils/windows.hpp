@@ -68,6 +68,60 @@ std::string narrow(const wchar_t* wbuf, size_t length);
  */
 std::string errcode_to_string(uint32_t code) STATICLIB_NOEXCEPT;
 
+/**
+ * OS-global named mutex
+ */ 
+class named_mutex {
+  void* /* HANDLE */ mutex;
+  unsigned long /* DWORD */ error;
+
+public:
+    /**
+     * Constructor
+     *
+     * @param name unique name for this mutex
+     */ 
+    named_mutex(const std::string& name);
+
+    /**
+     * Deleted copy constructor
+     */ 
+    named_mutex(const named_mutex&) = delete;
+
+    /**
+     * Deleted copy assignment operator
+     */ 
+    named_mutex& operator=(const named_mutex&) = delete;
+   
+    /**
+     * Move constructor
+     *
+     * @param other other instance
+     */
+    named_mutex(named_mutex&& other);
+
+    /**
+     * Move assignment operator
+     *
+     * @param other other instance
+     * @return reference to this instance
+     */
+    named_mutex& operator=(named_mutex&& other);
+
+    /**
+     * Destructor, closes OS-global mutex
+     */ 
+    ~named_mutex() STATICLIB_NOEXCEPT; 
+
+    /**
+     * Checks whether mutex is already taken
+     *
+     * @return true if this mutex is already taken (possibly in another process),
+     *         false otherwise
+     */ 
+    bool already_taken() const;
+};
+
 } //namespace
 }
 
