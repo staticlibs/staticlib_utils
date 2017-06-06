@@ -116,6 +116,17 @@ bool iequals(const std::string& str1, const std::string& str2) {
     return true;
 }
 
+std::string& replace_all(std::string& str, const std::string& snippet, const std::string& replacement) {
+    if (snippet.empty()) {
+        return str;
+    }
+    auto pos = std::string::npos;
+    while (std::string::npos != (pos = str.find(snippet))) {
+        str.replace(pos, snippet.length(), replacement);
+    }
+    return str;
+}
+
 const std::string& empty_string() {
     static std::string empty{""};
     return empty;

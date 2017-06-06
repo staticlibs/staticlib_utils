@@ -102,6 +102,15 @@ void test_iequals() {
     slassert(!sl::utils::iequals("foo", "boo"));
 }
 
+void test_repace() {
+    std::string str1 = "foobarfoobaz";
+    slassert("42bar42baz" == sl::utils::replace_all(str1, "foo", "42"));
+    std::string str2 = "foo";
+    slassert("foo" == sl::utils::replace_all(str2, "bar", ""));
+    std::string str3 = "foo";
+    slassert("foo" == sl::utils::replace_all(str3, "", "42"));
+}
+
 int main() {
     try {
         test_alloc_copy();
@@ -112,6 +121,7 @@ int main() {
         test_strip_parent_dir();
         test_trim();
         test_iequals();
+        test_repace();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;

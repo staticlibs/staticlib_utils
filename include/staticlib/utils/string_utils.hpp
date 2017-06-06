@@ -109,7 +109,18 @@ std::string trim(const std::string& s);
  * @return true if strings equal ignoring case, false otherwise
  */
 // http://stackoverflow.com/a/27813
-bool iequals(const std::string& str1, const std::string& str2);  
+bool iequals(const std::string& str1, const std::string& str2);
+
+/**
+ * Finds and replaces all "snippet" substrings in specified 
+ * string with "replacement"
+ * 
+ * @param str input string
+ * @param snippet substring to replace
+ * @param replacement replacement string
+ * @return input string reference
+ */
+std::string& replace_all(std::string& str, const std::string& snippet, const std::string& replacement);
 
 /**
  * Reference to empty string
