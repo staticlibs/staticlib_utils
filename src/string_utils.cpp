@@ -83,13 +83,16 @@ std::string strip_filename(const std::string& file_path) {
 }
 
 std::string strip_parent_dir(const std::string& file_path) {
-    std::string::size_type pos = file_path.find_last_of("/\\");
+    std::string unslashed = file_path;
+    std::replace(unslashed.begin(), unslashed.end(), '\\', '/');
+    while (!unslashed.empty() && '/' == unslashed.at(unslashed.length() - 1)) {
+//        unslashed = unslashed.substr(0, unslashed.length() - 1);
+        unslashed.pop_back();
+    }
+    std::string::size_type pos = unslashed.find_last_of('/');
     if (std::string::npos == pos) {
         return std::string(file_path.data(), file_path.length());
     } 
-    if (file_path.length() == pos) {
-        return std::string();
-    }
     return std::string(file_path, pos + 1);
 }
 

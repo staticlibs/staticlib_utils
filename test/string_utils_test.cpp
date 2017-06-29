@@ -75,16 +75,16 @@ void test_strip_parent_dir() {
     slassert("baz" == sl::utils::strip_parent_dir("/foo/bar/baz"));
     slassert("baz" == sl::utils::strip_parent_dir("c:\\foo\\bar\\baz"));
     slassert("baz.foo" == sl::utils::strip_parent_dir("/foo/bar/baz.foo"));
-    slassert("" == sl::utils::strip_parent_dir("/foo/bar/"));
-    slassert("" == sl::utils::strip_parent_dir("/foo///bar/"));
-    slassert("" == sl::utils::strip_parent_dir("/foo/bar//"));
+    slassert("bar/" == sl::utils::strip_parent_dir("/foo/bar/"));
+    slassert("bar/" == sl::utils::strip_parent_dir("/foo///bar/"));
+    slassert("bar//" == sl::utils::strip_parent_dir("/foo/bar//"));
     slassert("foo" == sl::utils::strip_parent_dir("/foo"));
     slassert("foo" == sl::utils::strip_parent_dir("c:\\bar\\foo"));    
     slassert("foo" == sl::utils::strip_parent_dir("foo"));    
     slassert("a" == sl::utils::strip_parent_dir("/a"));
-    slassert("" == sl::utils::strip_parent_dir("/"));
-    slassert("" == sl::utils::strip_parent_dir("///"));
-    slassert("" == sl::utils::strip_parent_dir("\\"));
+    slassert("/" == sl::utils::strip_parent_dir("/"));
+    slassert("///" == sl::utils::strip_parent_dir("///"));
+    slassert("\\" == sl::utils::strip_parent_dir("\\"));
     slassert("" == sl::utils::strip_parent_dir(""));
 }
 
