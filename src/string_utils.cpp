@@ -86,8 +86,7 @@ std::string strip_parent_dir(const std::string& file_path) {
     std::string unslashed = file_path;
     std::replace(unslashed.begin(), unslashed.end(), '\\', '/');
     while (!unslashed.empty() && '/' == unslashed.at(unslashed.length() - 1)) {
-//        unslashed = unslashed.substr(0, unslashed.length() - 1);
-        unslashed.pop_back();
+        unslashed.resize(unslashed.length() - 1);
     }
     std::string::size_type pos = unslashed.find_last_of('/');
     if (std::string::npos == pos) {
