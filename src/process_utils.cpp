@@ -187,7 +187,7 @@ void register_signal(int signum, int flags, void (*handler)(int)) {
 
 sigset_t block_signals() {
     sigset_t oldmask, newmask;
-    sigfillset(std::addressof(newmask));
+    ::sigfillset(std::addressof(newmask));
     int err = ::pthread_sigmask(SIG_SETMASK, std::addressof(newmask), std::addressof(oldmask));
     if (0 != err) throw utils_exception(TRACEMSG("Error blocking signals in parent: [" + ::strerror(err) + "]"));
     return oldmask;
@@ -226,12 +226,14 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
     volatile sigset_t oldmask = block_signals();
     volatile const char* exec_path = executable.c_str();
     volatile std::vector<char*> args_ptrs = prepare_args(executable, args);    
-    volatile int out_fd = open_fd(out);    
+    volatile int out_fd = open_fd(out);
     // do fork
     volatile pid_t pid = ::vfork();
     if (-1 == pid) { // no child created
+        ::close(out_fd);
         throw utils_exception{TRACEMSG("Process vfork error: [" + ::strerror(errno) + "]")};
     } else if (pid > 0) { // return pid to parent
+        ::close(out_fd);
         sigset_t& oldmask_ref = const_cast<sigset_t&>(oldmask);
         resume_signals(oldmask_ref);
         return pid;
