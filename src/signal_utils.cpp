@@ -23,10 +23,11 @@
 
 #include "staticlib/utils/signal_utils.hpp"
 
-#include <functional>
-#include <vector>
-#include <mutex>
+#include <atomic>
 #include <condition_variable>
+#include <functional>
+#include <mutex>
+#include <vector>
 
 #include <signal.h>
 
@@ -42,38 +43,41 @@ namespace utils {
 
 namespace { // anonymous
 
-std::vector<std::function<void(void)>>& get_static_liteners() {
+std::vector<std::function<void(void)>>& static_listeners() {
     static std::vector<std::function<void(void)>> vec{};
     return vec;
 }
 
-std::mutex& get_static_mutex() {
+std::mutex& static_mutex() {
     static std::mutex mutex{};
     return mutex;
 }
 
-std::condition_variable& get_static_cv() {
+std::condition_variable& static_cv() {
     static std::condition_variable cv{};
     return cv;
 }
 
-bool& get_static_initialized() {
+bool& static_initialized() {
     static bool initialized = false;
     return initialized;
 }
 
-bool& get_static_fired() {
-    static bool fired = false;
+std::atomic<bool>& static_fired() {
+    static std::atomic<bool> fired{false};
     return fired;
 }
 
+// todo: think about safer handler
+// see: https://stackoverflow.com/a/12448113/314015
 void handler_internal() {
-    for (std::function<void(void)> fu : get_static_liteners()) {
+    for (std::function<void(void)> fu : static_listeners()) {
         fu();
     }
-    bool& fired = get_static_fired();
-    fired = true;
-    get_static_cv().notify_all();
+    static_listeners().clear();
+    auto& fired = static_fired();
+    fired.store(true, std::memory_order_release);
+    static_cv().notify_all();
 }
 
 #ifdef STATICLIB_WINDOWS
@@ -92,7 +96,9 @@ BOOL WINAPI handler_platform(DWORD ctrl_type) {
 }
 
 void initialize_signals_platform() {
-    SetConsoleCtrlHandler(handler_platform, TRUE);
+    ::SetConsoleCtrlHandler(handler_platform, TRUE);
+    // https://stackoverflow.com/a/9719240/314015
+    ::SetErrorMode(SEM_FAILCRITICALERRORS | SEM_NOGPFAULTERRORBOX);
 }
 
 #else // STATICLIB_WINDOWS
@@ -112,27 +118,40 @@ void initialize_signals_platform() {
 } // namespace
 
 void initialize_signals() {
-    std::lock_guard<std::mutex> guard{get_static_mutex()};
-    bool& si = get_static_initialized();
-    if (si) throw utils_exception("Signal listeners double initialization error");
+    std::lock_guard<std::mutex> guard{static_mutex()};
+    bool& si = static_initialized();
+    if (si) {
+        throw utils_exception("Signal listeners double initialization error");
+    }
     initialize_signals_platform();
     si = true;
 }
 
 void register_signal_listener(std::function<void(void)> listener) {
-    std::lock_guard<std::mutex> guard{get_static_mutex()};
-    get_static_liteners().emplace_back(std::move(listener));
+    std::lock_guard<std::mutex> guard{static_mutex()};
+    if (!static_initialized()) {
+        throw utils_exception("Signal listeners not initialized");
+    }
+    static_listeners().emplace_back(std::move(listener));
 }
 
+// note: not thread-safe, must be used only from main thread
 void wait_for_signal() {
-    std::unique_lock<std::mutex> lock{get_static_mutex()};
-    bool& fired = get_static_fired();
-    fired = false;
-    get_static_cv().wait(lock, get_static_fired);
+    std::unique_lock<std::mutex> lock{static_mutex()};
+    if (!static_initialized()) {
+        throw utils_exception("Signal listeners not initialized");
+    }
+    static_fired().store(false, std::memory_order_release);
+    static_cv().wait(lock, [] {
+        return static_fired().load(std::memory_order_acquire);
+    });
 }
 
 void fire_signal() {
-    std::lock_guard<std::mutex> guard{get_static_mutex()};
+    std::lock_guard<std::mutex> guard{static_mutex()};
+    if (!static_initialized()) {
+        throw utils_exception("Signal listeners not initialized");
+    }
     handler_internal();
 }
 
