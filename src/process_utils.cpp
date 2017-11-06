@@ -187,7 +187,7 @@ void register_signal(int signum, int flags, void (*handler)(int)) {
 
 sigset_t block_signals() {
     sigset_t oldmask, newmask;
-    ::sigfillset(std::addressof(newmask));
+    sigfillset(std::addressof(newmask));
     int err = ::pthread_sigmask(SIG_SETMASK, std::addressof(newmask), std::addressof(oldmask));
     if (0 != err) throw utils_exception(TRACEMSG("Error blocking signals in parent: [" + ::strerror(err) + "]"));
     return oldmask;
