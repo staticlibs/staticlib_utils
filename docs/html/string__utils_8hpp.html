@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_utils
-   &#160;<span id="projectnumber">1.5.0</span>
+   &#160;<span id="projectnumber">1.7.1</span>
    </div>
   </td>
  </tr>
@@ -91,13 +91,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">string_utils.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br/>
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br/>
+<code>#include &lt;string&gt;</code><br/>
 <code>#include &lt;sstream&gt;</code><br/>
 <code>#include &lt;typeinfo&gt;</code><br/>
 <code>#include &lt;vector&gt;</code><br/>
-<code>#include &lt;cstdint&gt;</code><br/>
 <code>#include &quot;staticlib/config.hpp&quot;</code><br/>
-<code>#include &quot;<a class="el" href="UtilsException_8hpp_source.html">staticlib/utils/UtilsException.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="utils__exception_8hpp_source.html">staticlib/utils/utils_exception.hpp</a>&quot;</code><br/>
 </div>
 <p><a href="string__utils_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -108,21 +108,31 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a03059fb672f5e42a233965e945731709"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a03059fb672f5e42a233965e945731709">staticlib::utils::get_buffer</a> (std::string &amp;str, std::string::size_type required_size)</td></tr>
-<tr class="memdesc:a03059fb672f5e42a233965e945731709"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access underlying string buffer as writable char array safely (according to C++11) Will resize specified string (memory will be default-initialized).  <a href="#a03059fb672f5e42a233965e945731709"></a><br/></td></tr>
-<tr class="memitem:a0df389aa8382d668568b27e886ee7e2b"><td class="memItemLeft" align="right" valign="top">wchar_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a0df389aa8382d668568b27e886ee7e2b">staticlib::utils::get_buffer</a> (std::wstring &amp;str, std::wstring::size_type required_size)</td></tr>
-<tr class="memdesc:a0df389aa8382d668568b27e886ee7e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access underlying wide string buffer as writable char array safely (according to C++11) Will resize specified string (memory will be default-initialized).  <a href="#a0df389aa8382d668568b27e886ee7e2b"></a><br/></td></tr>
 <tr class="memitem:a7a642d7cdb13029c9ebb5ac3f7428083"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a7a642d7cdb13029c9ebb5ac3f7428083">staticlib::utils::alloc_copy</a> (const std::string &amp;str) STATICLIB_NOEXCEPT</td></tr>
 <tr class="memdesc:a7a642d7cdb13029c9ebb5ac3f7428083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a buffer and copies there contents of the string.  <a href="#a7a642d7cdb13029c9ebb5ac3f7428083"></a><br/></td></tr>
 <tr class="memitem:a52fb64e33664cb983c178e87a39b1f62"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a52fb64e33664cb983c178e87a39b1f62">staticlib::utils::split</a> (const std::string &amp;str, char delim)</td></tr>
 <tr class="memdesc:a52fb64e33664cb983c178e87a39b1f62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits string into vector using specified character as a delimiter, empty result parts are ignored.  <a href="#a52fb64e33664cb983c178e87a39b1f62"></a><br/></td></tr>
-<tr class="memitem:aff01566eb904f635aefabf4547675735"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aff01566eb904f635aefabf4547675735">staticlib::utils::ends_with</a> (std::string const &amp;value, std::string const &amp;ending)</td></tr>
-<tr class="memdesc:aff01566eb904f635aefabf4547675735"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether one string ends with another one.  <a href="#aff01566eb904f635aefabf4547675735"></a><br/></td></tr>
+<tr class="memitem:a8201a88c032b7642252686043fdff1f5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a8201a88c032b7642252686043fdff1f5">staticlib::utils::starts_with</a> (const std::string &amp;value, const std::string &amp;start)</td></tr>
+<tr class="memdesc:a8201a88c032b7642252686043fdff1f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether one string starts with another one.  <a href="#a8201a88c032b7642252686043fdff1f5"></a><br/></td></tr>
+<tr class="memitem:a138597d404e419dd041066221e49fb2e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a138597d404e419dd041066221e49fb2e">staticlib::utils::ends_with</a> (const std::string &amp;value, const std::string &amp;ending)</td></tr>
+<tr class="memdesc:a138597d404e419dd041066221e49fb2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether one string ends with another one.  <a href="#a138597d404e419dd041066221e49fb2e"></a><br/></td></tr>
+<tr class="memitem:a10cc9454d7addea321d71cd1639dbfc4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a10cc9454d7addea321d71cd1639dbfc4">staticlib::utils::strip_filename</a> (const std::string &amp;file_path)</td></tr>
+<tr class="memdesc:a10cc9454d7addea321d71cd1639dbfc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns new string containing specified path but without the filename (last non-ending-with-slash element of the path)  <a href="#a10cc9454d7addea321d71cd1639dbfc4"></a><br/></td></tr>
+<tr class="memitem:aaa5a0cef0dfbead42e05ad1e29daebfc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aaa5a0cef0dfbead42e05ad1e29daebfc">staticlib::utils::strip_parent_dir</a> (const std::string &amp;file_path)</td></tr>
+<tr class="memdesc:aaa5a0cef0dfbead42e05ad1e29daebfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns new string containing specified path but without the parent directory (without everything before the last non-ending-with-slash element of the path)  <a href="#aaa5a0cef0dfbead42e05ad1e29daebfc"></a><br/></td></tr>
+<tr class="memitem:ab1d79c721ce6506d2802dd76645570f1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#ab1d79c721ce6506d2802dd76645570f1">staticlib::utils::trim</a> (const std::string &amp;s)</td></tr>
+<tr class="memdesc:ab1d79c721ce6506d2802dd76645570f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trims specified string from left and from right using "std::isspace" to check empty bytes, does not support Unicode.  <a href="#ab1d79c721ce6506d2802dd76645570f1"></a><br/></td></tr>
+<tr class="memitem:a298e75f668d11475583ef52295899178"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a298e75f668d11475583ef52295899178">staticlib::utils::iequals</a> (const std::string &amp;str1, const std::string &amp;str2)</td></tr>
+<tr class="memdesc:a298e75f668d11475583ef52295899178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case insensitive byte-to-byte string comparison, does not support Unicode.  <a href="#a298e75f668d11475583ef52295899178"></a><br/></td></tr>
+<tr class="memitem:adef98c8c097631b463c8e738bc5c3974"><td class="memItemLeft" align="right" valign="top">std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#adef98c8c097631b463c8e738bc5c3974">staticlib::utils::replace_all</a> (std::string &amp;str, const std::string &amp;snippet, const std::string &amp;replacement)</td></tr>
+<tr class="memdesc:adef98c8c097631b463c8e738bc5c3974"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds and replaces all "snippet" substrings in specified string with "replacement".  <a href="#adef98c8c097631b463c8e738bc5c3974"></a><br/></td></tr>
+<tr class="memitem:a897a7fa6122953f1bd4dac18e9eb85be"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a897a7fa6122953f1bd4dac18e9eb85be">staticlib::utils::empty_string</a> ()</td></tr>
+<tr class="memdesc:a897a7fa6122953f1bd4dac18e9eb85be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to empty string.  <a href="#a897a7fa6122953f1bd4dac18e9eb85be"></a><br/></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 29 2016 08:08:07 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 23 2017 19:35:43 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

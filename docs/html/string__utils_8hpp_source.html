@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_utils
-   &#160;<span id="projectnumber">1.5.0</span>
+   &#160;<span id="projectnumber">1.7.1</span>
    </div>
   </td>
  </tr>
@@ -114,37 +114,48 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#ifndef STATICLIB_UTILS_STRING_UTILS_HPP</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor"></span><span class="preprocessor">#define STATICLIB_UTILS_STRING_UTILS_HPP</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;typeinfo&gt;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#include &lt;typeinfo&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &quot;staticlib/config.hpp&quot;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="UtilsException_8hpp.html">staticlib/utils/UtilsException.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="utils__exception_8hpp.html">staticlib/utils/utils_exception.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">namespace </span>staticlib {</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">namespace </span>utils {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">char</span>* <a class="code" href="namespacestaticlib_1_1utils.html#a03059fb672f5e42a233965e945731709" title="Access underlying string buffer as writable char array safely (according to C++11) Will resize specif...">get_buffer</a>(std::string&amp; str, std::string::size_type required_size);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keywordtype">wchar_t</span>* <a class="code" href="namespacestaticlib_1_1utils.html#a03059fb672f5e42a233965e945731709" title="Access underlying string buffer as writable char array safely (according to C++11) Will resize specif...">get_buffer</a>(std::wstring&amp; str, std::wstring::size_type required_size);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keywordtype">char</span>* <a class="code" href="namespacestaticlib_1_1utils.html#a7a642d7cdb13029c9ebb5ac3f7428083" title="Allocates a buffer and copies there contents of the string.">alloc_copy</a>(<span class="keyword">const</span> std::string&amp; str) STATICLIB_NOEXCEPT;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;std::vector&lt;std::string&gt; <a class="code" href="namespacestaticlib_1_1utils.html#a52fb64e33664cb983c178e87a39b1f62" title="Splits string into vector using specified character as a delimiter, empty result parts are ignored...">split</a>(<span class="keyword">const</span> std::string&amp; str, <span class="keywordtype">char</span> delim);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespacestaticlib_1_1utils.html#aff01566eb904f635aefabf4547675735" title="Checks whether one string ends with another one.">ends_with</a>(std::string <span class="keyword">const</span>&amp; value, std::string <span class="keyword">const</span>&amp; ending);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">/* STATICLIB_UTILS_STRING_UTILS_HPP */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">char</span>* <a class="code" href="namespacestaticlib_1_1utils.html#a7a642d7cdb13029c9ebb5ac3f7428083" title="Allocates a buffer and copies there contents of the string.">alloc_copy</a>(<span class="keyword">const</span> std::string&amp; str) STATICLIB_NOEXCEPT;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;std::vector&lt;std::string&gt; <a class="code" href="namespacestaticlib_1_1utils.html#a52fb64e33664cb983c178e87a39b1f62" title="Splits string into vector using specified character as a delimiter, empty result parts are ignored...">split</a>(<span class="keyword">const</span> std::string&amp; str, <span class="keywordtype">char</span> delim);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespacestaticlib_1_1utils.html#a8201a88c032b7642252686043fdff1f5" title="Checks whether one string starts with another one.">starts_with</a>(<span class="keyword">const</span> std::string&amp; value, <span class="keyword">const</span> std::string&amp; start);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespacestaticlib_1_1utils.html#a138597d404e419dd041066221e49fb2e" title="Checks whether one string ends with another one.">ends_with</a>(<span class="keyword">const</span> std::string&amp; value, <span class="keyword">const</span> std::string&amp; ending);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;std::string <a class="code" href="namespacestaticlib_1_1utils.html#a10cc9454d7addea321d71cd1639dbfc4" title="Returns new string containing specified path but without the filename (last non-ending-with-slash ele...">strip_filename</a>(<span class="keyword">const</span> std::string&amp; file_path);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;std::string <a class="code" href="namespacestaticlib_1_1utils.html#aaa5a0cef0dfbead42e05ad1e29daebfc" title="Returns new string containing specified path but without the parent directory (without everything bef...">strip_parent_dir</a>(<span class="keyword">const</span> std::string&amp; file_path);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;std::string <a class="code" href="namespacestaticlib_1_1utils.html#ab1d79c721ce6506d2802dd76645570f1" title="Trims specified string from left and from right using &quot;std::isspace&quot; to check empty bytes...">trim</a>(<span class="keyword">const</span> std::string&amp; s);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment">// http://stackoverflow.com/a/27813</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespacestaticlib_1_1utils.html#a298e75f668d11475583ef52295899178" title="Case insensitive byte-to-byte string comparison, does not support Unicode.">iequals</a>(<span class="keyword">const</span> std::string&amp; str1, <span class="keyword">const</span> std::string&amp; str2);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;std::string&amp; <a class="code" href="namespacestaticlib_1_1utils.html#adef98c8c097631b463c8e738bc5c3974" title="Finds and replaces all &quot;snippet&quot; substrings in specified string with &quot;replacement&quot;.">replace_all</a>(std::string&amp; str, <span class="keyword">const</span> std::string&amp; snippet, <span class="keyword">const</span> std::string&amp; replacement);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="namespacestaticlib_1_1utils.html#a897a7fa6122953f1bd4dac18e9eb85be" title="Reference to empty string.">empty_string</a>();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* STATICLIB_UTILS_STRING_UTILS_HPP */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 29 2016 08:08:07 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 23 2017 19:35:43 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

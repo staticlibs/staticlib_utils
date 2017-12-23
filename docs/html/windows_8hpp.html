@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_utils
-   &#160;<span id="projectnumber">1.5.0</span>
+   &#160;<span id="projectnumber">1.7.1</span>
    </div>
   </td>
  </tr>
@@ -85,19 +85,25 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">windows.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br/>
-<code>#include &lt;cstdint&gt;</code><br/>
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br/>
+<code>#include &lt;string&gt;</code><br/>
 <code>#include &quot;staticlib/config.hpp&quot;</code><br/>
-<code>#include &quot;<a class="el" href="UtilsException_8hpp_source.html">staticlib/utils/UtilsException.hpp</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="utils__exception_8hpp_source.html">staticlib/utils/utils_exception.hpp</a>&quot;</code><br/>
 </div>
 <p><a href="windows_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1named__mutex.html">staticlib::utils::named_mutex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">OS-global named mutex.  <a href="classstaticlib_1_1utils_1_1named__mutex.html#details">More...</a><br/></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacestaticlib"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib.html">staticlib</a></td></tr>
@@ -113,13 +119,17 @@ Functions</h2></td></tr>
 <tr class="memdesc:ad1ff00c8f491be81951ea7bf571e304e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert buffer from UTF-16 widechar to UTF-8 multibyte.  <a href="#ad1ff00c8f491be81951ea7bf571e304e"></a><br/></td></tr>
 <tr class="memitem:afadbc64cc921a1b16a10d1cab8b8d2e4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#afadbc64cc921a1b16a10d1cab8b8d2e4">staticlib::utils::errcode_to_string</a> (uint32_t code) STATICLIB_NOEXCEPT</td></tr>
 <tr class="memdesc:afadbc64cc921a1b16a10d1cab8b8d2e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Windows system error code (<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms681381%28v=vs.85%29.aspx">http://msdn.microsoft.com/en-us/library/windows/desktop/ms681381%28v=vs.85%29.aspx</a>) to english message.  <a href="#afadbc64cc921a1b16a10d1cab8b8d2e4"></a><br/></td></tr>
-<tr class="memitem:aff671c875afcbc6e55c507ec3f3e4610"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aff671c875afcbc6e55c507ec3f3e4610">staticlib::utils::get_exec_dir</a> ()</td></tr>
-<tr class="memdesc:aff671c875afcbc6e55c507ec3f3e4610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the directory where current executable resides.  <a href="#aff671c875afcbc6e55c507ec3f3e4610"></a><br/></td></tr>
+<tr class="memitem:a37aee9be19972a308ddcf2969bfc609e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a37aee9be19972a308ddcf2969bfc609e">staticlib::utils::current_process_elevated</a> ()</td></tr>
+<tr class="memdesc:a37aee9be19972a308ddcf2969bfc609e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether current process runs with elevated (admin) privileges.  <a href="#a37aee9be19972a308ddcf2969bfc609e"></a><br/></td></tr>
+<tr class="memitem:aaa0e1f41c892aea2d145f13545ba2899"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aaa0e1f41c892aea2d145f13545ba2899">staticlib::utils::current_process_username</a> ()</td></tr>
+<tr class="memdesc:aaa0e1f41c892aea2d145f13545ba2899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the username under which this process is run.  <a href="#aaa0e1f41c892aea2d145f13545ba2899"></a><br/></td></tr>
+<tr class="memitem:a07ee2297a7c4ab368013681ba5ecea79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a07ee2297a7c4ab368013681ba5ecea79">staticlib::utils::ensure_has_logon_as_service</a> (const std::string &amp;username)</td></tr>
+<tr class="memdesc:a07ee2297a7c4ab368013681ba5ecea79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether user with given username has a "SeServiceLogonRight" privilege.  <a href="#a07ee2297a7c4ab368013681ba5ecea79"></a><br/></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 29 2016 08:08:07 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 23 2017 19:35:43 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_utils
-   &#160;<span id="projectnumber">1.5.0</span>
+   &#160;<span id="projectnumber">1.7.1</span>
    </div>
   </td>
  </tr>
@@ -95,41 +95,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1FileDescriptor.html">FileDescriptor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implementation of a file descriptor/handle wrapper with a unified interface for *nix and windows.  <a href="classstaticlib_1_1utils_1_1FileDescriptor.html#details">More...</a><br/></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1RandomStringGenerator.html">RandomStringGenerator</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">String generator, uses Mersenne Twister algorithm and alpha-numeric ASCII character set by default.  <a href="classstaticlib_1_1utils_1_1RandomStringGenerator.html#details">More...</a><br/></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1UtilsException.html">UtilsException</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Module specific exception.  <a href="classstaticlib_1_1utils_1_1UtilsException.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1random__string__generator.html">random_string_generator</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">String generator, uses Mersenne Twister algorithm and alpha-numeric ASCII character set by default.  <a href="classstaticlib_1_1utils_1_1random__string__generator.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1utils__exception.html">utils_exception</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Module specific exception.  <a href="classstaticlib_1_1utils_1_1utils__exception.html#details">More...</a><br/></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstaticlib_1_1utils_1_1named__mutex.html">named_mutex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">OS-global named mutex.  <a href="classstaticlib_1_1utils_1_1named__mutex.html#details">More...</a><br/></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a9d19138ab8fe88856253fc3d1ee61d1d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a9d19138ab8fe88856253fc3d1ee61d1d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if<br class="typebreak"/>
-&lt; std::is_unsigned&lt; T &gt;::value, <br class="typebreak"/>
-bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a9d19138ab8fe88856253fc3d1ee61d1d">is_int32</a> (T val)</td></tr>
-<tr class="memdesc:a9d19138ab8fe88856253fc3d1ee61d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified unsigned integer lies between <code>&lt;int32_t&gt;::min()</code> and <code>&lt;int32_t&gt;::max()</code>  <a href="#a9d19138ab8fe88856253fc3d1ee61d1d"></a><br/></td></tr>
-<tr class="memitem:a6f68fc02064e7d548578e19dee035113"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a6f68fc02064e7d548578e19dee035113"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if<br class="typebreak"/>
-&lt; std::is_unsigned&lt; T &gt;::value, <br class="typebreak"/>
-bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a6f68fc02064e7d548578e19dee035113">is_uint32</a> (T val)</td></tr>
-<tr class="memdesc:a6f68fc02064e7d548578e19dee035113"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified unsigned integer lies between <code>0</code> (inclusive) and <code>&lt;uint32_t&gt;::max()</code>  <a href="#a6f68fc02064e7d548578e19dee035113"></a><br/></td></tr>
-<tr class="memitem:aa331d9791b00611f1cea8fa37148dd16"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:aa331d9791b00611f1cea8fa37148dd16"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aa331d9791b00611f1cea8fa37148dd16">is_positive_uint32</a> (T val)</td></tr>
-<tr class="memdesc:aa331d9791b00611f1cea8fa37148dd16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified integer lies between <code>0</code> (exclusive) and <code>&lt;uint32_t&gt;::max()</code>  <a href="#aa331d9791b00611f1cea8fa37148dd16"></a><br/></td></tr>
-<tr class="memitem:a903873729fa66b7fb9142222824c7b7d"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a903873729fa66b7fb9142222824c7b7d"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if<br class="typebreak"/>
-&lt; std::is_unsigned&lt; T &gt;::value, <br class="typebreak"/>
-bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a903873729fa66b7fb9142222824c7b7d">is_int16</a> (T val)</td></tr>
-<tr class="memdesc:a903873729fa66b7fb9142222824c7b7d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified unsigned integer lies between <code>&lt;int16_t&gt;::min()</code> and <code>&lt;int16_t&gt;::max()</code>  <a href="#a903873729fa66b7fb9142222824c7b7d"></a><br/></td></tr>
-<tr class="memitem:a4e84182ead2fa4a8b773be0d13ab4b4f"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a4e84182ead2fa4a8b773be0d13ab4b4f"><td class="memTemplItemLeft" align="right" valign="top">std::enable_if<br class="typebreak"/>
-&lt; std::is_unsigned&lt; T &gt;::value, <br class="typebreak"/>
-bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a4e84182ead2fa4a8b773be0d13ab4b4f">is_uint16</a> (T val)</td></tr>
-<tr class="memdesc:a4e84182ead2fa4a8b773be0d13ab4b4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified unsigned integer lies between <code>0</code> (inclusive) and <code>&lt;uint16_t&gt;::max()</code>  <a href="#a4e84182ead2fa4a8b773be0d13ab4b4f"></a><br/></td></tr>
-<tr class="memitem:af06fc164c64860200739f1f3397e2ed0"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:af06fc164c64860200739f1f3397e2ed0"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#af06fc164c64860200739f1f3397e2ed0">is_positive_uint16</a> (T val)</td></tr>
-<tr class="memdesc:af06fc164c64860200739f1f3397e2ed0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks that specified integer lies between <code>0</code> (exclusive) and <code>&lt;uint16_t&gt;::max()</code>  <a href="#af06fc164c64860200739f1f3397e2ed0"></a><br/></td></tr>
 <tr class="memitem:a6f722b137fdbbea5ffa1cc39a4dd5d49"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a6f722b137fdbbea5ffa1cc39a4dd5d49">parse_int16</a> (const std::string &amp;str)</td></tr>
 <tr class="memdesc:a6f722b137fdbbea5ffa1cc39a4dd5d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses <code>int16_t</code> with base 10 from specified string using <code>strto*l</code>  <a href="#a6f722b137fdbbea5ffa1cc39a4dd5d49"></a><br/></td></tr>
 <tr class="memitem:a2a6d34fe5de4fe0b34bda2fd7cd83063"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a2a6d34fe5de4fe0b34bda2fd7cd83063">parse_uint16</a> (const std::string &amp;str)</td></tr>
@@ -157,16 +131,30 @@ bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class
 <tr class="memitem:a2bafec652d373838d8593e59c784128e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a2bafec652d373838d8593e59c784128e">wait_for_signal</a> ()</td></tr>
 <tr class="memitem:a03c24e944c93b906fa5806b541f30227"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a03c24e944c93b906fa5806b541f30227">fire_signal</a> ()</td></tr>
 <tr class="memdesc:a03c24e944c93b906fa5806b541f30227"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emulates receiving SIGINT/SIGTERM for this process.  <a href="#a03c24e944c93b906fa5806b541f30227"></a><br/></td></tr>
-<tr class="memitem:a03059fb672f5e42a233965e945731709"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a03059fb672f5e42a233965e945731709">get_buffer</a> (std::string &amp;str, std::string::size_type required_size)</td></tr>
-<tr class="memdesc:a03059fb672f5e42a233965e945731709"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access underlying string buffer as writable char array safely (according to C++11) Will resize specified string (memory will be default-initialized).  <a href="#a03059fb672f5e42a233965e945731709"></a><br/></td></tr>
-<tr class="memitem:a0df389aa8382d668568b27e886ee7e2b"><td class="memItemLeft" align="right" valign="top">wchar_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a0df389aa8382d668568b27e886ee7e2b">get_buffer</a> (std::wstring &amp;str, std::wstring::size_type required_size)</td></tr>
-<tr class="memdesc:a0df389aa8382d668568b27e886ee7e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access underlying wide string buffer as writable char array safely (according to C++11) Will resize specified string (memory will be default-initialized).  <a href="#a0df389aa8382d668568b27e886ee7e2b"></a><br/></td></tr>
 <tr class="memitem:a7a642d7cdb13029c9ebb5ac3f7428083"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a7a642d7cdb13029c9ebb5ac3f7428083">alloc_copy</a> (const std::string &amp;str) STATICLIB_NOEXCEPT</td></tr>
 <tr class="memdesc:a7a642d7cdb13029c9ebb5ac3f7428083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocates a buffer and copies there contents of the string.  <a href="#a7a642d7cdb13029c9ebb5ac3f7428083"></a><br/></td></tr>
 <tr class="memitem:a52fb64e33664cb983c178e87a39b1f62"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a52fb64e33664cb983c178e87a39b1f62">split</a> (const std::string &amp;str, char delim)</td></tr>
 <tr class="memdesc:a52fb64e33664cb983c178e87a39b1f62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Splits string into vector using specified character as a delimiter, empty result parts are ignored.  <a href="#a52fb64e33664cb983c178e87a39b1f62"></a><br/></td></tr>
-<tr class="memitem:aff01566eb904f635aefabf4547675735"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aff01566eb904f635aefabf4547675735">ends_with</a> (std::string const &amp;value, std::string const &amp;ending)</td></tr>
-<tr class="memdesc:aff01566eb904f635aefabf4547675735"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether one string ends with another one.  <a href="#aff01566eb904f635aefabf4547675735"></a><br/></td></tr>
+<tr class="memitem:a8201a88c032b7642252686043fdff1f5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a8201a88c032b7642252686043fdff1f5">starts_with</a> (const std::string &amp;value, const std::string &amp;start)</td></tr>
+<tr class="memdesc:a8201a88c032b7642252686043fdff1f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether one string starts with another one.  <a href="#a8201a88c032b7642252686043fdff1f5"></a><br/></td></tr>
+<tr class="memitem:a138597d404e419dd041066221e49fb2e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a138597d404e419dd041066221e49fb2e">ends_with</a> (const std::string &amp;value, const std::string &amp;ending)</td></tr>
+<tr class="memdesc:a138597d404e419dd041066221e49fb2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether one string ends with another one.  <a href="#a138597d404e419dd041066221e49fb2e"></a><br/></td></tr>
+<tr class="memitem:a10cc9454d7addea321d71cd1639dbfc4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a10cc9454d7addea321d71cd1639dbfc4">strip_filename</a> (const std::string &amp;file_path)</td></tr>
+<tr class="memdesc:a10cc9454d7addea321d71cd1639dbfc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns new string containing specified path but without the filename (last non-ending-with-slash element of the path)  <a href="#a10cc9454d7addea321d71cd1639dbfc4"></a><br/></td></tr>
+<tr class="memitem:aaa5a0cef0dfbead42e05ad1e29daebfc"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aaa5a0cef0dfbead42e05ad1e29daebfc">strip_parent_dir</a> (const std::string &amp;file_path)</td></tr>
+<tr class="memdesc:aaa5a0cef0dfbead42e05ad1e29daebfc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns new string containing specified path but without the parent directory (without everything before the last non-ending-with-slash element of the path)  <a href="#aaa5a0cef0dfbead42e05ad1e29daebfc"></a><br/></td></tr>
+<tr class="memitem:ab1d79c721ce6506d2802dd76645570f1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#ab1d79c721ce6506d2802dd76645570f1">trim</a> (const std::string &amp;s)</td></tr>
+<tr class="memdesc:ab1d79c721ce6506d2802dd76645570f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Trims specified string from left and from right using "std::isspace" to check empty bytes, does not support Unicode.  <a href="#ab1d79c721ce6506d2802dd76645570f1"></a><br/></td></tr>
+<tr class="memitem:a298e75f668d11475583ef52295899178"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a298e75f668d11475583ef52295899178">iequals</a> (const std::string &amp;str1, const std::string &amp;str2)</td></tr>
+<tr class="memdesc:a298e75f668d11475583ef52295899178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Case insensitive byte-to-byte string comparison, does not support Unicode.  <a href="#a298e75f668d11475583ef52295899178"></a><br/></td></tr>
+<tr class="memitem:adef98c8c097631b463c8e738bc5c3974"><td class="memItemLeft" align="right" valign="top">std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#adef98c8c097631b463c8e738bc5c3974">replace_all</a> (std::string &amp;str, const std::string &amp;snippet, const std::string &amp;replacement)</td></tr>
+<tr class="memdesc:adef98c8c097631b463c8e738bc5c3974"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds and replaces all "snippet" substrings in specified string with "replacement".  <a href="#adef98c8c097631b463c8e738bc5c3974"></a><br/></td></tr>
+<tr class="memitem:a897a7fa6122953f1bd4dac18e9eb85be"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a897a7fa6122953f1bd4dac18e9eb85be">empty_string</a> ()</td></tr>
+<tr class="memdesc:a897a7fa6122953f1bd4dac18e9eb85be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reference to empty string.  <a href="#a897a7fa6122953f1bd4dac18e9eb85be"></a><br/></td></tr>
+<tr class="memitem:a2f2d7fd0cd991dc4d1a0268c68353ee2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a2f2d7fd0cd991dc4d1a0268c68353ee2">url_decode</a> (const std::string &amp;str)</td></tr>
+<tr class="memdesc:a2f2d7fd0cd991dc4d1a0268c68353ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unescapes specified URL-encoded string (a%20value+with%20spaces)  <a href="#a2f2d7fd0cd991dc4d1a0268c68353ee2"></a><br/></td></tr>
+<tr class="memitem:a4bbedcb60375d8b7585f4f5258b33ee1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a4bbedcb60375d8b7585f4f5258b33ee1">url_encode</a> (const std::string &amp;str)</td></tr>
+<tr class="memdesc:a4bbedcb60375d8b7585f4f5258b33ee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encodes specified string so that it is safe for URLs (with%20spaces)  <a href="#a4bbedcb60375d8b7585f4f5258b33ee1"></a><br/></td></tr>
 <tr class="memitem:a39da5f53686d31296aad3cf0493419a3"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a39da5f53686d31296aad3cf0493419a3">widen</a> (const std::string &amp;st)</td></tr>
 <tr class="memdesc:a39da5f53686d31296aad3cf0493419a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert string from UTF-8 multibyte to UTF-16 widechar.  <a href="#a39da5f53686d31296aad3cf0493419a3"></a><br/></td></tr>
 <tr class="memitem:a19dc301db6fee22e7bcee15306f43050"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a19dc301db6fee22e7bcee15306f43050">narrow</a> (std::wstring wstr)</td></tr>
@@ -175,8 +163,12 @@ bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class
 <tr class="memdesc:ad1ff00c8f491be81951ea7bf571e304e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert buffer from UTF-16 widechar to UTF-8 multibyte.  <a href="#ad1ff00c8f491be81951ea7bf571e304e"></a><br/></td></tr>
 <tr class="memitem:afadbc64cc921a1b16a10d1cab8b8d2e4"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#afadbc64cc921a1b16a10d1cab8b8d2e4">errcode_to_string</a> (uint32_t code) STATICLIB_NOEXCEPT</td></tr>
 <tr class="memdesc:afadbc64cc921a1b16a10d1cab8b8d2e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert Windows system error code (<a href="http://msdn.microsoft.com/en-us/library/windows/desktop/ms681381%28v=vs.85%29.aspx">http://msdn.microsoft.com/en-us/library/windows/desktop/ms681381%28v=vs.85%29.aspx</a>) to english message.  <a href="#afadbc64cc921a1b16a10d1cab8b8d2e4"></a><br/></td></tr>
-<tr class="memitem:aff671c875afcbc6e55c507ec3f3e4610"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aff671c875afcbc6e55c507ec3f3e4610">get_exec_dir</a> ()</td></tr>
-<tr class="memdesc:aff671c875afcbc6e55c507ec3f3e4610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the directory where current executable resides.  <a href="#aff671c875afcbc6e55c507ec3f3e4610"></a><br/></td></tr>
+<tr class="memitem:a37aee9be19972a308ddcf2969bfc609e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a37aee9be19972a308ddcf2969bfc609e">current_process_elevated</a> ()</td></tr>
+<tr class="memdesc:a37aee9be19972a308ddcf2969bfc609e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether current process runs with elevated (admin) privileges.  <a href="#a37aee9be19972a308ddcf2969bfc609e"></a><br/></td></tr>
+<tr class="memitem:aaa0e1f41c892aea2d145f13545ba2899"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#aaa0e1f41c892aea2d145f13545ba2899">current_process_username</a> ()</td></tr>
+<tr class="memdesc:aaa0e1f41c892aea2d145f13545ba2899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the username under which this process is run.  <a href="#aaa0e1f41c892aea2d145f13545ba2899"></a><br/></td></tr>
+<tr class="memitem:a07ee2297a7c4ab368013681ba5ecea79"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a07ee2297a7c4ab368013681ba5ecea79">ensure_has_logon_as_service</a> (const std::string &amp;username)</td></tr>
+<tr class="memdesc:a07ee2297a7c4ab368013681ba5ecea79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether user with given username has a "SeServiceLogonRight" privilege.  <a href="#a07ee2297a7c4ab368013681ba5ecea79"></a><br/></td></tr>
 </table>
 <h2>Function Documentation</h2>
 <a class="anchor" id="a7a642d7cdb13029c9ebb5ac3f7428083"></a>
@@ -223,20 +215,74 @@ bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class
 
 </div>
 </div>
-<a class="anchor" id="aff01566eb904f635aefabf4547675735"></a>
+<a class="anchor" id="a37aee9be19972a308ddcf2969bfc609e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool staticlib::utils::current_process_elevated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether current process runs with elevated (admin) privileges. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if elevated, false otherwise </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aaa0e1f41c892aea2d145f13545ba2899"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string staticlib::utils::current_process_username </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Obtains the username under which this process is run. </p>
+<dl class="section return"><dt>Returns</dt><dd>username of the current process </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a897a7fa6122953f1bd4dac18e9eb85be"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string&amp; staticlib::utils::empty_string </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reference to empty string. </p>
+<dl class="section return"><dt>Returns</dt><dd>empty string reference </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a138597d404e419dd041066221e49fb2e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">bool staticlib::utils::ends_with </td>
           <td>(</td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>value</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string const &amp;&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>ending</em>&#160;</td>
         </tr>
         <tr>
@@ -256,6 +302,25 @@ bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if string ends with specified ending, false otherwise </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a07ee2297a7c4ab368013681ba5ecea79"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void staticlib::utils::ensure_has_logon_as_service </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>username</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether user with given username has a "SeServiceLogonRight" privilege. </p>
+<p>Adds this privilege if it is not there. </p>
 
 </div>
 </div>
@@ -385,21 +450,21 @@ bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class
 
 </div>
 </div>
-<a class="anchor" id="a03059fb672f5e42a233965e945731709"></a>
+<a class="anchor" id="a298e75f668d11475583ef52295899178"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* staticlib::utils::get_buffer </td>
+          <td class="memname">bool staticlib::utils::iequals </td>
           <td>(</td>
-          <td class="paramtype">std::string &amp;&#160;</td>
-          <td class="paramname"><em>str</em>, </td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string::size_type&#160;</td>
-          <td class="paramname"><em>required_size</em>&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -409,69 +474,15 @@ bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class
       </table>
 </div><div class="memdoc">
 
-<p>Access underlying string buffer as writable char array safely (according to C++11) Will resize specified string (memory will be default-initialized). </p>
+<p>Case insensitive byte-to-byte string comparison, does not support Unicode. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">str</td><td>string instance </td></tr>
-    <tr><td class="paramname">required_size</td><td>required size of the buffer, string will be resized to this size </td></tr>
+    <tr><td class="paramname">str1</td><td>first string </td></tr>
+    <tr><td class="paramname">str2</td><td>seconds string </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>writable buffer owned by the specified string </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a0df389aa8382d668568b27e886ee7e2b"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">wchar_t* staticlib::utils::get_buffer </td>
-          <td>(</td>
-          <td class="paramtype">std::wstring &amp;&#160;</td>
-          <td class="paramname"><em>str</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::wstring::size_type&#160;</td>
-          <td class="paramname"><em>required_size</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Access underlying wide string buffer as writable char array safely (according to C++11) Will resize specified string (memory will be default-initialized). </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">str</td><td>wide string instance </td></tr>
-    <tr><td class="paramname">required_size</td><td>required size of the buffer, string will be resized to this size </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>writable buffer owned by the specified string </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aff671c875afcbc6e55c507ec3f3e4610"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string staticlib::utils::get_exec_dir </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the directory where current executable resides. </p>
-<dl class="section return"><dt>Returns</dt><dd>directory path in UTF-8 </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if strings equal ignoring case, false otherwise </dd></dl>
 
 </div>
 </div>
@@ -490,172 +501,6 @@ bool &gt;::type&#160;</td><td class="memTemplItemRight" valign="bottom"><a class
 
 <p>Initializes signal handlers to be used with 'wait_for_signal'. </p>
 <p>Should be called only once. </p>
-
-</div>
-</div>
-<a class="anchor" id="a903873729fa66b7fb9142222824c7b7d"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if&lt;!std::is_unsigned&lt; T &gt;::value, bool &gt;::type staticlib::utils::is_int16 </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks that specified unsigned integer lies between <code>&lt;int16_t&gt;::min()</code> and <code>&lt;int16_t&gt;::max()</code> </p>
-<p>Checks that specified signed integer lies between <code>&lt;int16_t&gt;::min()</code> and <code>&lt;int16_t&gt;::max()</code></p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">val</td><td>integer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if check successful, false otherwise </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a9d19138ab8fe88856253fc3d1ee61d1d"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if&lt;!std::is_unsigned&lt; T &gt;::value, bool &gt;::type staticlib::utils::is_int32 </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks that specified unsigned integer lies between <code>&lt;int32_t&gt;::min()</code> and <code>&lt;int32_t&gt;::max()</code> </p>
-<p>Checks that specified signed integer lies between <code>&lt;int32_t&gt;::min()</code> and <code>&lt;int32_t&gt;::max()</code></p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">val</td><td>integer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if check successful, false otherwise </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="af06fc164c64860200739f1f3397e2ed0"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool staticlib::utils::is_positive_uint16 </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks that specified integer lies between <code>0</code> (exclusive) and <code>&lt;uint16_t&gt;::max()</code> </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">val</td><td>integer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if check successful, false otherwise </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="aa331d9791b00611f1cea8fa37148dd16"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">bool staticlib::utils::is_positive_uint32 </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks that specified integer lies between <code>0</code> (exclusive) and <code>&lt;uint32_t&gt;::max()</code> </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">val</td><td>integer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if check successful, false otherwise </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a4e84182ead2fa4a8b773be0d13ab4b4f"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if&lt;!std::is_unsigned&lt; T &gt;::value, bool &gt;::type staticlib::utils::is_uint16 </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks that specified unsigned integer lies between <code>0</code> (inclusive) and <code>&lt;uint16_t&gt;::max()</code> </p>
-<p>Checks that specified signed integer lies between <code>0</code> (inclusive) and <code>&lt;uint16_t&gt;::max()</code></p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">val</td><td>integer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if check successful, false otherwise </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="a6f68fc02064e7d548578e19dee035113"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">std::enable_if&lt;!std::is_unsigned&lt; T &gt;::value, bool &gt;::type staticlib::utils::is_uint32 </td>
-          <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks that specified unsigned integer lies between <code>0</code> (inclusive) and <code>&lt;uint32_t&gt;::max()</code> </p>
-<p>Checks that specified signed integer lies between <code>0</code> (inclusive) and <code>&lt;uint32_t&gt;::max()</code></p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">val</td><td>integer </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if check successful, false otherwise </dd></dl>
 
 </div>
 </div>
@@ -894,6 +739,49 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="adef98c8c097631b463c8e738bc5c3974"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string&amp; staticlib::utils::replace_all </td>
+          <td>(</td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>snippet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>replacement</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds and replaces all "snippet" substrings in specified string with "replacement". </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>input string </td></tr>
+    <tr><td class="paramname">snippet</td><td>substring to replace </td></tr>
+    <tr><td class="paramname">replacement</td><td>replacement string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>input string reference </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ad40a4f02e9668fe1a377be36efeacd91"></a>
 <div class="memitem">
 <div class="memproto">
@@ -955,6 +843,167 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="a8201a88c032b7642252686043fdff1f5"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool staticlib::utils::starts_with </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>start</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks whether one string starts with another one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>string to check </td></tr>
+    <tr><td class="paramname">start</td><td>string start </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if string starts with specified ending, false otherwise </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a10cc9454d7addea321d71cd1639dbfc4"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string staticlib::utils::strip_filename </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns new string containing specified path but without the filename (last non-ending-with-slash element of the path) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file_path</td><td>file path </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>parent directory path </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aaa5a0cef0dfbead42e05ad1e29daebfc"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string staticlib::utils::strip_parent_dir </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file_path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns new string containing specified path but without the parent directory (without everything before the last non-ending-with-slash element of the path) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file_path</td><td>file path </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>filename </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab1d79c721ce6506d2802dd76645570f1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string staticlib::utils::trim </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Trims specified string from left and from right using "std::isspace" to check empty bytes, does not support Unicode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>string to trim </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>trimmed string </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a2f2d7fd0cd991dc4d1a0268c68353ee2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string staticlib::utils::url_decode </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unescapes specified URL-encoded string (a%20value+with%20spaces) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>URL-encoded string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>unescaped (plain) string </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a4bbedcb60375d8b7585f4f5258b33ee1"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string staticlib::utils::url_encode </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Encodes specified string so that it is safe for URLs (with%20spaces) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>string to encode </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>escaped string </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a2bafec652d373838d8593e59c784128e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -998,7 +1047,7 @@ template&lt;typename T &gt; </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jun 29 2016 08:08:07 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Dec 23 2017 19:35:43 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

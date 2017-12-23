@@ -1,7 +1,10 @@
 var searchData=
 [
+  ['url_5fdecode',['url_decode',['../namespacestaticlib_1_1utils.html#a2f2d7fd0cd991dc4d1a0268c68353ee2',1,'staticlib::utils']]],
+  ['url_5fencode',['url_encode',['../namespacestaticlib_1_1utils.html#a4bbedcb60375d8b7585f4f5258b33ee1',1,'staticlib::utils']]],
+  ['url_5futils_2ehpp',['url_utils.hpp',['../url__utils_8hpp.html',1,'']]],
   ['utils_2ehpp',['utils.hpp',['../utils_8hpp.html',1,'']]],
-  ['utilsexception',['UtilsException',['../classstaticlib_1_1utils_1_1UtilsException.html#a3dacec7bd3be0080373fa4a2a208180c',1,'staticlib::utils::UtilsException::UtilsException()'],['../classstaticlib_1_1utils_1_1UtilsException.html#aeb1e2bc035cf860ce7ae09b7dba237b1',1,'staticlib::utils::UtilsException::UtilsException(const std::string &amp;msg)']]],
-  ['utilsexception',['UtilsException',['../classstaticlib_1_1utils_1_1UtilsException.html',1,'staticlib::utils']]],
-  ['utilsexception_2ehpp',['UtilsException.hpp',['../UtilsException_8hpp.html',1,'']]]
+  ['utils_5fexception',['utils_exception',['../classstaticlib_1_1utils_1_1utils__exception.html',1,'staticlib::utils']]],
+  ['utils_5fexception',['utils_exception',['../classstaticlib_1_1utils_1_1utils__exception.html#a8aea8bf1cef4a116053af9c5121c870e',1,'staticlib::utils::utils_exception::utils_exception()'],['../classstaticlib_1_1utils_1_1utils__exception.html#a49bb9aea4689736333184e0a075650e1',1,'staticlib::utils::utils_exception::utils_exception(const std::string &amp;msg)']]],
+  ['utils_5fexception_2ehpp',['utils_exception.hpp',['../utils__exception_8hpp.html',1,'']]]
 ];
