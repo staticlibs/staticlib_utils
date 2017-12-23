@@ -22,7 +22,7 @@
  */
 
 #ifndef STATICLIB_UTILS_WINDOWS_HPP
-#define	STATICLIB_UTILS_WINDOWS_HPP
+#define STATICLIB_UTILS_WINDOWS_HPP
 
 #include <cstdint>
 #include <string>
@@ -145,5 +145,5 @@ public:
 } //namespace
 }
 
-#endif	/* STATICLIB_UTILS_WINDOWS_HPP */
+#endif /* STATICLIB_UTILS_WINDOWS_HPP */
 

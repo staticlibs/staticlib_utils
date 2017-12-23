@@ -22,7 +22,7 @@
  */
 
 #ifndef STATICLIB_UTILS_URL_UTILS_HPP
-#define	STATICLIB_UTILS_URL_UTILS_HPP
+#define STATICLIB_UTILS_URL_UTILS_HPP
 
 #include <string>
 
@@ -48,5 +48,5 @@ std::string url_encode(const std::string& str);
 } // namespace
 }
 
-#endif	/* STATICLIB_UTILS_URL_UTILS_HPP */
+#endif /* STATICLIB_UTILS_URL_UTILS_HPP */
 

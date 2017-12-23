@@ -22,7 +22,7 @@
  */
 
 #ifndef STATICLIB_UTILS_PARSE_INT_HPP
-#define	STATICLIB_UTILS_PARSE_INT_HPP
+#define STATICLIB_UTILS_PARSE_INT_HPP
 
 #include <cstdint>
 #include <string>
@@ -85,5 +85,5 @@ uint64_t parse_uint64(const std::string& str);
 } // namespace
 }
 
-#endif	/* STATICLIB_UTILS_PARSE_INT_HPP */
+#endif /* STATICLIB_UTILS_PARSE_INT_HPP */
 

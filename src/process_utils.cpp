@@ -116,7 +116,7 @@ void close_descriptors_nothrow() {
 #endif // STATICLIB_LINUX
 #ifdef STATICLIB_MAC
 void close_descriptors_nothrow() {    
-    (void) parse_int_nothrow;	
+    (void) parse_int_nothrow; 
     int max_fd = static_cast<int>(::sysconf(_SC_OPEN_MAX));
     close(STDIN_FILENO);
     for (int fd = STDERR_FILENO + 1; fd < max_fd; fd++) {

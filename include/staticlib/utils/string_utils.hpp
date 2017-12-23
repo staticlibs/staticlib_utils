@@ -22,7 +22,7 @@
  */
 
 #ifndef STATICLIB_UTILS_STRING_UTILS_HPP
-#define	STATICLIB_UTILS_STRING_UTILS_HPP
+#define STATICLIB_UTILS_STRING_UTILS_HPP
 
 #include <cstdint>
 #include <string>
@@ -132,5 +132,5 @@ const std::string& empty_string();
 } // namespace
 }
 
-#endif	/* STATICLIB_UTILS_STRING_UTILS_HPP */
+#endif /* STATICLIB_UTILS_STRING_UTILS_HPP */
 

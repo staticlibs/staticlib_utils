@@ -88,6 +88,8 @@ std::string url_encode(const std::string& str) {
                 break;
             }
             // else pass through to next case
+            // https://stackoverflow.com/a/45137452/314015
+            // fall through
         case ' ':
         case '$': case '&': case '+': case ',': case '/': case ':':
         case ';': case '=': case '?': case '@': case '"': case '<':

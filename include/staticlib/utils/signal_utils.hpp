@@ -22,7 +22,7 @@
  */
 
 #ifndef STATICLIB_UTILS_SIGNAL_UTILS_HPP
-#define	STATICLIB_UTILS_SIGNAL_UTILS_HPP
+#define STATICLIB_UTILS_SIGNAL_UTILS_HPP
 
 #include <functional>
 
@@ -59,5 +59,5 @@ void fire_signal();
 } // namespace
 }
 
-#endif	/* STATICLIB_UTILS_SIGNAL_UTILS_HPP */
+#endif /* STATICLIB_UTILS_SIGNAL_UTILS_HPP */
 

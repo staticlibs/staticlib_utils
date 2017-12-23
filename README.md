@@ -1,6 +1,9 @@
 Staticlibs common utilities library
 ===================================
 
+[![travis](https://travis-ci.org/staticlibs/staticlib_utils.svg?branch=master)](https://travis-ci.org/staticlibs/staticlib_utils)
+[![appveyor](https://ci.appveyor.com/api/projects/status/github/staticlibs/staticlib_utils?svg=true)](https://ci.appveyor.com/project/staticlibs/staticlib-utils)
+
 This project is a part of [Staticlibs](http://staticlibs.net/).
 
 This project contains common utilities for strings, process spawning etc.
@@ -44,6 +47,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**2017-12-23**
+
+ * version 1.7.1
+ * vs2017 support
 
 **2017-05-22**
  * version 1.7.0

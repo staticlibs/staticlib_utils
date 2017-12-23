@@ -22,7 +22,7 @@
  */
 
 #ifndef STATICLIB_UTILS_HPP
-#define	STATICLIB_UTILS_HPP
+#define STATICLIB_UTILS_HPP
 
 #include "staticlib/config.hpp"
 
@@ -37,5 +37,5 @@
 #include "staticlib/utils/windows.hpp"
 #endif // STATICLIB_WINDOWS
 
-#endif	/* STATICLIB_UTILS_HPP */
+#endif /* STATICLIB_UTILS_HPP */
 

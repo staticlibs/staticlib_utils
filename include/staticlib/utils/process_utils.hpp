@@ -22,7 +22,7 @@
  */
 
 #ifndef STATICLIB_UTILS_PROCESS_UTILS_HPP
-#define	STATICLIB_UTILS_PROCESS_UTILS_HPP
+#define STATICLIB_UTILS_PROCESS_UTILS_HPP
 
 #include <string>
 #include <vector>
@@ -68,5 +68,5 @@ std::string current_executable_path();
 } // namespace
 }
 
-#endif	/* STATICLIB_UTILS_PROCESS_UTILS_HPP */
+#endif /* STATICLIB_UTILS_PROCESS_UTILS_HPP */
 
