@@ -159,7 +159,7 @@ void reset_signals_nothrow() {
     // resume all signals
     sigset_t allmask;
     sigfillset(std::addressof(allmask));
-    int err = ::pthread_sigmask(SIG_SETMASK, std::addressof(allmask), nullptr);
+    int err = ::pthread_sigmask(SIG_UNBLOCK, std::addressof(allmask), nullptr);
     if (0 != err) {
         std::cout << 
                 TRACEMSG("Error resuming signals in child: [" + ::strerror(err) + "]") 
