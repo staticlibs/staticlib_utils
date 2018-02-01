@@ -116,16 +116,20 @@ public:
 } // namespace
 
 std::wstring widen(const std::string& st) {
-    if (st.empty()) return std::wstring();
-    auto size_needed = MultiByteToWideChar(CP_UTF8, 0, st.c_str(), static_cast<int> (st.length()), nullptr, 0);
+    return widen(st.c_str(), st.length());
+}
+    
+std::wstring widen(const char* st, size_t length) {    
+    if (0 == length || nullptr == st) return std::wstring();
+    auto size_needed = MultiByteToWideChar(CP_UTF8, 0, st, static_cast<int> (length), nullptr, 0);
     if (0 == size_needed) throw utils_exception(TRACEMSG("Error on string widen calculation," +
-            " string: [" + st + "], error: [" + errcode_to_string(GetLastError()) + "]"));
-    std::wstring res{};
+            " string: [" + std::string(st, length) + "], error: [" + errcode_to_string(GetLastError()) + "]"));
+    auto res = std::wstring();
     res.resize(size_needed);
     auto buf = std::addressof(res.front());
-    int chars_copied = MultiByteToWideChar(CP_UTF8, 0, st.c_str(), static_cast<int> (st.size()), buf, size_needed);
+    int chars_copied = MultiByteToWideChar(CP_UTF8, 0, st, static_cast<int> (length), buf, size_needed);
     if (chars_copied != size_needed) throw utils_exception(TRACEMSG("Error on string widen execution," +
-            " string: [" + st + "], error: [" + errcode_to_string(GetLastError()) + "]"));
+            " string: [" + std::string(st, length) + "], error: [" + errcode_to_string(GetLastError()) + "]"));
     return res;
 }
 
@@ -138,7 +142,7 @@ std::string narrow(const wchar_t* wbuf, size_t length) {
     int size_needed = WideCharToMultiByte(CP_UTF8, 0, wbuf, static_cast<int> (length), nullptr, 0, nullptr, nullptr);
     if (0 == size_needed) throw utils_exception(TRACEMSG("Error on string narrow calculation," +
             " string length: [" + sl::support::to_string(length) + "], error code: [" + sl::support::to_string(GetLastError()) + "]"));
-    std::string res{};
+    auto res = std::string();
     res.resize(size_needed);
     auto buf = std::addressof(res.front());
     int bytes_copied = WideCharToMultiByte(CP_UTF8, 0, wbuf, static_cast<int> (length), buf, size_needed, nullptr, nullptr);

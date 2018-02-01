@@ -43,6 +43,15 @@ namespace utils {
 std::wstring widen(const std::string& st);
 
 /**
+ * Convert C-string from UTF-8 multibyte to UTF-16 widechar
+ * 
+ * @param st UTF-8 multibyte string
+ * @param length string length
+ * @return UTF-16 wide string
+ */
+std::wstring widen(const char* st, size_t length);
+
+/**
  * Convert string from UTF-16 widechar to UTF-8 multibyte
  * 
  * @param wstring UTF-16 wide string
