@@ -26,6 +26,7 @@
 
 #include "staticlib/config.hpp"
 
+#include "staticlib/utils/datetime_utils.hpp"
 #include "staticlib/utils/parse_int.hpp"
 #include "staticlib/utils/process_utils.hpp"
 #include "staticlib/utils/random_string_generator.hpp"
