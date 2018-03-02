@@ -48,6 +48,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2018-02-18**
+
+ * version 1.7.2
+ * `current_time_millis` added
+
 **2017-12-23**
 
  * version 1.7.1
