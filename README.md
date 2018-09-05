@@ -48,6 +48,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2018-09-05**
+
+ * version 1.7.3
+ * use `644` permissions for spawned process output file
+
 **2018-02-18**
 
  * version 1.7.2

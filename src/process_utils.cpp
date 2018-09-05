@@ -202,7 +202,7 @@ int open_fd(const std::string& path) {
     int fd;
     errno = 0;
     do {
-        fd = ::open(path.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+        fd = ::open(path.c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
     } while ((-1 == fd) && (EINTR == errno));
     if (-1 == fd) throw utils_exception(TRACEMSG("Error opening out file descriptor: [" + ::strerror(errno) + "]" +
             ", specified out path: [" + path + "]"));
