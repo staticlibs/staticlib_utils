@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_utils: staticlib/utils/process_utils.hpp File Reference</title>
+<title>staticlib_utils: staticlib/utils/datetime_utils.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,14 +88,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">process_utils.hpp File Reference</div>  </div>
+<div class="title">datetime_utils.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br/>
-<code>#include &lt;vector&gt;</code><br/>
-<code>#include &quot;<a class="el" href="utils__exception_8hpp_source.html">staticlib/utils/utils_exception.hpp</a>&quot;</code><br/>
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br/>
 </div>
-<p><a href="process__utils_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="datetime__utils_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -104,14 +102,10 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad40a4f02e9668fe1a377be36efeacd91"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#ad40a4f02e9668fe1a377be36efeacd91">staticlib::utils::shell_exec_and_wait</a> (const std::string &amp;cmd)</td></tr>
-<tr class="memdesc:ad40a4f02e9668fe1a377be36efeacd91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts shell process with the specified command and waits for it to exit.  <a href="#ad40a4f02e9668fe1a377be36efeacd91"></a><br/></td></tr>
-<tr class="memitem:a5ac77221de8781b3ff3224b19d32b07f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a5ac77221de8781b3ff3224b19d32b07f">staticlib::utils::exec_and_wait</a> (const std::string &amp;executable, const std::vector&lt; std::string &gt; &amp;args, const std::string &amp;out)</td></tr>
-<tr class="memdesc:a5ac77221de8781b3ff3224b19d32b07f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the process with the specified command and waits for it to exit.  <a href="#a5ac77221de8781b3ff3224b19d32b07f"></a><br/></td></tr>
-<tr class="memitem:a9588db69ff493053300e4a48747ef0c2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a9588db69ff493053300e4a48747ef0c2">staticlib::utils::exec_async</a> (const std::string &amp;executable, const std::vector&lt; std::string &gt; &amp;args, const std::string &amp;out)</td></tr>
-<tr class="memdesc:a9588db69ff493053300e4a48747ef0c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the process with the specified command and waits for it to exit.  <a href="#a9588db69ff493053300e4a48747ef0c2"></a><br/></td></tr>
-<tr class="memitem:a63f856d02ea5cfb1bf9ef3049fea12ac"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a63f856d02ea5cfb1bf9ef3049fea12ac">staticlib::utils::current_executable_path</a> ()</td></tr>
-<tr class="memdesc:a63f856d02ea5cfb1bf9ef3049fea12ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns path to the current executable file.  <a href="#a63f856d02ea5cfb1bf9ef3049fea12ac"></a><br/></td></tr>
+<tr class="memitem:a290057e5718d84dec5825bb8b586b1f2"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a290057e5718d84dec5825bb8b586b1f2">staticlib::utils::current_time_millis</a> ()</td></tr>
+<tr class="memdesc:a290057e5718d84dec5825bb8b586b1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current time in milliseconds obtained from 'system_clock'.  <a href="#a290057e5718d84dec5825bb8b586b1f2"></a><br/></td></tr>
+<tr class="memitem:a182042c65250bc3b250cf09ced2214cd"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a182042c65250bc3b250cf09ced2214cd">staticlib::utils::current_time_millis_steady</a> ()</td></tr>
+<tr class="memdesc:a182042c65250bc3b250cf09ced2214cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current time in milliseconds obtained from 'steady_clock'.  <a href="#a182042c65250bc3b250cf09ced2214cd"></a><br/></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_utils
-   &#160;<span id="projectnumber">1.7.1</span>
+   &#160;<span id="projectnumber">1.7.3</span>
    </div>
   </td>
  </tr>
@@ -104,6 +104,10 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a290057e5718d84dec5825bb8b586b1f2"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a290057e5718d84dec5825bb8b586b1f2">current_time_millis</a> ()</td></tr>
+<tr class="memdesc:a290057e5718d84dec5825bb8b586b1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current time in milliseconds obtained from 'system_clock'.  <a href="#a290057e5718d84dec5825bb8b586b1f2"></a><br/></td></tr>
+<tr class="memitem:a182042c65250bc3b250cf09ced2214cd"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a182042c65250bc3b250cf09ced2214cd">current_time_millis_steady</a> ()</td></tr>
+<tr class="memdesc:a182042c65250bc3b250cf09ced2214cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current time in milliseconds obtained from 'steady_clock'.  <a href="#a182042c65250bc3b250cf09ced2214cd"></a><br/></td></tr>
 <tr class="memitem:a6f722b137fdbbea5ffa1cc39a4dd5d49"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a6f722b137fdbbea5ffa1cc39a4dd5d49">parse_int16</a> (const std::string &amp;str)</td></tr>
 <tr class="memdesc:a6f722b137fdbbea5ffa1cc39a4dd5d49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses <code>int16_t</code> with base 10 from specified string using <code>strto*l</code>  <a href="#a6f722b137fdbbea5ffa1cc39a4dd5d49"></a><br/></td></tr>
 <tr class="memitem:a2a6d34fe5de4fe0b34bda2fd7cd83063"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a2a6d34fe5de4fe0b34bda2fd7cd83063">parse_uint16</a> (const std::string &amp;str)</td></tr>
@@ -157,6 +161,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a4bbedcb60375d8b7585f4f5258b33ee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encodes specified string so that it is safe for URLs (with%20spaces)  <a href="#a4bbedcb60375d8b7585f4f5258b33ee1"></a><br/></td></tr>
 <tr class="memitem:a39da5f53686d31296aad3cf0493419a3"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a39da5f53686d31296aad3cf0493419a3">widen</a> (const std::string &amp;st)</td></tr>
 <tr class="memdesc:a39da5f53686d31296aad3cf0493419a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert string from UTF-8 multibyte to UTF-16 widechar.  <a href="#a39da5f53686d31296aad3cf0493419a3"></a><br/></td></tr>
+<tr class="memitem:a20741904039da9b5bfea248663970b0b"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a20741904039da9b5bfea248663970b0b">widen</a> (const char *st, size_t length)</td></tr>
+<tr class="memdesc:a20741904039da9b5bfea248663970b0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert C-string from UTF-8 multibyte to UTF-16 widechar.  <a href="#a20741904039da9b5bfea248663970b0b"></a><br/></td></tr>
 <tr class="memitem:a19dc301db6fee22e7bcee15306f43050"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a19dc301db6fee22e7bcee15306f43050">narrow</a> (std::wstring wstr)</td></tr>
 <tr class="memdesc:a19dc301db6fee22e7bcee15306f43050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert string from UTF-16 widechar to UTF-8 multibyte.  <a href="#a19dc301db6fee22e7bcee15306f43050"></a><br/></td></tr>
 <tr class="memitem:ad1ff00c8f491be81951ea7bf571e304e"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#ad1ff00c8f491be81951ea7bf571e304e">narrow</a> (const wchar_t *wbuf, size_t length)</td></tr>
@@ -248,6 +254,42 @@ Functions</h2></td></tr>
 
 <p>Obtains the username under which this process is run. </p>
 <dl class="section return"><dt>Returns</dt><dd>username of the current process </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a290057e5718d84dec5825bb8b586b1f2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t staticlib::utils::current_time_millis </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the current time in milliseconds obtained from 'system_clock'. </p>
+<dl class="section return"><dt>Returns</dt><dd>current time in milliseconds </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a182042c65250bc3b250cf09ced2214cd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint64_t staticlib::utils::current_time_millis_steady </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the current time in milliseconds obtained from 'steady_clock'. </p>
+<dl class="section return"><dt>Returns</dt><dd>current time in milliseconds </dd></dl>
 
 </div>
 </div>
@@ -1044,10 +1086,46 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a20741904039da9b5bfea248663970b0b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::wstring staticlib::utils::widen </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>st</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Convert C-string from UTF-8 multibyte to UTF-16 widechar. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">st</td><td>UTF-8 multibyte string </td></tr>
+    <tr><td class="paramname">length</td><td>string length </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>UTF-16 wide string </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 23 2017 19:35:43 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 22 2018 20:28:48 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>

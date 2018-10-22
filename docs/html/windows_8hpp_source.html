@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_utils
-   &#160;<span id="projectnumber">1.7.1</span>
+   &#160;<span id="projectnumber">1.7.3</span>
    </div>
   </td>
  </tr>
@@ -126,47 +126,49 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;std::wstring <a class="code" href="namespacestaticlib_1_1utils.html#a39da5f53686d31296aad3cf0493419a3" title="Convert string from UTF-8 multibyte to UTF-16 widechar.">widen</a>(<span class="keyword">const</span> std::string&amp; st);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;std::string <a class="code" href="namespacestaticlib_1_1utils.html#a19dc301db6fee22e7bcee15306f43050" title="Convert string from UTF-16 widechar to UTF-8 multibyte.">narrow</a>(std::wstring wstr);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;std::string <a class="code" href="namespacestaticlib_1_1utils.html#a19dc301db6fee22e7bcee15306f43050" title="Convert string from UTF-16 widechar to UTF-8 multibyte.">narrow</a>(<span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* wbuf, <span class="keywordtype">size_t</span> length);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;std::wstring <a class="code" href="namespacestaticlib_1_1utils.html#a39da5f53686d31296aad3cf0493419a3" title="Convert string from UTF-8 multibyte to UTF-16 widechar.">widen</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* st, <span class="keywordtype">size_t</span> length);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;std::string <a class="code" href="namespacestaticlib_1_1utils.html#a19dc301db6fee22e7bcee15306f43050" title="Convert string from UTF-16 widechar to UTF-8 multibyte.">narrow</a>(std::wstring wstr);</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;std::string <a class="code" href="namespacestaticlib_1_1utils.html#afadbc64cc921a1b16a10d1cab8b8d2e4" title="Convert Windows system error code (http://msdn.microsoft.com/en-us/library/windows/desktop/ms681381%2...">errcode_to_string</a>(uint32_t code) STATICLIB_NOEXCEPT;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;std::string <a class="code" href="namespacestaticlib_1_1utils.html#a19dc301db6fee22e7bcee15306f43050" title="Convert string from UTF-16 widechar to UTF-8 multibyte.">narrow</a>(<span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* wbuf, <span class="keywordtype">size_t</span> length);</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespacestaticlib_1_1utils.html#a37aee9be19972a308ddcf2969bfc609e" title="Checks whether current process runs with elevated (admin) privileges.">current_process_elevated</a>();</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;std::string <a class="code" href="namespacestaticlib_1_1utils.html#aaa0e1f41c892aea2d145f13545ba2899" title="Obtains the username under which this process is run.">current_process_username</a>();</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacestaticlib_1_1utils.html#a07ee2297a7c4ab368013681ba5ecea79" title="Checks whether user with given username has a &quot;SeServiceLogonRight&quot; privilege.">ensure_has_logon_as_service</a>(<span class="keyword">const</span> std::string&amp; username);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html">   94</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a> {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordtype">void</span>* <span class="comment">/* HANDLE */</span> mutex;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="comment">/* DWORD */</span> error;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a1aa8d352152909192f5dd7d121445aaf" title="Constructor.">named_mutex</a>(<span class="keyword">const</span> std::string&amp; name);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a1aa8d352152909192f5dd7d121445aaf" title="Constructor.">named_mutex</a>(<span class="keyword">const</span> <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp; <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a313d29d835d16b3f97a749dfb594de43" title="Deleted copy assignment operator.">operator=</a>(<span class="keyword">const</span> <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;   </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a1aa8d352152909192f5dd7d121445aaf" title="Constructor.">named_mutex</a>(<a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp;&amp; other);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp; <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a313d29d835d16b3f97a749dfb594de43" title="Deleted copy assignment operator.">operator=</a>(<a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp;&amp; other);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a0b6fb30f6e17c6956424039b13150d6a" title="Destructor, closes OS-global mutex.">~named_mutex</a>() STATICLIB_NOEXCEPT; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#aaabc1be2d184ec3661796086bb3a4e39" title="Checks whether mutex is already taken.">already_taken</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;};</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;std::string <a class="code" href="namespacestaticlib_1_1utils.html#afadbc64cc921a1b16a10d1cab8b8d2e4" title="Convert Windows system error code (http://msdn.microsoft.com/en-us/library/windows/desktop/ms681381%2...">errcode_to_string</a>(uint32_t code) STATICLIB_NOEXCEPT;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="namespacestaticlib_1_1utils.html#a37aee9be19972a308ddcf2969bfc609e" title="Checks whether current process runs with elevated (admin) privileges.">current_process_elevated</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;std::string <a class="code" href="namespacestaticlib_1_1utils.html#aaa0e1f41c892aea2d145f13545ba2899" title="Obtains the username under which this process is run.">current_process_username</a>();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keywordtype">void</span> <a class="code" href="namespacestaticlib_1_1utils.html#a07ee2297a7c4ab368013681ba5ecea79" title="Checks whether user with given username has a &quot;SeServiceLogonRight&quot; privilege.">ensure_has_logon_as_service</a>(<span class="keyword">const</span> std::string&amp; username);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html">  103</a></span>&#160;<span class="keyword">class </span><a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a> {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="keywordtype">void</span>* <span class="comment">/* HANDLE */</span> mutex;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="comment">/* DWORD */</span> error;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a1aa8d352152909192f5dd7d121445aaf" title="Constructor.">named_mutex</a>(<span class="keyword">const</span> std::string&amp; name);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a1aa8d352152909192f5dd7d121445aaf" title="Constructor.">named_mutex</a>(<span class="keyword">const</span> <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp; <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a313d29d835d16b3f97a749dfb594de43" title="Deleted copy assignment operator.">operator=</a>(<span class="keyword">const</span> <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;   </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a1aa8d352152909192f5dd7d121445aaf" title="Constructor.">named_mutex</a>(<a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp;&amp; other);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp; <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a313d29d835d16b3f97a749dfb594de43" title="Deleted copy assignment operator.">operator=</a>(<a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html" title="OS-global named mutex.">named_mutex</a>&amp;&amp; other);</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#a0b6fb30f6e17c6956424039b13150d6a" title="Destructor, closes OS-global mutex.">~named_mutex</a>() STATICLIB_NOEXCEPT; </div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;} <span class="comment">//namespace</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* STATICLIB_UTILS_WINDOWS_HPP */</span><span class="preprocessor"></span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classstaticlib_1_1utils_1_1named__mutex.html#aaabc1be2d184ec3661796086bb3a4e39" title="Checks whether mutex is already taken.">already_taken</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;};</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;} <span class="comment">//namespace</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;}</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* STATICLIB_UTILS_WINDOWS_HPP */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="preprocessor"></span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Dec 23 2017 19:35:43 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 22 2018 20:28:48 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
