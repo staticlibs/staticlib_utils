@@ -39,7 +39,6 @@ void test_user_home_dir() {
 
 void test_user_localappdata_dir() {
     auto dir = sl::utils::user_localappdata_dir();
-    std::cout << dir << std::endl;
     slassert(dir.length() > 0);
 }
 

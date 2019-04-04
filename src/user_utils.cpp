@@ -25,6 +25,7 @@
 
 #include "staticlib/config.hpp"
 
+#include <algorithm>
 #include <vector>
 
 #ifdef STATICLIB_WINDOWS
@@ -56,6 +57,7 @@ namespace { // anonymous
 #ifdef STATICLIB_WINDOWS
 std::string get_csidl_dir(int csidl) {
     auto buf = std::vector<wchar_t>();
+    buf.resize(MAX_PATH);
     auto err = ::SHGetFolderPathW(
             nullptr,
             csidl | CSIDL_FLAG_CREATE,
