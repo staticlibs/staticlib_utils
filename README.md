@@ -48,6 +48,10 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2019-04-04**
+ * version 1.7.4
+ * `user_utils` added
+
 **2018-09-05**
 
  * version 1.7.3
