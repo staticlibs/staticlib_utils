@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>staticlib_utils: staticlib/utils/datetime_utils.hpp File Reference</title>
+<title>staticlib_utils: staticlib/utils/user_utils.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -88,12 +88,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">datetime_utils.hpp File Reference</div>  </div>
+<div class="title">user_utils.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br/>
+<div class="textblock"><code>#include &lt;string&gt;</code><br/>
 </div>
-<p><a href="datetime__utils_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="user__utils_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -102,10 +102,12 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a290057e5718d84dec5825bb8b586b1f2"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a290057e5718d84dec5825bb8b586b1f2">staticlib::utils::current_time_millis</a> ()</td></tr>
-<tr class="memdesc:a290057e5718d84dec5825bb8b586b1f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current time in milliseconds obtained from 'system_clock'.  <a href="#a290057e5718d84dec5825bb8b586b1f2"></a><br/></td></tr>
-<tr class="memitem:a182042c65250bc3b250cf09ced2214cd"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a182042c65250bc3b250cf09ced2214cd">staticlib::utils::current_time_millis_steady</a> ()</td></tr>
-<tr class="memdesc:a182042c65250bc3b250cf09ced2214cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current time in milliseconds obtained from 'steady_clock'.  <a href="#a182042c65250bc3b250cf09ced2214cd"></a><br/></td></tr>
+<tr class="memitem:a46c0009c092c98bfb17c641c399074f2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a46c0009c092c98bfb17c641c399074f2">staticlib::utils::user_name</a> ()</td></tr>
+<tr class="memdesc:a46c0009c092c98bfb17c641c399074f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns name of the user that runs current process.  <a href="#a46c0009c092c98bfb17c641c399074f2"></a><br/></td></tr>
+<tr class="memitem:a56cd88b2ad696c668466ea49e98d8e3d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a56cd88b2ad696c668466ea49e98d8e3d">staticlib::utils::user_home_dir</a> ()</td></tr>
+<tr class="memdesc:a56cd88b2ad696c668466ea49e98d8e3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns home directory of the user that runs current process.  <a href="#a56cd88b2ad696c668466ea49e98d8e3d"></a><br/></td></tr>
+<tr class="memitem:a12ad002f509f75544d7d87c0193abb0b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a12ad002f509f75544d7d87c0193abb0b">staticlib::utils::user_localappdata_dir</a> ()</td></tr>
+<tr class="memdesc:a12ad002f509f75544d7d87c0193abb0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns local app data directory of the user that runs current process.  <a href="#a12ad002f509f75544d7d87c0193abb0b"></a><br/></td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

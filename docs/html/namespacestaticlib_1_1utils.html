@@ -23,7 +23,7 @@
   <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">staticlib_utils
-   &#160;<span id="projectnumber">1.7.3</span>
+   &#160;<span id="projectnumber">1.7.4</span>
    </div>
   </td>
  </tr>
@@ -159,6 +159,12 @@ Functions</h2></td></tr>
 <tr class="memdesc:a2f2d7fd0cd991dc4d1a0268c68353ee2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unescapes specified URL-encoded string (a%20value+with%20spaces)  <a href="#a2f2d7fd0cd991dc4d1a0268c68353ee2"></a><br/></td></tr>
 <tr class="memitem:a4bbedcb60375d8b7585f4f5258b33ee1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a4bbedcb60375d8b7585f4f5258b33ee1">url_encode</a> (const std::string &amp;str)</td></tr>
 <tr class="memdesc:a4bbedcb60375d8b7585f4f5258b33ee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encodes specified string so that it is safe for URLs (with%20spaces)  <a href="#a4bbedcb60375d8b7585f4f5258b33ee1"></a><br/></td></tr>
+<tr class="memitem:a46c0009c092c98bfb17c641c399074f2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a46c0009c092c98bfb17c641c399074f2">user_name</a> ()</td></tr>
+<tr class="memdesc:a46c0009c092c98bfb17c641c399074f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns name of the user that runs current process.  <a href="#a46c0009c092c98bfb17c641c399074f2"></a><br/></td></tr>
+<tr class="memitem:a56cd88b2ad696c668466ea49e98d8e3d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a56cd88b2ad696c668466ea49e98d8e3d">user_home_dir</a> ()</td></tr>
+<tr class="memdesc:a56cd88b2ad696c668466ea49e98d8e3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns home directory of the user that runs current process.  <a href="#a56cd88b2ad696c668466ea49e98d8e3d"></a><br/></td></tr>
+<tr class="memitem:a12ad002f509f75544d7d87c0193abb0b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a12ad002f509f75544d7d87c0193abb0b">user_localappdata_dir</a> ()</td></tr>
+<tr class="memdesc:a12ad002f509f75544d7d87c0193abb0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns local app data directory of the user that runs current process.  <a href="#a12ad002f509f75544d7d87c0193abb0b"></a><br/></td></tr>
 <tr class="memitem:a39da5f53686d31296aad3cf0493419a3"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a39da5f53686d31296aad3cf0493419a3">widen</a> (const std::string &amp;st)</td></tr>
 <tr class="memdesc:a39da5f53686d31296aad3cf0493419a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert string from UTF-8 multibyte to UTF-16 widechar.  <a href="#a39da5f53686d31296aad3cf0493419a3"></a><br/></td></tr>
 <tr class="memitem:a20741904039da9b5bfea248663970b0b"><td class="memItemLeft" align="right" valign="top">std::wstring&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacestaticlib_1_1utils.html#a20741904039da9b5bfea248663970b0b">widen</a> (const char *st, size_t length)</td></tr>
@@ -1046,6 +1052,60 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a56cd88b2ad696c668466ea49e98d8e3d"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string staticlib::utils::user_home_dir </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns home directory of the user that runs current process. </p>
+<dl class="section return"><dt>Returns</dt><dd>home directory of the user that runs current process </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a12ad002f509f75544d7d87c0193abb0b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string staticlib::utils::user_localappdata_dir </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns local app data directory of the user that runs current process. </p>
+<dl class="section return"><dt>Returns</dt><dd>local app data directory of the user that runs current process </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a46c0009c092c98bfb17c641c399074f2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string staticlib::utils::user_name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns name of the user that runs current process. </p>
+<dl class="section return"><dt>Returns</dt><dd>name of the user that runs current process </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a2bafec652d373838d8593e59c784128e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -1125,7 +1185,7 @@ Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 22 2018 20:28:48 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Apr 4 2019 22:55:13 for staticlib_utils by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.1.2
 </small></address>
