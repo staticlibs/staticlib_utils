@@ -34,9 +34,7 @@
 
 #ifdef STATICLIB_WINDOWS
 #include <mutex>
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-#include <windows.h>
+#include "staticlib/support/windows.hpp"
 #include "staticlib/utils/windows.hpp"
 #endif // STATICLIB_WINDOWS
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)

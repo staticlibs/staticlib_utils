@@ -25,14 +25,12 @@
 
 #ifdef STATICLIB_WINDOWS
 
-#include <memory>
-#include <exception>
-#include <string>
 #include <algorithm>
+#include <exception>
+#include <memory>
+#include <string>
 
-#define WIN32_LEAN_AND_MEAN
-#define NOMINMAX
-#include <windows.h>
+#include "staticlib/support/windows.hpp"
 #include <wtsapi32.h>
 #include <ntsecapi.h>
 

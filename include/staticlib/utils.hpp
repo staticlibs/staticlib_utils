@@ -33,6 +33,7 @@
 #include "staticlib/utils/signal_utils.hpp"
 #include "staticlib/utils/string_utils.hpp"
 #include "staticlib/utils/url_utils.hpp"
+#include "staticlib/utils/user_utils.hpp"
 #include "staticlib/utils/utils_exception.hpp"
 #ifdef STATICLIB_WINDOWS
 #include "staticlib/utils/windows.hpp"
