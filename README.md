@@ -49,7 +49,7 @@ Changelog
 ---------
 
 **2019-04-04**
- * version 1.7.4
+ * version 1.7.5
  * `user_utils` added
 
 **2018-09-05**
