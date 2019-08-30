@@ -457,6 +457,44 @@ std::string current_executable_path() {
 #endif 
 }
 
+int current_process_pid() {
+#if defined(STATICLIB_WINDOWS)
+    DWORD res = ::GetCurrentProcessId();
+    return static_cast<int> (res);
+#else // !STATICLIB_WINDOWS
+    pid_t res = getpid();
+    return static_cast<int> (res);
+#endif // STATICLIB_WINDOWS
+}
+
+std::string kill_process(int pid) {
+#if defined(STATICLIB_WINDOWS)
+    HANDLE ha = ::OpenProcess(PROCESS_TERMINATE, FALSE, static_cast<DWORD>(pid));
+    if (nullptr == ha) {
+        retrun std::string() + 
+                "Error looking up for child process," +
+                " pid: [" + sl::support::to_string(pid) + "]," +
+                " message: [" + errcode_to_string(::GetLastError()) + "]";
+    }
+    auto deferred = sl::support::defer([ha]() STATICLIB_NOEXCEPT {
+        ::CloseHandle(ha);
+    });
+    auto err = ::TerminateProcess(ha, 1);
+    if (0 == err) throw utils_exception(TRACEMSG(
+                "Error killing process, pid: [" + sl::support::to_string(pid) +"]," +
+                " message: [" + errcode_to_string(::GetLastError()) + "]"));
+    return std::string();
+#else // !STATICLIB_WINDOWS
+    auto err = kill(static_cast<pid_t>(pid), SIGKILL);
+    if (0 != err) {
+        return std::string() + 
+                "Error killing process, pid: [" + sl::support::to_string(pid) +"]," +
+                " message: [" + ::strerror(err) + "]";
+    }
+    return std::string();
+#endif // STATICLIB_WINDOWS
+}
+
 } // namespace
 }
 

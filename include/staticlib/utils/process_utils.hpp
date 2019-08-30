@@ -65,6 +65,23 @@ int exec_async(const std::string& executable, const std::vector<std::string>& ar
  */
 std::string current_executable_path();
 
+/**
+ * Returns pid of the current process
+ * 
+ * @return pid of the current process
+ */
+int current_process_pid();
+
+/**
+ * Kills the process with the specified pid, target process
+ * cannot prevent itself from being terminated
+ * 
+ * @param pid pid of the process to kill
+ * @return empty string, if process was successfully killed,
+ *         otherwise returns error message
+ */
+std::string kill_process(int pid);
+
 } // namespace
 }
 
