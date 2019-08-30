@@ -465,7 +465,7 @@ int current_process_pid() {
     pid_t res = getpid();
     return static_cast<int> (res);
 #else // ANDROID
-    return -1
+    return -1;
 #endif
 }
 
