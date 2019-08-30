@@ -98,7 +98,7 @@ int main() {
         test_elevated();
         test_process_username();
         // caution: changes current user windows privileges
-        test_ensure_service_logon();
+        //test_ensure_service_logon();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;

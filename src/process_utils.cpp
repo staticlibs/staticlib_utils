@@ -471,7 +471,7 @@ std::string kill_process(int pid) {
 #if defined(STATICLIB_WINDOWS)
     HANDLE ha = ::OpenProcess(PROCESS_TERMINATE, FALSE, static_cast<DWORD>(pid));
     if (nullptr == ha) {
-        retrun std::string() + 
+        return std::string() + 
                 "Error looking up for child process," +
                 " pid: [" + sl::support::to_string(pid) + "]," +
                 " message: [" + errcode_to_string(::GetLastError()) + "]";

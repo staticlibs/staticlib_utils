@@ -71,7 +71,7 @@ void test_kill_process() {
     auto exec = std::string("/bin/ping");
 #endif // STATICLIB_WINDOWS
     auto pid = sl::utils::exec_async(exec, {"127.0.0.1"}, "test_kill_out.txt");
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+    std::this_thread::sleep_for(std::chrono::seconds(3));
     auto err = sl::utils::kill_process(pid);
     slassert(err.empty());
 }
