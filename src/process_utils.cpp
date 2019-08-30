@@ -461,10 +461,12 @@ int current_process_pid() {
 #if defined(STATICLIB_WINDOWS)
     DWORD res = ::GetCurrentProcessId();
     return static_cast<int> (res);
-#else // !STATICLIB_WINDOWS
+#elif defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
     pid_t res = getpid();
     return static_cast<int> (res);
-#endif // STATICLIB_WINDOWS
+#else // ANDROID
+    return -1
+#endif
 }
 
 std::string kill_process(int pid) {
@@ -484,7 +486,7 @@ std::string kill_process(int pid) {
                 "Error killing process, pid: [" + sl::support::to_string(pid) +"]," +
                 " message: [" + errcode_to_string(::GetLastError()) + "]"));
     return std::string();
-#else // !STATICLIB_WINDOWS
+#elif defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
     auto err = kill(static_cast<pid_t>(pid), SIGKILL);
     if (0 != err) {
         return std::string() + 
@@ -492,7 +494,9 @@ std::string kill_process(int pid) {
                 " message: [" + ::strerror(err) + "]";
     }
     return std::string();
-#endif // STATICLIB_WINDOWS
+#else // ANDROID
+    return std::string("Killing processes is not supported on this platform");
+#endif
 }
 
 } // namespace
