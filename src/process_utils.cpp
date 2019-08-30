@@ -495,6 +495,7 @@ std::string kill_process(int pid) {
     }
     return std::string();
 #else // ANDROID
+    (void) pid;
     return std::string("Killing processes is not supported on this platform");
 #endif
 }
