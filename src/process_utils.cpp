@@ -328,7 +328,7 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
             true,
             CREATE_NEW_PROCESS_GROUP | DETACHED_PROCESS | CREATE_NO_WINDOW | CREATE_UNICODE_ENVIRONMENT,
             nullptr,
-            directory.empty() ? nullptr : widen(directory).front(),
+            directory.empty() ? nullptr : std::addressof(widen(directory).front()),
             std::addressof(si),
             std::addressof(pi));
     ::CloseHandle(out_handle);
