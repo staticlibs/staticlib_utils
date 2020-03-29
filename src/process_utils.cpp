@@ -400,6 +400,7 @@ int exec_async(const std::string& executable, const std::vector<std::string>& ar
     (void) executable;
     (void) args;
     (void) out;
+    (void) directory;
     return -1;
 #endif
 }
