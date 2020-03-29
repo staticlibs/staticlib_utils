@@ -150,6 +150,8 @@ void setsid_nothrow(const std::string& out) {
         append_to_file_nothrow(out, msg);
         _exit(sid);
     }
+#else // !STATICLIB_LINUX
+    (void) out;
 #endif // STATICLIB_LINUX
 }
 
@@ -326,7 +328,7 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
             true,
             CREATE_NEW_PROCESS_GROUP | DETACHED_PROCESS | CREATE_NO_WINDOW | CREATE_UNICODE_ENVIRONMENT,
             nullptr,
-            directory.empty() ? nullptr, widen(directory).front(),
+            directory.empty() ? nullptr : widen(directory).front(),
             std::addressof(si),
             std::addressof(pi));
     ::CloseHandle(out_handle);
@@ -378,6 +380,7 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
     (void) executable;
     (void) args;
     (void) out;
+    (void) directory;
     return -1;
 #endif
 }
