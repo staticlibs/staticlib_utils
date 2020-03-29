@@ -25,7 +25,7 @@
 
 #include <algorithm>
 #include <array>
-#include <fstream>
+#include <iostream>
 #include <vector>
 #include <cstdlib>
 #include <cstring>
@@ -56,15 +56,6 @@ namespace utils {
 
 namespace { // anonymous
 
-void append_to_file_nothrow(const std::string& out, const std::string& msg) {
-    std::ofstream outfile;
-    outfile.open(out, std::ios_base::app);
-    if (!outfile.fail()) {
-        outfile << msg;
-        outfile << "\n";
-    }
-}
-
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
 int parse_int_nothrow(char* fd_name) {
     size_t i = 0;
@@ -82,13 +73,13 @@ int parse_int_nothrow(char* fd_name) {
 }
 
 #ifdef STATICLIB_LINUX
-void close_descriptors_nothrow(const std::string& out) {
+void close_descriptors_nothrow() {
     for (;;) {
         // open descriptors dir
         DIR* dp = ::opendir("/proc/self/fd");
         if (NULL == dp) {
             auto msg = TRACEMSG("Process opendir(\"/proc/self/fd\") failed: [" + ::strerror(errno) + "]");
-            append_to_file_nothrow(out, msg);
+            std::cout << msg << std::endl;
             _exit(errno);
         }
         // collect descriptors
@@ -107,7 +98,7 @@ void close_descriptors_nothrow(const std::string& out) {
         // readdir failed
         if (errno > 0) {
             auto msg = TRACEMSG("Process readdir failed: [" + ::strerror(errno) + "]");
-            append_to_file_nothrow(out, msg);
+            std::cout << msg << std::endl;
             _exit(errno);
         }
         for (size_t i = 0; i < idx; i++) {
@@ -120,9 +111,7 @@ void close_descriptors_nothrow(const std::string& out) {
 }
 #endif // STATICLIB_LINUX
 #ifdef STATICLIB_MAC
-void close_descriptors_nothrow(const std::string& out) {
-    (void) out;
-    (void) append_to_file_nothrow;
+void close_descriptors_nothrow() {
     (void) parse_int_nothrow; 
     int max_fd = static_cast<int>(::sysconf(_SC_OPEN_MAX));
     close(STDIN_FILENO);
@@ -141,21 +130,19 @@ void copy_descriptor_nothrow(int from, int to) {
     if (-1 == res) _exit(errno);
 }
 
-void setsid_nothrow(const std::string& out) {
+void setsid_nothrow() {
 // todo: fixme for mac
 #ifdef STATICLIB_LINUX
     pid_t sid = setsid();
     if (sid < 0) {
         auto msg = TRACEMSG("Process setsid error: [" + ::strerror(errno) + "]");
-        append_to_file_nothrow(out, msg);
+        std::cout << msg << std::endl;
         _exit(sid);
     }
-#else // !STATICLIB_LINUX
-    (void) out;
 #endif // STATICLIB_LINUX
 }
 
-void reset_signals_nothrow(const std::string& out) {
+void reset_signals_nothrow() {
     // set signals to default
     struct sigaction sig_action;
     sig_action.sa_handler = SIG_DFL;
@@ -170,7 +157,7 @@ void reset_signals_nothrow(const std::string& out) {
     int err = ::pthread_sigmask(SIG_UNBLOCK, std::addressof(allmask), nullptr);
     if (0 != err) {
         auto msg = TRACEMSG("Error resuming signals in child: [" + ::strerror(err) + "]");
-        append_to_file_nothrow(out, msg);
+        std::cout << msg << std::endl;
         _exit(err);
     }
 }
@@ -246,6 +233,8 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
         resume_signals(oldmask_ref);
         return pid;
     } else { // we are in child process
+        copy_descriptor_nothrow(out_fd, STDOUT_FILENO);
+        copy_descriptor_nothrow(out_fd, STDERR_FILENO);
         if (!directory.empty()) {
             auto errch = ::chdir(directory.c_str());
             if (0 != errch) {
@@ -253,15 +242,13 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
                         " executable: [" + executable + "]," +
                         " args size: [" + sl::support::to_string(args.size()) + "]" +
                         " directory: [" + directory + "]");
-                append_to_file_nothrow(out, msg);
+                std::cout << msg << std::endl;
                 _exit(errno);
             }
         }
-        copy_descriptor_nothrow(out_fd, STDOUT_FILENO);
-        copy_descriptor_nothrow(out_fd, STDERR_FILENO);
-        close_descriptors_nothrow(out);
-        setsid_nothrow(out);
-        reset_signals_nothrow(out);
+        close_descriptors_nothrow();
+        setsid_nothrow();
+        reset_signals_nothrow();
         // prepare and do exec
         const char* exec_path_child = const_cast<const char*>(exec_path);
         std::vector<char*>& arg_ptrs_child = const_cast<std::vector<char*>&>(args_ptrs);
@@ -271,7 +258,7 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
                 " executable: [" + executable + "]," +
                 " args size: [" + sl::support::to_string(args.size()) + "]" +
                 " directory: [" + directory + "]");
-        append_to_file_nothrow(out, msg);
+        std::cout << msg << std::endl;
         if (-1 == res) _exit(errno);
         return 0;
     }
