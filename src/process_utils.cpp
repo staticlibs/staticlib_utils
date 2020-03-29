@@ -25,7 +25,7 @@
 
 #include <algorithm>
 #include <array>
-#include <iostream>
+#include <fstream>
 #include <vector>
 #include <cstdlib>
 #include <cstring>
@@ -56,6 +56,15 @@ namespace utils {
 
 namespace { // anonymous
 
+void append_to_file_nothrow(const std::string& out, const std::string& msg) {
+    std::ofstream outfile;
+    outfile.open(out, std::ios_base::app);
+    if (!outfile.fail()) {
+        outfile << msg;
+        outfile << "\n";
+    }
+}
+
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
 int parse_int_nothrow(char* fd_name) {
     size_t i = 0;
@@ -73,14 +82,13 @@ int parse_int_nothrow(char* fd_name) {
 }
 
 #ifdef STATICLIB_LINUX
-void close_descriptors_nothrow() {    
-    for (;;) {        
+void close_descriptors_nothrow(const std::string& out) {
+    for (;;) {
         // open descriptors dir
         DIR* dp = ::opendir("/proc/self/fd");
         if (NULL == dp) {
-            std::cout << 
-                    TRACEMSG("Process opendir(\"/proc/self/fd\") failed: [" + ::strerror(errno) + "]") 
-                    << std::endl;
+            auto msg = TRACEMSG("Process opendir(\"/proc/self/fd\") failed: [" + ::strerror(errno) + "]");
+            append_to_file_nothrow(out, msg);
             _exit(errno);
         }
         // collect descriptors
@@ -89,18 +97,17 @@ void close_descriptors_nothrow() {
         size_t idx = 0;
         struct dirent* dirp;
         while ((dirp = readdir(dp)) != NULL) {
-            int fd = parse_int_nothrow(dirp->d_name);            
+            int fd = parse_int_nothrow(dirp->d_name);
             if (-1 != fd && STDOUT_FILENO != fd && STDERR_FILENO != fd) {
                fd_list[idx++] = fd;
                if (idx >= fd_list.size()) break;
             }
             errno = 0;
-        }                
+        }
         // readdir failed
         if (errno > 0) {
-            std::cout << 
-                    TRACEMSG("Process readdir failed: [" + ::strerror(errno) + "]") 
-                    << std::endl;
+            auto msg = TRACEMSG("Process readdir failed: [" + ::strerror(errno) + "]");
+            append_to_file_nothrow(out, msg);
             _exit(errno);
         }
         for (size_t i = 0; i < idx; i++) {
@@ -113,7 +120,9 @@ void close_descriptors_nothrow() {
 }
 #endif // STATICLIB_LINUX
 #ifdef STATICLIB_MAC
-void close_descriptors_nothrow() {    
+void close_descriptors_nothrow(const std::string& out) {
+    (void) out;
+    (void) append_to_file_nothrow;
     (void) parse_int_nothrow; 
     int max_fd = static_cast<int>(::sysconf(_SC_OPEN_MAX));
     close(STDIN_FILENO);
@@ -132,20 +141,19 @@ void copy_descriptor_nothrow(int from, int to) {
     if (-1 == res) _exit(errno);
 }
 
-void setsid_nothrow() {
+void setsid_nothrow(const std::string& out) {
 // todo: fixme for mac
 #ifdef STATICLIB_LINUX
     pid_t sid = setsid();
     if (sid < 0) {
-        std::cout << 
-                TRACEMSG("Process setsid error: [" + ::strerror(errno) + "]") 
-                << std::endl;
+        auto msg = TRACEMSG("Process setsid error: [" + ::strerror(errno) + "]");
+        append_to_file_nothrow(out, msg);
         _exit(sid);
     }
 #endif // STATICLIB_LINUX
 }
 
-void reset_signals_nothrow() {
+void reset_signals_nothrow(const std::string& out) {
     // set signals to default
     struct sigaction sig_action;
     sig_action.sa_handler = SIG_DFL;
@@ -159,9 +167,8 @@ void reset_signals_nothrow() {
     sigfillset(std::addressof(allmask));
     int err = ::pthread_sigmask(SIG_UNBLOCK, std::addressof(allmask), nullptr);
     if (0 != err) {
-        std::cout << 
-                TRACEMSG("Error resuming signals in child: [" + ::strerror(err) + "]") 
-                << std::endl;
+        auto msg = TRACEMSG("Error resuming signals in child: [" + ::strerror(err) + "]");
+        append_to_file_nothrow(out, msg);
         _exit(err);
     }
 }
@@ -219,11 +226,12 @@ std::vector<char*> prepare_args(const std::string& executable, const std::vector
     return res;
 }
 
-int exec_async_unix(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
+int exec_async_unix(const std::string& executable, const std::vector<std::string>& args,
+        const std::string& out, const std::string& directory) {
     // some preparations
     volatile sigset_t oldmask = block_signals();
     volatile const char* exec_path = executable.c_str();
-    volatile std::vector<char*> args_ptrs = prepare_args(executable, args);    
+    volatile std::vector<char*> args_ptrs = prepare_args(executable, args);
     volatile int out_fd = open_fd(out);
     // do fork
     volatile pid_t pid = ::vfork();
@@ -235,20 +243,34 @@ int exec_async_unix(const std::string& executable, const std::vector<std::string
         sigset_t& oldmask_ref = const_cast<sigset_t&>(oldmask);
         resume_signals(oldmask_ref);
         return pid;
-    } else { // we are in child process      
+    } else { // we are in child process
+        if (!directory.empty()) {
+            auto errch = ::chdir(directory.c_str());
+            if (0 != errch) {
+                auto msg = TRACEMSG(" Process directory error: [" + ::strerror(errno) + "]," +
+                        " executable: [" + executable + "]," +
+                        " args size: [" + sl::support::to_string(args.size()) + "]" +
+                        " directory: [" + directory + "]");
+                append_to_file_nothrow(out, msg);
+                _exit(errno);
+            }
+        }
         copy_descriptor_nothrow(out_fd, STDOUT_FILENO);
         copy_descriptor_nothrow(out_fd, STDERR_FILENO);
-        close_descriptors_nothrow();
-        setsid_nothrow();
-        reset_signals_nothrow();
-        // prepare and do exec        
+        close_descriptors_nothrow(out);
+        setsid_nothrow(out);
+        reset_signals_nothrow(out);
+        // prepare and do exec
         const char* exec_path_child = const_cast<const char*>(exec_path);
         std::vector<char*>& arg_ptrs_child = const_cast<std::vector<char*>&>(args_ptrs);
         errno = 0;
         int res = ::execv(exec_path_child, arg_ptrs_child.data());
-        std::cout << TRACEMSG(" Process execv error: [" + ::strerror(errno) + "]," +
-                " executable: [" + executable + "], args size: [" + sl::support::to_string(args.size()) + "]") << std::endl;
-        if (-1 == res) _exit(errno);        
+        auto msg = TRACEMSG(" Process execv error: [" + ::strerror(errno) + "]," +
+                " executable: [" + executable + "]," +
+                " args size: [" + sl::support::to_string(args.size()) + "]" +
+                " directory: [" + directory + "]");
+        append_to_file_nothrow(out, msg);
+        if (-1 == res) _exit(errno);
         return 0;
     }
 }
@@ -259,7 +281,8 @@ std::mutex& get_static_mutex() {
     return mutex;
 }
 
-HANDLE exec_async_windows(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
+HANDLE exec_async_windows(const std::string& executable, const std::vector<std::string>& args,
+        const std::string& out, const std::string& directory) {
     // workaround for handle inheritance race condition here, solution exists for vista+
     // http://blogs.msdn.com/b/oldnewthing/archive/2011/12/16/10248328.aspx
     std::lock_guard<std::mutex> guard{get_static_mutex()};
@@ -296,20 +319,21 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
     }
     // run process
     auto ret = ::CreateProcessW(
-            nullptr, 
-            std::addressof(widen(cmd_string).front()), 
-            nullptr, 
-            nullptr, 
-            true, 
-            CREATE_NEW_PROCESS_GROUP | DETACHED_PROCESS | CREATE_NO_WINDOW | CREATE_UNICODE_ENVIRONMENT, 
-            nullptr, 
-            nullptr, 
-            std::addressof(si), 
+            nullptr,
+            std::addressof(widen(cmd_string).front()),
+            nullptr,
+            nullptr,
+            true,
+            CREATE_NEW_PROCESS_GROUP | DETACHED_PROCESS | CREATE_NO_WINDOW | CREATE_UNICODE_ENVIRONMENT,
+            nullptr,
+            directory.empty() ? nullptr, widen(directory).front(),
+            std::addressof(si),
             std::addressof(pi));
     ::CloseHandle(out_handle);
     if (0 == ret) throw utils_exception(TRACEMSG(
             " Process create error: [" + errcode_to_string(::GetLastError()) + "]," +
-            " command line: [" + cmd_string + "], output: [" + out + "]"));
+            " command line: [" + cmd_string + "]," +
+            " output: [" + out + "], directory: [" + directory + "]"));
     ::CloseHandle(pi.hThread);
     return pi.hProcess;
 }
@@ -327,9 +351,10 @@ int shell_exec_and_wait(const std::string& cmd) {
 #endif // STATICLIB_WINDOWS
 }
 
-int exec_and_wait(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
+int exec_and_wait(const std::string& executable, const std::vector<std::string>& args,
+        const std::string& out, const std::string& directory) {
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
-    pid_t pid = exec_async_unix(executable, args, out);
+    pid_t pid = exec_async_unix(executable, args, out, directory);
     int status;
     while (::waitpid(pid, std::addressof(status), 0) < 0) {
         switch (errno) {
@@ -340,7 +365,7 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
     }
     return WEXITSTATUS(status);
 #elif defined(STATICLIB_WINDOWS)
-    HANDLE ha = exec_async_windows(executable, args, out);
+    HANDLE ha = exec_async_windows(executable, args, out, directory);
     auto ret = WaitForSingleObject(ha, INFINITE);
     if (WAIT_FAILED == ret) throw utils_exception(TRACEMSG(
             "Error waiting for child process: [" + errcode_to_string(::GetLastError()) + "]" +
@@ -357,13 +382,14 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
 #endif
 }
 
-int exec_async(const std::string& executable, const std::vector<std::string>& args, const std::string& out) {
+int exec_async(const std::string& executable, const std::vector<std::string>& args,
+        const std::string& out, const std::string& directory) {
 #if defined(STATICLIB_LINUX) || defined(STATICLIB_MAC)
-    pid_t pid =  exec_async_unix(executable, args, out);
+    pid_t pid =  exec_async_unix(executable, args, out, directory);
     register_signal(SIGCHLD, SA_RESTART | SA_NOCLDSTOP, sigchild_handler);
     return pid;
 #elif defined(STATICLIB_WINDOWS)
-    HANDLE ha = exec_async_windows(executable, args, out);
+    HANDLE ha = exec_async_windows(executable, args, out, directory);
     int res = ::GetProcessId(ha);
     ::CloseHandle(ha);
     return res;
