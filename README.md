@@ -49,14 +49,22 @@ Changelog
 ---------
 
 **2020-03-29**
+
+ * version 1.7.8
+ * `process_utils` error reporting fix
+
+**2020-03-29**
+
  * version 1.7.7
  * `process_utils` enhancements
 
 **2019-08-30**
+
  * version 1.7.6
  * `process_utils` enhancements
 
 **2019-04-04**
+
  * version 1.7.5
  * `user_utils` added
 
