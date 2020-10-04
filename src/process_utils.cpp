@@ -204,12 +204,19 @@ int open_fd(const std::string& path) {
 }
 
 std::vector<char*> prepare_args(const std::string& executable, const std::vector<std::string>& args) {
-    std::vector<char*> res;
+    if (executable.empty()) throw utils_exception(TRACEMSG(
+            "Invalid empty executable specified"));
+    auto res = std::vector<char*>();
     res.reserve(args.size() + 2);
     // generally UB, but okay here
     res.push_back(const_cast<char*> (std::addressof(executable.front())));
-    std::transform(args.begin(), args.end(), std::back_inserter(res), [](const std::string & st) {
-        return const_cast<char*> (std::addressof(st.front()));
+    std::transform(args.begin(), args.end(), std::back_inserter(res), [&executable](const std::string& st) {
+        // todo: revisit me
+        if (st.length() > 0) {
+            return const_cast<char*> (std::addressof(st.front()));
+        } else {
+            return const_cast<char*> (std::addressof(executable.front()) + executable.length());
+        }
     });
     res.push_back(nullptr);
     return res;
@@ -303,8 +310,10 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
     memset(std::addressof(pi), 0, sizeof(PROCESS_INFORMATION));
     std::string cmd_string = "\"" + executable + "\"";
     for (const std::string& arg : args) {
-        cmd_string += " ";
-        cmd_string += arg;
+        if (arg.length() > 0) {
+            cmd_string += " ";
+            cmd_string += arg;
+        }
     }
     // run process
     auto ret = ::CreateProcessW(
