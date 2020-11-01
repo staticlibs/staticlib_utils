@@ -223,8 +223,11 @@ std::vector<char*> prepare_args(const std::string& executable, const std::vector
 }
 
 int exec_async_unix(const std::string& executable, const std::vector<std::string>& args,
-        const std::string& out, const std::string& directory) {
+        const std::string& out_or_empty, const std::string& directory) {
     // some preparations
+    const std::string out = !out_or_empty.empty()
+            ? std::string(out_or_empty.data(), out_or_empty.length())
+            : "/dev/null";
     volatile sigset_t oldmask = block_signals();
     volatile const char* exec_path = executable.c_str();
     volatile std::vector<char*> args_ptrs = prepare_args(executable, args);
@@ -282,30 +285,34 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
     // workaround for handle inheritance race condition here, solution exists for vista+
     // http://blogs.msdn.com/b/oldnewthing/archive/2011/12/16/10248328.aspx
     std::lock_guard<std::mutex> guard{get_static_mutex()};
-    // open stdout file
-    SECURITY_ATTRIBUTES sa;
-    sa.nLength = sizeof(sa);
-    sa.lpSecurityDescriptor = nullptr;
-    sa.bInheritHandle = TRUE; 
-    HANDLE out_handle = ::CreateFileW(
-            std::addressof(widen(out).front()), 
-            FILE_WRITE_DATA | FILE_APPEND_DATA,
-            FILE_SHARE_WRITE | FILE_SHARE_READ,
-            std::addressof(sa),
-            CREATE_ALWAYS,
-            FILE_ATTRIBUTE_NORMAL,
-            nullptr);
-    if (INVALID_HANDLE_VALUE == out_handle) throw utils_exception(TRACEMSG(
-            "Error opening out file descriptor: [" + errcode_to_string(::GetLastError()) + "]" +
-            ", specified out path: [" + out + "]"));
+    if (!out.empty()) {
+        // open stdout file
+        SECURITY_ATTRIBUTES sa;
+        sa.nLength = sizeof(sa);
+        sa.lpSecurityDescriptor = nullptr;
+        sa.bInheritHandle = TRUE; 
+        HANDLE out_handle = ::CreateFileW(
+                std::addressof(widen(out).front()), 
+                FILE_WRITE_DATA | FILE_APPEND_DATA,
+                FILE_SHARE_WRITE | FILE_SHARE_READ,
+                std::addressof(sa),
+                CREATE_ALWAYS,
+                FILE_ATTRIBUTE_NORMAL,
+                nullptr);
+        if (INVALID_HANDLE_VALUE == out_handle) throw utils_exception(TRACEMSG(
+                "Error opening out file descriptor: [" + errcode_to_string(::GetLastError()) + "]" +
+                ", specified out path: [" + out + "]"));
+    }
     // prepare process
     STARTUPINFOW si;
     ::memset(std::addressof(si), 0, sizeof(STARTUPINFO));
     si.cb = sizeof(si);
-    si.dwFlags = STARTF_USESTDHANDLES;
-    si.hStdInput = nullptr;
-    si.hStdError = out_handle;
-    si.hStdOutput = out_handle;
+    if (!out.empty()) {
+        si.dwFlags = STARTF_USESTDHANDLES;
+        si.hStdInput = nullptr;
+        si.hStdError = out_handle;
+        si.hStdOutput = out_handle;
+    }
     PROCESS_INFORMATION pi;
     memset(std::addressof(pi), 0, sizeof(PROCESS_INFORMATION));
     std::string cmd_string = "\"" + executable + "\"";
@@ -321,7 +328,7 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
             std::addressof(widen(cmd_string).front()),
             nullptr,
             nullptr,
-            true,
+            !out.empty(),
             CREATE_NEW_PROCESS_GROUP | DETACHED_PROCESS | CREATE_NO_WINDOW | CREATE_UNICODE_ENVIRONMENT,
             nullptr,
             directory.empty() ? nullptr : std::addressof(widen(directory).front()),

@@ -48,7 +48,7 @@ int shell_exec_and_wait(const std::string& cmd);
  * @return command return code
  */
 int exec_and_wait(const std::string& executable, const std::vector<std::string>& args,
-        const std::string& out, const std::string& directory = std::string());
+        const std::string& out = std::string(), const std::string& directory = std::string());
 
 /**
  * Starts the process with the specified command and waits for it to exit
@@ -58,7 +58,7 @@ int exec_and_wait(const std::string& executable, const std::vector<std::string>&
  * @return child process pid
  */
 int exec_async(const std::string& executable, const std::vector<std::string>& args,
-        const std::string& out, const std::string& directory = std::string());
+        const std::string& out = std::string(), const std::string& directory = std::string());
 
 /**
  * Returns path to the current executable file

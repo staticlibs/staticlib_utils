@@ -48,8 +48,10 @@ void test_exec_async() {
 void test_exec_and_wait() {
 #ifdef STATICLIB_WINDOWS
     sl::utils::exec_and_wait("c:/windows/system32/ipconfig", {"/all"}, "ipconfig_wait_out.txt");
+    sl::utils::exec_and_wait("c:/windows/system32/ipconfig", {"/all"});
 #else
-    sl::utils::exec_and_wait("/bin/ls", {"-l", "-a", "-h"}, "ls_async_out.txt");
+    sl::utils::exec_and_wait("/bin/ls", {"-l", "-a", "-h"}, "ls_wait_out.txt");
+    sl::utils::exec_and_wait("/bin/ls", {"-l", "-a", "-h"});
 #endif // STATICLIB_WINDOWS
 }
 
