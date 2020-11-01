@@ -285,13 +285,14 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
     // workaround for handle inheritance race condition here, solution exists for vista+
     // http://blogs.msdn.com/b/oldnewthing/archive/2011/12/16/10248328.aspx
     std::lock_guard<std::mutex> guard{get_static_mutex()};
+    HANDLE out_handle = nullptr;
     if (!out.empty()) {
         // open stdout file
         SECURITY_ATTRIBUTES sa;
         sa.nLength = sizeof(sa);
         sa.lpSecurityDescriptor = nullptr;
         sa.bInheritHandle = TRUE; 
-        HANDLE out_handle = ::CreateFileW(
+        out_handle = ::CreateFileW(
                 std::addressof(widen(out).front()), 
                 FILE_WRITE_DATA | FILE_APPEND_DATA,
                 FILE_SHARE_WRITE | FILE_SHARE_READ,
@@ -334,7 +335,9 @@ HANDLE exec_async_windows(const std::string& executable, const std::vector<std::
             directory.empty() ? nullptr : std::addressof(widen(directory).front()),
             std::addressof(si),
             std::addressof(pi));
-    ::CloseHandle(out_handle);
+    if (!out.empty()) {
+        ::CloseHandle(out_handle);
+    }
     if (0 == ret) throw utils_exception(TRACEMSG(
             " Process create error: [" + errcode_to_string(::GetLastError()) + "]," +
             " command line: [" + cmd_string + "]," +
