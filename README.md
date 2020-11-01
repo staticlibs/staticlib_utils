@@ -48,6 +48,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2020-11-01**
+
+ * version 1.7.10
+ * `process_utils` with no output file
+
 **2020-10-04**
 
  * version 1.7.9

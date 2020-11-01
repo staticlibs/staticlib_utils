@@ -16,7 +16,7 @@ cmake_minimum_required ( VERSION 2.8.12 )
 
 # project
 project ( staticlib_utils CXX )
-set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.7.9 )
+set ( ${PROJECT_NAME}_STATICLIB_VERSION 1.7.10 )
 set ( ${PROJECT_NAME}_DESCRIPTION "Staticlibs common utilities library" )
 set ( ${PROJECT_NAME}_URL https://github.com/staticlibs/staticlib_utils )
 include ( ${CMAKE_CURRENT_LIST_DIR}/resources/macros.cmake )
