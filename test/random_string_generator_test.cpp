@@ -69,10 +69,10 @@ void test_empty() {
 
 int main() {
     try {
-        //test_gen();
-        //test_gen_fill();
-        //test_charset();
-        //test_empty();
+        test_gen();
+        test_gen_fill();
+        test_charset();
+        test_empty();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;
