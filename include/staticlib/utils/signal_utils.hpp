@@ -24,18 +24,43 @@
 #ifndef STATICLIB_UTILS_SIGNAL_UTILS_HPP
 #define STATICLIB_UTILS_SIGNAL_UTILS_HPP
 
+#include <condition_variable>
 #include <functional>
+#include <mutex>
+#include <vector>
 
 #include "staticlib/utils/utils_exception.hpp"
 
 namespace staticlib {
 namespace utils {
 
+
+class signal_ctx {
+    friend void initialize_signals(signal_ctx& ctx);
+    friend void register_signal_listener(signal_ctx& ctx, std::function<void(void)> listener);
+    friend void wait_for_signal(signal_ctx& ctx);
+    friend void fire_signal(signal_ctx& ctx);
+    friend void signal_fired(signal_ctx& ctx);
+
+    enum class signal_state { not_initialized, initialized, fired };
+
+    std::mutex mtx;
+    std::condition_variable cv;
+    signal_state state;
+    std::vector<std::function<void(void)>> listeners;
+
+    signal_ctx(const signal_ctx&) = delete;
+    void operator=(const signal_ctx&) = delete;
+public:
+    signal_ctx() :
+    state(signal_state::not_initialized) {};
+};
+
 /**
  * Initializes signal handlers to be used with 'wait_for_signal'.
  * Should be called only once.
  */
-void initialize_signals();
+void initialize_signals(signal_ctx& ctx);
 
 /**
  * Registers listener for SIGINT/SIGTERM
@@ -43,18 +68,18 @@ void initialize_signals();
  * 
  * @param listener listener function (lambda)
  */
-void register_signal_listener(std::function<void(void)> listener);
+void register_signal_listener(signal_ctx& ctx, std::function<void(void)> listener);
 
 /*
  * Blocks current thread until the SIGINT/SIGTERM
  * signal will be received by this process.
  */
-void wait_for_signal();
+void wait_for_signal(signal_ctx& ctx);
 
 /**
  * Emulates receiving SIGINT/SIGTERM for this process
  */
-void fire_signal();
+void fire_signal(signal_ctx& ctx);
 
 } // namespace
 }

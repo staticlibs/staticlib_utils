@@ -30,20 +30,22 @@
 #include "staticlib/config/assert.hpp"
 
 void test_signal() {
+    sl::utils::signal_ctx ctx;
     std::atomic_flag flag = ATOMIC_FLAG_INIT;
-    sl::utils::initialize_signals();
-    sl::utils::register_signal_listener([&flag] {
+    sl::utils::initialize_signals(ctx);
+    sl::utils::register_signal_listener(ctx, [&flag] {
         flag.test_and_set();
     });
-    auto th = std::thread{[] {
-            std::this_thread::sleep_for(std::chrono::seconds{1});
-            sl::utils::fire_signal();
+    auto th = std::thread{[&ctx] {
+            std::this_thread::sleep_for(std::chrono::seconds{2});
+            std::cout << "firing signals ..." << std::endl;
+            sl::utils::fire_signal(ctx);
         }};
     th.detach();
-    sl::utils::wait_for_signal();
+    sl::utils::wait_for_signal(ctx);
     std::cout << "signal_utils_test: reached" << std::endl;
 //    fails intermittently on ci
-//    slassert(flag.test_and_set());
+    slassert(flag.test_and_set());
 }
 
 int main() {
