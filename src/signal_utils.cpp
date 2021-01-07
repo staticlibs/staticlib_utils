@@ -51,7 +51,7 @@ namespace { // anonymous
 // global is unavoidable on win
 signal_ctx& static_signal_ctx(signal_ctx* ctx_in = nullptr) {
     static signal_ctx* ctx = ctx_in;
-    if (nullptr === ctx) {
+    if (nullptr == ctx) {
         auto msg = TRACEMSG("Invalid signals state");
         std::cerr << msg << std::endl;
         throw utils_exception(msg);
@@ -65,7 +65,7 @@ BOOL WINAPI handler_windows(DWORD ctrl_type) {
     case CTRL_BREAK_EVENT:
     case CTRL_CLOSE_EVENT:
     case CTRL_SHUTDOWN_EVENT:
-        fire(static_signal_ctx);
+        signal_fired(static_signal_ctx());
         return TRUE;
     default:
         return FALSE;
@@ -73,7 +73,7 @@ BOOL WINAPI handler_windows(DWORD ctrl_type) {
 }
 
 void initialize_signals_platform(signal_ctx& ctx) {
-    static_signal_ctx(ctx);
+    static_signal_ctx(std::addressof(ctx));
     ::SetConsoleCtrlHandler(handler_windows, TRUE);
 }
 
