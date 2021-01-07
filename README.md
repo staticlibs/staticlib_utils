@@ -48,6 +48,11 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**2021-01-07**
+
+ * version 1.7.11
+ * make `signal_utils` thread-safe
+
 **2020-11-01**
 
  * version 1.7.10
