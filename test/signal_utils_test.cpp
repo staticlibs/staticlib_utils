@@ -48,9 +48,22 @@ void test_signal() {
     slassert(flag.test_and_set());
 }
 
+void test_unfired() {
+    std::atomic_flag flag = ATOMIC_FLAG_INIT;
+    {
+        sl::utils::signal_ctx ctx;
+        sl::utils::initialize_signals(ctx);
+        sl::utils::register_signal_listener(ctx, [&flag] {
+            flag.test_and_set();
+        });
+    }
+    slassert(!flag.test_and_set());
+}
+
 int main() {
     try {
         test_signal();
+        test_unfired();
     } catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
         return 1;

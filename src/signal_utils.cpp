@@ -72,9 +72,10 @@ BOOL WINAPI handler_windows(DWORD ctrl_type) {
     }
 }
 
-void initialize_signals_platform(signal_ctx& ctx) {
+std::unique_ptr<std::thread> initialize_signals_platform(signal_ctx& ctx) {
     static_signal_ctx(std::addressof(ctx));
     ::SetConsoleCtrlHandler(handler_windows, TRUE);
+    retrun std::unique_ptr<std::thread>();
 }
 
 #else // STATICLIB_WINDOWS
@@ -100,7 +101,7 @@ void handler_posix(signal_ctx& ctx) {
     signal_fired(ctx);
 }
 
-void initialize_signals_platform(signal_ctx& ctx) {
+std::unique_ptr<std::thread> initialize_signals_platform(signal_ctx& ctx) {
     sigset_t mask;
     auto err_fill = sigfillset(std::addressof(mask));
     if (0 != err_fill) throw utils_exception(TRACEMSG(
@@ -108,7 +109,7 @@ void initialize_signals_platform(signal_ctx& ctx) {
     auto err_mask = sigprocmask(SIG_SETMASK, std::addressof(mask), nullptr);
     if (0 != err_mask) throw utils_exception(TRACEMSG(
             "Error initializing signals: [" + ::strerror(err_mask) + "]"));
-    auto th = std::thread([&ctx]{
+    return sl::support::make_unique<std::thread>([&ctx]{
         try {
             handler_posix(ctx);
         } catch(const std::exception& e) {
@@ -116,7 +117,6 @@ void initialize_signals_platform(signal_ctx& ctx) {
             std::cerr << TRACEMSG(e.what()) << std::endl;
         }
     });
-    th.detach();
 }
 
 #endif // STATICLIB_WINDOWS
@@ -127,7 +127,7 @@ void initialize_signals(signal_ctx& ctx) {
     if (signal_ctx::signal_state::not_initialized != ctx.state) {
         throw utils_exception("Signal listeners double initialization error");
     }
-    initialize_signals_platform(ctx);
+    ctx.th = initialize_signals_platform(ctx);
     ctx.state = signal_ctx::signal_state::initialized;
 }
 
@@ -156,6 +156,25 @@ void fire_signal(signal_ctx& ctx) {
     (void) ctx;
     kill(getpid(), SIGINT);
 #endif // STATICLIB_WINDOWS
+}
+
+void on_destroy(signal_ctx& ctx) {
+#ifndef STATICLIB_WINDOWS
+    std::unique_lock<std::mutex> lock{ctx.mtx};
+    if (signal_ctx::signal_state::not_initialized == ctx.state) {
+        return;
+    }
+    if (signal_ctx::signal_state::fired == ctx.state) {
+        ctx.th->join();
+        return;
+    }
+    ctx.listeners.clear();
+    fire_signal(ctx);
+    ctx.cv.wait(lock, [&ctx] {
+        return signal_ctx::signal_state::fired == ctx.state;
+    });
+    ctx.th->join();
+#endif // !STATICLIB_WINDOWS
 }
 
 void signal_fired(signal_ctx& ctx) {

@@ -26,7 +26,9 @@
 
 #include <condition_variable>
 #include <functional>
+#include <memory>
 #include <mutex>
+#include <thread>
 #include <vector>
 
 #include "staticlib/utils/utils_exception.hpp"
@@ -41,6 +43,7 @@ class signal_ctx {
     friend void wait_for_signal(signal_ctx& ctx);
     friend void fire_signal(signal_ctx& ctx);
     friend void signal_fired(signal_ctx& ctx);
+    friend void on_destroy(signal_ctx& ctx);
 
     enum class signal_state { not_initialized, initialized, fired };
 
@@ -48,12 +51,18 @@ class signal_ctx {
     std::condition_variable cv;
     signal_state state;
     std::vector<std::function<void(void)>> listeners;
+    std::unique_ptr<std::thread> th;
 
     signal_ctx(const signal_ctx&) = delete;
     void operator=(const signal_ctx&) = delete;
+
 public:
     signal_ctx() :
     state(signal_state::not_initialized) {};
+
+    ~signal_ctx() STATICLIB_NOEXCEPT {
+        on_destroy(*this);
+    }
 };
 
 /**
