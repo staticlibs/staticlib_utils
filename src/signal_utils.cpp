@@ -75,7 +75,7 @@ BOOL WINAPI handler_windows(DWORD ctrl_type) {
 std::unique_ptr<std::thread> initialize_signals_platform(signal_ctx& ctx) {
     static_signal_ctx(std::addressof(ctx));
     ::SetConsoleCtrlHandler(handler_windows, TRUE);
-    retrun std::unique_ptr<std::thread>();
+    return std::unique_ptr<std::thread>();
 }
 
 #else // STATICLIB_WINDOWS
@@ -159,6 +159,7 @@ void fire_signal(signal_ctx& ctx) {
 }
 
 void on_destroy(signal_ctx& ctx) {
+    (void) ctx;
 #ifndef STATICLIB_WINDOWS
     std::unique_lock<std::mutex> lock{ctx.mtx};
     if (signal_ctx::signal_state::not_initialized == ctx.state) {
