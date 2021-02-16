@@ -49,7 +49,7 @@ class signal_ctx {
 
     std::mutex mtx;
     std::condition_variable cv;
-    signal_state state;
+    signal_state state = signal_state::not_initialized;
     std::vector<std::function<void(void)>> listeners;
     std::unique_ptr<std::thread> th;
 
